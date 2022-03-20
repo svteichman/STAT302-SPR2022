@@ -13,39 +13,39 @@
       "title": "STAT 302",
       "description": "Statistical Software and its Applications\n",
       "author": [],
-      "contents": "\nMaterials for this course were originally developed by Bryan Martin.\nSchedule\nWeek One\nM 01/03: Short Lab 0 assigned\nW 01/05: Short Lab 0 due before class; Short lab 1 assigned\nWeek Two\nM 01/10: Short Lab 1 due before class; Lab 1 assigned\nW 01/12: Short Lab 2 assigned\nWeek Three\nM 01/17: No class\nW 01/19: Short Lab 2 and Lab 1 due before class; Lab 2 assigned\nWeek Four\nM 01/24: Lab 2 due before class; Project 1 assigned\nW 01/26: No new assignment\nWeek Five\nM 01/31: Short Lab 3 assigned\nW 02/02: Project 1 and Short Lab 3 due before class; Lab 3 assigned\nWeek Six\nM 02/07: No new assignment\nW 02/09: Lab 3 due before class; Project 2 assigned\nWeek Seven\nM 02/14: No new assignment\nW 02/16: No new assignment\nWeek Eight\nM 02/21: No class\nW 02/23: Project 2 due before class; Short Lab 4 assigned\nWeek Nine\nM 02/28: Short Lab 4 due before class; Lab 4 assigned\nW 03/02: No new assignment\nWeek Ten\nM 03/07: Lab 4 due before class; Project 3 assigned\nW 03/09: No new assignment\nFinals week\nW 3/16: Project 3 due Wednesday at 11:59\n\n\n\n",
-      "last_modified": "2022-02-28T15:06:43-08:00"
+      "contents": "\nMaterials for this course were originally developed by Bryan Martin.\nSchedule\nWeek One\nM 03/28: Short lab 0 assigned\nW 03/30: Short lab 0 due before class; Short lab 1 assigned\nWeek Two\nM 04/04: Short lab 1 due before class; Lab 1 assigned\nW 04/06: Lab 2 assigned\nWeek Three\nM 04/11: Lab 1 due before class\nW 04/13: Lab 2 due before class, Project 1 assigned\nWeek Four\nM 04/18: No new assignment\nW 04/20: Short lab 2 assigned\nWeek Five\nM 04/25: Project 1 and Short lab 2 due before class; Short lab 3 assigned\nW 04/27: Short lab 3 due before class; Lab 3 assigned\nWeek Six\nM 05/02: No new assignment\nW 05/04: Lab 3 due before class; Project 2 assigned\nWeek Seven\nM 05/09: No new assignment\nW 05/11: Short lab 4 assigned\nWeek Eight\nM 05/16: Project 2 and Short lab 4 due before class; Short lab 5 assigned\nW 05/18: Short lab 5 due before class; Lab 4 assigned\nWeek Nine\nM 05/23: No new assignment\nW 05/25: Lab 4 due before class; Project 3 assigned\nWeek Ten\nM 05/30: No class\nW 06/01: No new assignment\nF 06/03: Project 3 due at 11:59\n\n\n\n",
+      "last_modified": "2022-03-20T14:32:01-07:00"
     },
     {
       "path": "labs.html",
       "title": "Labs",
       "description": "",
       "author": [],
-      "contents": "\nLab 1: Working with vectors and matrices [.html] [.Rmd]\nLab 2: Functions, lists, and data [.html] [.Rmd]\nLab 3: t-tests and linear models [.html] [.Rmd]\nLab 4: Prediction and error [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-02-28T13:56:01-08:00"
+      "contents": "\n\n\n\n\n",
+      "last_modified": "2022-03-20T13:46:16-07:00"
     },
     {
       "path": "projects.html",
       "title": "Projects",
       "description": "",
       "author": [],
-      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Data Analysis Using PCA\n\ndue date: 02/23\nInstructions [.html] [.Rmd]\nDataset 1 [.csv]\nDataset 2 [.csv]\nProject 3: Making your own R package\n\ndue date: 03/16\nInstructions [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-03-06T12:41:02-08:00"
+      "contents": "\n\n\n\n\n",
+      "last_modified": "2022-03-20T14:32:40-07:00"
     },
     {
       "path": "short_labs.html",
       "title": "Short Labs",
       "description": "",
       "author": [],
-      "contents": "\nShort Lab 0: Course Overview [.html] [.Rmd]\nShort Lab 1: Introduction to R [.html] [.Rmd]\nShort Lab 2: Functions and Loops [.html] [.Rmd]\nShort Lab 3: Strings, Factors, and Dates [.html] [.Rmd]\nShort Lab 4: Setting up GitHub [.html] [.Rmd]\n\n\n\n\n",
-      "last_modified": "2022-02-23T10:06:36-08:00"
+      "contents": "\n\n\n\n\n",
+      "last_modified": "2022-03-20T13:46:49-07:00"
     },
     {
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
-      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Regression and Inference [.html] [.Rmd]\nLecture 06: Multivariate Data and PCA [.html] [.Rmd]\nLecture 07: Debugging and Git [.html] [.Rmd]\nLecture 08: Prediction [.html] [.Rmd]\nLecture 09: R Package Development [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-03-06T14:42:48-08:00"
+      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-03-20T14:33:05-07:00"
     },
     {
       "path": "syllabus.html",

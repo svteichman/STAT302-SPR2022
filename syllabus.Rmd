@@ -11,9 +11,9 @@ description: ''
 
 **Time**: Mondays and Wednesdays, 3:30 - 4:50pm
 
-**Location**: SAV 155, on Zoom for the first two class meetings
+**Location**: CMU 243
 
-**Office hours**: T 3-4, F 1:30-3:30 via Zoom [(meeting link)](https://washington.zoom.us/j/3955335000)
+**Office hours**: T 3:30-5, F 1:30-3 via Zoom [(meeting link)](https://washington.zoom.us/j/3955335000)
 
 **Note**: When emailing either the instructor or grader, please include "[STAT 302]" at the beginning of the email header!
 It will help us respond to you faster.
@@ -59,13 +59,13 @@ Typically, each 80 minute class session will be broken up into a 45 minute lectu
     * 1: indicates a good faith effort towards completing >75% of the assignment
     * 2: indicates a good faith effort towards completing the entire assignment.
 
-  * **Labs**: You will be assigned three labs throughout the quarter. These are extended, more complicated assignments that you will likely not be able to complete during class. They will be due at the start of the next class.
+  * **Labs**: You will be assigned four labs throughout the quarter. These are extended, more complicated assignments that you will likely not be able to complete during class. They will be due at the start of the next class.
   
   * **Projects**: Instead of exams, you will be assigned three projects throughout the course. We will dedicate at least two lab sessions to each project and you will have about one week to complete each.
   
     * Project 1 focuses on data manipulation and visualization. 
-    * Project 2 focuses on practicing real-world data analysis skills. 
-    * Project 3 brings together several of the topics that you've learned.
+    * Project 2 focuses on simulation. 
+    * Project 3 focuses on building statistical software
 
   * **Late Work**: In general, the late policy is as follows: Any assignment that is received late but less than 24 hours late will receive a grade penalty of 25%. Any assignment that is received 24–48 hours late will receive a grade penalty of 50%. Assignments will not be accepted more than 48 hours late. **That said, if you communicate directly with me before an assignment is due, I will often be willing to relax a deadline.**
 
@@ -74,17 +74,13 @@ Typically, each 80 minute class session will be broken up into a 45 minute lectu
 Your final grade will be calculated as follows:
 
   * 20%: Short Labs
-  * 20%: Labs
+  * 25%: Labs
   * 15%: Minimum grade from Project 1 and Project 2
-  * 25%: Maximum grade from Project 1 and Project 2
+  * 20%: Maximum grade from Project 1 and Project 2
   * 20%: Project 3
-  * 2% (extra credit): Discussion board participation. Both questions and answers will be considered.
   
 
 # Returning to in-person learning
-
-### Winter 2022
-  Due to the recent surge in COVID cases, most UW courses will be online for the first week of the quarter, including this one. Zoom links to the first two courses can be found in the 'Zoom' tab on Canvas. After the first week we will transition to in-person learning, unless the guidance from the university changes. 
 
 ### Expectations
   The COVID-19 pandemic has and will continue to present many of us with unforeseen difficulties.  I encourage all of you to prioritize the health and safety of yourselves and those around you and would be happy to make accommodations that help you to do so.
@@ -109,7 +105,7 @@ If you do not have a personal computer, you can borrow one for free from UW thro
   On most assignments, collaboration is allowed and encouraged. You may discuss problems, approaches, and solutions with your classmates. Acceptable collaboration is limited to your classmates in this course and you must clearly include on any collaborative work the name(s) of anyone with whom you worked. Additionally, all submitted work must be your own; you should not submit code or answers copied from any resource including your classmates. Plagiarism and cheating is easy for us to detect and can lead to serious negative consequences for you (see Academic Integrity below). If you have any questions regarding this policy, please ask for clarification.
 
 ### Discussion board
-  You are encouraged to participate on the discussion board by posting questions about assignments and answering questions from other students. Posts may not include substantial amounts of code that can be used for a solution to any problem, but may include code snippets within reason. Participation, in the form of both questions and answers, can earn you up to 2% extra credit for your final grade. Posts will be evaluated based on how substantive and helpful they are to the class.
+  You are encouraged to participate on the discussion board by posting questions about assignments and answering questions from other students. Posts may not include substantial amounts of code that can be used for a solution to any problem, but may include code snippets within reason. 
 
 ### Academic misconduct
   Academic integrity is essential to this course and to your learning. On certain assignments, collaboration is allowed and encouraged when following the collaboration policy outlined above. Violations of the academic integrity policy include but are not limited to: copying from a peer, collaborating where it is not allowed, copying from an online resource, using a solutions manual, and using resources from a previous iteration of the course. Anything found in violation of this policy will be automatically given a score of 0 with no exceptions. If the situation merits, it will also be reported to the UW Student Conduct Office, at which point it will be out of my hands. If you have any questions about this policy, please do not hesitate to reach out and ask.

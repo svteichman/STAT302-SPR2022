@@ -19,6 +19,14 @@ knitr::opts_chunk$set(comment = "##")
 library(kableExtra)
 ```
 
+# Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "450px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/nut_mad.jpg")
+```
+
+---
 
 # Outline
 
@@ -35,7 +43,7 @@ library(kableExtra)
 # Course Website 
 
 .middler[.large[
-[Link to website](https://svteichman.github.io/STAT302-WIN2022)
+[Link to website](https://svteichman.github.io/STAT302-SPR2022)
 ]]
 ---
 
@@ -49,13 +57,10 @@ library(kableExtra)
 
 # Discussion Board
 
-* Worth up to 2% extra credit on your final grade!
-* Substantive and helpful questions and answers
-* What discussion board option have you liked using in the past? 
-  * Canvas 
-  * Piazza 
-  * Slack 
-  * Other?? 
+* Use this to get help from your peers and instructor.
+* Questions about:
+  * Course content 
+  * Assignments
 
 ---
 
