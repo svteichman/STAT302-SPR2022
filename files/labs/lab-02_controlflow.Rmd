@@ -34,32 +34,51 @@ knitr::opts_chunk$set(echo = TRUE)
 
 *If you collaborated with anyone, you must include "Collaborated with: FIRSTNAME LASTNAME" at the top of your lab!*
 
-## Part 1. More on Functions (10 points)
+As usual, all code below should follow the style guidelines from the lecture slides.
 
-**1a.** (3 points) The hard-threshold function is defined as 
+## Part 1. Control Flow (4 points)
+
+**1a.** (2 points) Write a function that checks whether the input is an even number or not. This function should check to make sure the input is an integer. If the input is not an integer, the function should `stop` with an informative error message.
+
+**1b.** (1/2 point) Evaluate your function with even integer input.
+
+*Hint: in R, if you assign a variable to any number, such as `x <- 4`, R will save this variable as a double. In order to make it an integer type, use the integer number you want followed by an L, such as `x <- 4L`.* 
+
+**1c.** (1/2 point) Evaluate your function with odd numeric input.
+
+**1d.** (1 point) Trigger your custom error message. Note: You will need to add the parameter 
+`error = TRUE` to your R Markdown code chunk. If you do not, your document will not compile!
+
+## Part 2. Loops (4 points)
+
+**2.** (4 points) Define a function that loops through each element of a matrix and replaces each element with the row index minus the column index. Demonstrate the use of this function on a matrix.
+
+*Hint: use `ncol()` and `nrow()`*
+
+
+## Part 3. More on Functions (8 points)
+
+**3a.** (3 points) The hard-threshold function is defined as 
 $$f_\lambda(x) = \begin{cases} x & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
 Your function should return the value of $f_\lambda(x)$ and work for vector input `x` of any length.
 Remember to follow the style guide for functions (see Lecture 2 for specifics).
 
-**1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+**3b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
 
 (*Hint: the output should be the vector `-5, 0, 0, 0, 5`*)
 
-**1c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-7, -5, -3, 0, 3, 5, 7)`.
 
-**2a.** (3 points) The soft-threshold function is defined as 
+**4a.** (3 points) The soft-threshold function is defined as 
 $$g_\lambda(x) = \begin{cases} sign(x)(|x| - \lambda) & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
 Your function should return the value of $g_\lambda(x)$ and work for vector input `x` of any length.
 
-**2b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+**4b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
 
 (*Hint: the output should be the vector `-1, 0, 0, 0, 1`*)
 
-**2c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-7, -5, -3, 0, 3, 5, 7)`.
-
-## Part 2. Lists (5 points)
+## Part 4. Lists (4 points)
 
 Many popular functions in R output lists in order to return multiple objects of different types and lengths. Here we will look at the function `lm`, which performs linear regression. 
 
@@ -69,24 +88,6 @@ First, run the following code to create an object of class `lm`.
 linearMod <- lm(dist ~ speed, data = cars) 
 ```
 
-**3a.** (1 point) What are the names of the items in the list `linearMod`?
+**5a.** (1 point) What are the names of the items in the list `linearMod`?
 
-**3b.** (4 points) Store the `coefficients` within `linearMod` as a new variable. What are the coefficients and their interpretations? (Use in-line R code when referencing the coefficients outside of the code chunk).
-
-## Part 3. Data (5 points)
-
-For problem 4, we will use an adapted version of the weather data from Tidyverse.
-
-```{r}
-library(kableExtra)
-weather <- data.frame("station" = rep(c("A", "B", "C"), each = 4),
-                      "element" = rep(c("temp_min", "temp_max"), 6),
-                      "month1"  = c(11.4, 25.6, NA, NA, 17.7, 28.0,
-                                    NA, NA, 20.0, 24.9, NA, NA),
-                      "month2"  = c(NA, NA, 16.8, 28.7, NA, NA,
-                                    11.1, 26.8, NA, NA, 14.7, 33.4))
-kable_styling(kable(weather))
-```
-
-**4.** (5 points) Use `kable()` to present a tidied up version of this data, without any NA values. Do you prefer the tidied version? Why or why not? (Hint: My table has 4 variables, 6 observations, and no `NA` values. I only kept one of the variables unchanged.)
-
+**5b.** (3 points) Store the `coefficients` within `linearMod` as a new variable. What are the coefficients and their interpretations? (Use in-line R code when referencing the coefficients outside of the code chunk).
