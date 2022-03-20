@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302 Lecture Slides 6</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)" />
+    <link href="06_svdpca_files/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gao-theme.css" type="text/css" />
+    <link rel="stylesheet" href="gao-theme-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, title-slide
+
+# STAT 302 Lecture Slides 6
+## Multivariate Data Analysis and PCA
+### Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)
+
+---
+
+
+
+
+
+# Today's pet picture 
+
+
+&lt;img src="../../files/images/pets/siffy.JPG" width="700px" style="display: block; margin: auto;" /&gt;
+
+Thanks Joia! 
+
+---
+
+# Outline
+
+1. Multivariate data and dimension reduction 
+2. Principal Components Analysis (PCA): Theory &amp; Application
+3. Principal Components Regression
+
+
+.middler[**Goal:** Practice using R to implement a statistical method to analyze multivariate data.]
+
+---
+
+class: inverse
+
+.sectionhead[Part 1. Multivariate Data]
+
+---
+
+# Multivariate Data 
+
+* Multi -&gt; Multiple
+
+* Variate -&gt; Variables 
+
+* Multivariate -&gt; Multiple Variables 
+
+--
+
+
+
+
+```r
+names(mtcars)
+```
+
+```
+##  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+## [11] "carb"
+```
+
+```r
+names(gapminder)
+```
+
+```
+## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+```
+
+---
+
+# Multivariate Data 
+
+How have we analyzed multivariate data so far in our class? 
+
+
+```r
+summary(gapminder$lifeExp)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   23.60   48.20   60.71   59.47   70.85   82.60
+```
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Multivariate Data 
+
+How have we analyzed multivariate data so far in our class? 
+
+
+```r
+cor(gapminder$lifeExp, gapminder$gdpPercap)
+```
+
+```
+## [1] 0.5837062
+```
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Multivariate Data 
+
+How have we analyzed multivariate data so far in our class? 
+
+
+```r
+mod &lt;- lm(gdpPercap ~ continent + year + lifeExp + pop,
+          data = gapminder)
+```
+
+
+```
+## 
+## Call:
+## lm(formula = gdpPercap ~ continent + year + lifeExp + pop, data = gapminder)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -12194  -4191   -934   2123 106064 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       -2.963e+04  2.684e+04  -1.104 0.269698    
+## continentAmericas -1.095e+03  6.885e+02  -1.590 0.112077    
+## continentAsia      1.792e+03  5.959e+02   3.007 0.002677 ** 
+## continentEurope    3.380e+03  7.937e+02   4.258 2.17e-05 ***
+## continentOceania   6.538e+03  1.762e+03   3.710 0.000214 ***
+## year               6.527e+00  1.394e+01   0.468 0.639652    
+## lifeExp            3.882e+02  2.604e+01  14.908  &lt; 2e-16 ***
+## pop               -6.416e-06  1.858e-06  -3.454 0.000566 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7849 on 1696 degrees of freedom
+## Multiple R-squared:  0.3685,	Adjusted R-squared:  0.3659 
+## F-statistic: 141.4 on 7 and 1696 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+# Multivariate Data 
+
+What if we want a way to look at all our variables at once? 
+
+--
+
+What if we want our analysis to consider the relationships between all the variables in our data, not just one or two? 
+
+---
+
+# Multivariate Data 
+
+What if we want a way to look at all our variables at once? 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Multivariate Data 
+
+What if we want a way to look at all our variables at once?
+
+
+--
+
+
+And we have more than a handful of variables?
+
+
+---
+
+
+# Multivariate Data 
+
+Dimension reduction: A transformation from a high-dimensional space into a low-dimensional space so that the low-dimensional space retains some meaningful properties of the original data 
+
+--
+
+If we only consider quantitative variables, `gapminder` can be represented in 4 dimensions: 
+
+
+```r
+str(gapminder)
+```
+
+```
+## tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)
+##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
+##  $ pop      : int [1:1704] 8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num [1:1704] 779 821 853 836 740 ...
+```
+
+---
+
+# Multivariate Data
+
+Dimension reduction: A transformation from a high-dimensional space into a low-dimensional space so that the low-dimensional space retains some meaningful properties of the original data 
+
+
+Consider this dataset with `\(29\)` indicators of environmental performance for `\(180\)` countries.
+
+
+```
+##  [1] "country" "PMD"     "HAD"     "OZD"     "USD"     "UWD"     "PBD"    
+##  [8] "MSW"     "TBN"     "TBG"     "MPA"     "PAR"     "SHI"     "SPI"    
+## [15] "BHV"     "TCL"     "GRL"     "WTL"     "CDA"     "CHA"     "FGA"    
+## [22] "NDA"     "BCA"     "LCB"     "GIB"     "GHP"     "SDA"     "NXA"    
+## [29] "SNM"     "WWT"
+```
+
+
+---
+
+class: inverse
+
+.sectionhead[Part 2. Principal Components Analysis (PCA): Theory &amp; Application]
+
+---
+
+# Principal Components Analysis (PCA)
+
+
+.middler[**Goal**: Construct a smaller set of variables that collectively retain meaningful properties of the original data set.]
+
+---
+
+# Principal Components Analysis (PCA)
+
+
+.middler[**Goal**: Construct a smaller set of *uncorrelated* variables that collectively retain meaningful properties of the original data set.]
+
+---
+
+# Principal Components Analysis (PCA)
+
+
+.middler[**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain meaningful properties of the original data set.]
+
+---
+
+# Principal Components Analysis (PCA)
+
+
+.middler[**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.]
+
+
+---
+
+# Principal Components Analysis (PCA)
+
+**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
+
+* Principal components: *uncorrelated linear combinations of the original variables*
+
+--
+
+* Principal components are ordered by how much of the variability of the original data they explain
+
+--
+
+* Intuition: If we have `\(p\)` original variables but we can explain most of the variability in our data with `\(k\)` (if `\(k &lt; p\)`) principal components, then we can reduce the dimension of our dataset while retaining most of the data's variability 
+
+---
+
+# Principal Components Analysis (PCA)
+
+**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
+
+* Define our original variables `\(\mathbf{x}_1,\ldots, \mathbf{x}_p\)`, where each `\(\mathbf{x}_j\)` is a vector of length `\(n\)` representing `\(n\)` observations of variable `\(j\)`
+
+--
+
+* Define centered versions of our variables `\(\mathbf{x}^*_1,\ldots, \mathbf{x}^*_p\)`, where `\(\mathbf{x}^*_{j} = \mathbf{x}_{j} - \bar{x}_j\)`, i.e. each individual observation of variable `\(j\)` has the mean of variable `\(j\)` subtracted off of it.
+
+--
+
+* Our principal components are linear combinations of the centered data vectors:
+
+`$$\mathbf{y}_i = l_{i1}\mathbf{x}^*_1 + l_{i2}\mathbf{x}^*_2 + \ldots + l_{ip}\mathbf{x}^*_p$$`
+--
+
+* We call these scaling values `\(l_{ij}\)` loadings. 
+
+---
+
+# Principal Components Analysis (PCA)
+
+## A Reminder about Variances and Covariances 
+
+* Variance of a vector: 
+`$$Var(\mathbf{x}_1) = \frac{\sum_{i=1}^n (x_{i1} -\bar{x}_1)^2}{n-1}$$`
+--
+
+* Covariance between two vectors: 
+`$$Cov(\mathbf{x}_1,\mathbf{x}_2) = \frac{\sum_{i=1}^n (x_{i1} -\bar{x}_1)(x_{i2}-\bar{x}_2)}{n-1}$$`
+--
+
+* Centering doesn't affect variances or covariances:
+`$$Var(\mathbf{x}_1^*) = Var(\mathbf{x}_1)$$`
+`$$Cov(\mathbf{x}_1^*,\mathbf{x}_2^*) = Cov(\mathbf{x}_1,\mathbf{x}_2)$$`
+---
+
+# Principal Component 1 
+
+* For our first principal component, we want to choose `\(l_{11},\ldots,l_{1p}\)` in order to maximize the variance of `\(\mathbf{y}_1\)`.
+
+`$$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(\mathbf{y}_1)$$`
+`$$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(l_{11}\mathbf{x}^*_1 + \ldots + l_{1p}\mathbf{x}^*_p)$$`
+--
+
+* However, we could always increase the variance of `\(\mathbf{y}_1\)` by just increasing the values of `\(\mathbf{l}_1\)`. Let's add the constraint that `\(\mathbf{l}_1^T\mathbf{l}_1 = 1\)` (i.e. `\(\sum_{j=1}^p l_{1j}^2 = 1\)`). 
+
+`$$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(l_{11}\mathbf{x}^*_1 + \ldots + l_{1p}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_1^T\mathbf{l}_1 = 1$$`
+
+---
+
+# Principal Component 2 
+
+
+* Let's start with the same goal as the first principal component: 
+
+`$$\text{maximize}_{l_{21},\ldots,l_{2p}}\ var(l_{21}\mathbf{x}^*_1 + \ldots + l_{2p}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_2^T\mathbf{l}_2 = 1$$`
+--
+
+* Wait, what about the uncorrelated part? 
+
+`$$\text{maximize}_{l_{21},\ldots,l_{2p}}\ var(l_{21}\mathbf{x}^*_1 + \ldots + l_{2p}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_2^T\mathbf{l}_2 = 1,\ \mathbf{l}_1^T\mathbf{l}_2 = 0$$`
+---
+
+# A Brief Geometric Interpretation 
+
+* Let's pretend that we only have two original vectors, `\(\mathbf{x}_1\)` and `\(\mathbf{x}_2\)`. 
+
+* First, we want to identify the axes along which the data have the most variance.
+
+.center[&lt;img src="images/pcagif.gif" alt="" height="375"/&gt;]
+
+.footnote[[Source on stackexchange](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues)]
+
+
+---
+
+# A Brief Geometric Interpretation 
+
+* Let's pretend that we only have two original vectors, `\(\mathbf{x}_1\)` and `\(\mathbf{x}_2\)`. 
+
+* Next, we want to find an uncorrelated vector that explains as much of the remaining variance as possible. 
+
+.center[&lt;img src="images/pca2plot.svg" alt="" height="375"/&gt;]
+
+
+.footnote[[Source on Wikipedia](https://en.wikipedia.org/wiki/Principal_component_analysis)]
+
+---
+
+# The Other Principal Components 
+
+* We can write the same maximization problem for each of the `\(p\)` principal components, adding additional constraints to make sure each component is uncorrelated with all the previous ones. 
+
+--
+
+* For principal component `\(k\)`:
+
+`$$\text{maximize}_{l_{k1},\ldots,l_{kp}}\ var(l_{k1}\mathbf{x}^*_1 + \ldots + l_{kp}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_k^T\mathbf{l}_k = 1, \\ \ \mathbf{l}_1^T\mathbf{l}_k = 0, \mathbf{l}_2^T\mathbf{l}_k = 0, \ldots, \mathbf{l}_{k-1}^T\mathbf{l}_k = 0$$`
+
+---
+
+# PCA in Matrix Notation 
+
+* Let's start by returning to PC 1. In order to define `\(\mathbf{y}_1\)`, we need to find the loadings that maximize the variance of `\(\mathbf{y}_1\)` subject to the `\(\mathbf{l}_1^T\mathbf{l}_1 = 1\)` constraint. 
+
+--
+
+* Pretend, for now, that `\(p = 3\)`. 
+
+`\begin{align*}
+Var(\mathbf{y}_1) &amp;= Var(l_{11}\mathbf{x}^*_1 + l_{12}\mathbf{x}^*_2 + l_{13}\mathbf{x}^*_3) \\
+ &amp;= l_{11}^2Var(\mathbf{x}^*_1) + l_{12}^2Var(\mathbf{x}^*_2) + l_{13}^2Var(\mathbf{x}^*_3) + \\
+ &amp;\ \ \ \ \ \  2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
+ 2l_{11}l_{13}Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) + \\
+ &amp;\ \ \ \ \ \  2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3)\\ 
+\end{align*}`
+
+--
+
+* Enter the sample covariance matrix for the matrix `\(\mathbf{X}^*\)`.
+
+`$$S(\mathbf{X}^*) = \begin{pmatrix}
+Var(\mathbf{x}^*_1) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) \\
+ Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Var(\mathbf{x}^*_2) &amp; Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) \\
+ Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) &amp; Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) &amp; Var(\mathbf{x}^*_3) 
+\end{pmatrix}$$`
+
+---
+
+# PCA in Matrix Notation
+
+* We can rewrite `\(Var(\mathbf{y}_1)\)` in matrix notation using the sample covariance matrix `\(\mathbf{S}(\mathbf{X}^*)\)`.
+
+`\begin{align*}
+Var(\mathbf{y}_1) &amp;= Var(l_{11}\mathbf{x}^*_1 + l_{12}\mathbf{x}^*_2 + l_{13}\mathbf{x}^*_3) \\
+ &amp;= l_{11}^2Var(\mathbf{x}^*_1) + l_{12}^2Var(\mathbf{x}^*_2) + l_{13}^2Var(\mathbf{x}^*_3) + \\
+ &amp;\ \ \ \ \ \  2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
+ 2l_{11}l_{13}Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) + \\
+ &amp;\ \ \ \ \ \  2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3)\\
+ &amp;= \begin{pmatrix}l_{11} &amp; l_{12} &amp; l_{13} \end{pmatrix}\begin{pmatrix}
+Var(\mathbf{x}^*_1) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) \\
+ Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Var(\mathbf{x}^*_2) &amp; Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) \\
+ Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) &amp; Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) &amp; Var(\mathbf{x}^*_3) 
+\end{pmatrix} \begin{pmatrix} l_{11} \\ l_{12} \\ l_{13}\end{pmatrix} \\
+ &amp;= \mathbf{l}_1^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_1 \\
+\end{align*}`
+--
+
+* We can rewrite `\(Var(\mathbf{y}_k)\)` as `\(Var(\mathbf{y}_k) = \mathbf{l}_k^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_k\)` for any `\(k \in \{1,\ldots,p\}\)`.
+
+---
+
+# PCA in Matrix Notation 
+
+* Therefore, we can solve the following maximization problems to get our loadings for our principal components. 
+
+`\begin{align*}
+\text{maximize}_{\mathbf{l}_1}\ \mathbf{l}_1^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_1\ &amp;\text{s.t.}\ \mathbf{l}_1^T\mathbf{l}_1=1 \\
+\text{maximize}_{\mathbf{l}_2}\ \mathbf{l}_2^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_2\ &amp;\text{s.t.}\ \mathbf{l}_2^T\mathbf{l}_2=1,\ \mathbf{l}_1^T\mathbf{l}_2=0 \\
+&amp;\vdots \\
+\text{maximize}_{\mathbf{l}_p}\ \mathbf{l}_p^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_p\ &amp;\text{s.t.}\ \mathbf{l}_p^T\mathbf{l}_p=1,\ \mathbf{l}_1^T\mathbf{l}_p=0,\\
+&amp;\ \ \ \ \ \ \  \mathbf{l}_2^T\mathbf{l}_p=0,\ldots,\mathbf{l}_{p-1}^T\mathbf{l}_{p} = 0
+\end{align*}`
+
+---
+
+# Finding Loading Vectors for PCA 
+
+* It turns out, the eigendecomposition of the sample covariance matrix `\(\mathbf{S}(\mathbf{X}^*)\)` will give us exactly what we need to solve this maximization problems! 
+
+--
+
+* Using the eigendecomposition, we can write `\(\mathbf{S}(\mathbf{X}^*)\)` as a product of other matrices, i.e. `\(\mathbf{S}(\mathbf{X}^*) = \mathbf{U\Lambda U}^T\)`, where `\(\mathbf{U}\)` is an orthonormal matrix made up of the eigenvectors of `\(\mathbf{S}(\mathbf{X}^*)\)` as the columns, and `\(\mathbf{\Lambda}\)` is a diagonal matrix with the ordered eigenvalues of `\(\mathbf{S}(\mathbf{X}^*)\)` on the diagonals.
+
+--
+
+* An orthonormal matrix has the property that for each column `\(\mathbf{u}_i\)`, `\(\mathbf{u}_i^T\mathbf{u}_i = 1\)` and for `\(i \neq j\)`, `\(\mathbf{u}_i^T\mathbf{u}_j = 0\)`.
+
+--
+
+* TLDR (avoiding the linear algebra): If we perform an eigendecomposition of `\(\mathbf{S}(\mathbf{X}^*)\)`, the columns of the matrix `\(\mathbf{U}\)` will give us our variable loadings for our principal components! 
+
+
+.footnote[Note: We could also get our loading vectors using the Singular Value Decomposition (SVD) of the matrix X*. These will give the same results!]
+
+---
+
+# Finding Principal Components 
+
+* Remember, that we've defined the first principal component as the vector `\(\mathbf{y}_1= l_{11}\mathbf{x}^*_1+\ldots + l_{1p}\mathbf{x}^*_p\)`. 
+
+--
+
+* Therefore, to compute our `\(\mathbf{y}_i\)` vectors, we need to multiply our loadings with our `\(\mathbf{x}^*_i\)` vectors, which are our centered variables. 
+
+--
+
+* We can again use matrix multiplication to do this all at once! If `\(\mathbf{X}^*\)` is our `\(n\times p\)` data matrix and `\(\mathbf{Y}\)` is our `\(n\times p\)` matrix of principal component vectors, we can write:
+`$$\mathbf{Y} = \mathbf{X}^*\mathbf{U}$$`
+
+---
+
+# Steps to Perform PCA 
+
+1. Mean center each variable of your data matrix `\(\mathbf{X}\)` to get `\(\mathbf{X}^*\)`.
+
+--
+
+2. Compute the empirical covariance matrix of `\(\mathbf{X}^*\)`, `\(\mathbf{S}(\mathbf{X}^*)\)`.
+
+--
+
+3. Perform an eigendecomposition, `\(\mathbf{S}(\mathbf{X}^*) = \mathbf{U\Lambda U}^T\)`.
+
+--
+
+4. Use the columns of `\(\mathbf{U}\)` as the loading vectors.
+
+--
+
+5. Multiply the centered matrix `\(\mathbf{X}^*\)` by the loadings to get the principal component vectors, `\(\mathbf{Y} = \mathbf{X}^*\mathbf{U}\)`.
+
+---
+
+
+# Example of PCA 
+
+Let's use the five quantitative variables from the `mtcars` dataset. We'll use the R function `princomp()`. 
+
+
+```r
+cars_pca_df &lt;- mtcars %&gt;% 
+  select(mpg, disp, drat, wt, qsec)
+cars_pca &lt;- princomp(cars_pca_df)
+cars_pca$loadings
+```
+
+```
+## 
+## Loadings:
+##      Comp.1 Comp.2 Comp.3 Comp.4 Comp.5
+## mpg          0.995                     
+## disp -0.999                            
+## drat                      -0.937 -0.338
+## wt                 -0.164 -0.349  0.920
+## qsec               -0.981        -0.181
+## 
+##                Comp.1 Comp.2 Comp.3 Comp.4 Comp.5
+## SS loadings       1.0    1.0    1.0    1.0    1.0
+## Proportion Var    0.2    0.2    0.2    0.2    0.2
+## Cumulative Var    0.2    0.4    0.6    0.8    1.0
+```
+
+---
+
+# Example of PCA
+
+Let's look closer at the loadings on the first two principal components. 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Example of PCA
+
+Let's look closer at the loadings. 
+
+.pull-left[
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+apply(cars_pca_df, 2, range)
+```
+
+```
+##       mpg  disp drat    wt qsec
+## [1,] 10.4  71.1 2.76 1.513 14.5
+## [2,] 33.9 472.0 4.93 5.424 22.9
+```
+]
+
+---
+
+# Scaling Variables before PCA 
+
+* Because of this behavior, where principal components depend on the scale of the data, we often scale our variables before performing PCA.
+* To scale a variable `\(\mathbf{x}_j\)`, first take the centered variable `\(\mathbf{x}^*_j\)`, then divide by the standard deviation of variable `\(j\)`, to get the centered and scaled version of variable `\(i\)`, `\(\tilde{\mathbf{x}}_j\)`.
+
+---
+
+# Steps to Perform PCA on Scaled Data 
+
+1. Mean center each variable of your data matrix `\(\mathbf{X}\)` to get `\(\mathbf{X}^*\)`.
+
+--
+
+2. Scale each variable of your data matrix `\(\mathbf{X}^*\)` by its standard deviation to get `\(\tilde{\mathbf{X}}\)`.
+
+--
+
+3. Compute the empirical covariance matrix of `\(\tilde{\mathbf{X}}\)`, `\(\mathbf{S}(\tilde{\mathbf{X}})\)`. (Note that this would be equal to the empirical correlation matrix of the original data `\(\mathbf{X}\)`!)
+
+--
+
+4. Perform an eigendecomposition, `\(\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T\)`.
+
+--
+
+5. Use the columns of `\(\mathbf{U}\)` as the loading vectors.
+
+--
+
+6. Multiply the centered and scaled matrix `\(\tilde{\mathbf{X}}\)` by the loadings to get the principal component vectors, `\(\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}\)`.
+
+---
+
+# Pet picture of the day 
+
+&lt;img src="../../files/images/pets/nut_mad.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Review 
+
+## What is the goal of dimension reduction? 
+
+--
+
+## What is the goal of PCA? 
+
+---
+
+# Correction 
+
+## Mistake last week in the slides: 
+
+To get principal component vectors, compute `\(\mathbf{Y} = \mathbf{U}\tilde{\mathbf{X}}\)`. 
+
+## Corrected version: 
+
+To get principal component vectors, compute `\(\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}\)`. 
+
+---
+
+# Steps to Perform PCA on Scaled Data 
+
+1. Mean center each variable of your data matrix `\(\mathbf{X}\)` to get `\(\mathbf{X}^*\)`.
+
+--
+
+2. Scale each variable of your data matrix `\(\mathbf{X}^*\)` by its standard deviation to get `\(\tilde{\mathbf{X}}\)`.
+
+--
+
+3. Compute the empirical covariance matrix of `\(\tilde{\mathbf{X}}\)`, `\(\mathbf{S}(\tilde{\mathbf{X}})\)`. (Note that this would be equal to the empirical correlation matrix of the original data `\(\mathbf{X}\)`!)
+
+--
+
+4. Perform an eigendecomposition, `\(\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T\)`.
+
+--
+
+5. Use the columns of `\(\mathbf{U}\)` as the loading vectors.
+
+--
+
+6. Multiply the centered and scaled matrix `\(\tilde{\mathbf{X}}\)` by the loadings to get the principal component vectors, `\(\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}\)`.
+
+---
+
+# Back to our example 
+
+
+```r
+cars_pca_df &lt;- mtcars %&gt;% 
+  select(mpg, disp, drat, wt, qsec)
+cars_pca_scaled &lt;- princomp(cars_pca_df, cor = TRUE)
+cars_pca_scaled$loadings
+```
+
+```
+## 
+## Loadings:
+##      Comp.1 Comp.2 Comp.3 Comp.4 Comp.5
+## mpg   0.503         0.242  0.754  0.341
+## disp -0.511        -0.135  0.640 -0.555
+## drat  0.434 -0.355 -0.820        -0.107
+## wt   -0.497  0.215 -0.440  0.138  0.703
+## qsec  0.224  0.906 -0.240        -0.265
+## 
+##                Comp.1 Comp.2 Comp.3 Comp.4 Comp.5
+## SS loadings       1.0    1.0    1.0    1.0    1.0
+## Proportion Var    0.2    0.2    0.2    0.2    0.2
+## Cumulative Var    0.2    0.4    0.6    0.8    1.0
+```
+
+---
+
+# Back to our example
+
+Let's look closer at the loadings on the first two principal components. 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Wait, what about dimension reduction? 
+
+* Remember, the whole point of PCA is to construct a set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
+
+--
+
+* Our principal components are ordered by the amount of variability they can explain. 
+
+--
+
+* Intuition: If we have `\(p\)` original variables but we can explain most of the variability in our data with `\(k\)` (if `\(k &lt; p\)`) principal components, then we can reduce the dimension of our dataset while retaining most of the data's variability. 
+
+---
+
+# How many principal components to use? 
+
+* If we keep all `\(p\)` principal component vectors `\(\mathbf{y}_j\)`, `\(j\in\{1,\ldots,p\}\)`, then we can explain all of the variance in our centered data matrix `\(\mathbf{X}^*\)` (or scaled data matrix `\(\tilde{\mathbf{X}}\)`). 
+
+--
+
+* Remember our eigendecomposition, `\(\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T\)`, in which `\(\mathbf{\Lambda}\)` is a diagonal matrix with the eigenvalues of `\(\mathbf{S}\)` sorted in descending order.
+
+--
+
+* Denote the ordered diagonal values from our `\(\mathbf{\Lambda}\)` matrix as `\(\lambda_1,\ldots,\lambda_p\)`.
+
+--
+
+* The proportion of variance explained (PVE) of principal component `\(j\)` is equal to the `\(j\)`th eigenvalue from the eigendecomposition, `\(\lambda_j\)`.
+
+--
+
+* If we only keep `\(k\)` of the `\(p\)` principal components, then we will explain a proportion of the variance in our data: 
+`$$\text{PVE}_{1:k} = \frac{\sum_{j=1}^k \lambda_j}{\sum_{j'=1}^p \lambda_{j'}}$$`
+
+---
+
+# How many principal components to use? 
+
+* We'd like to choose a value `\(k\)` that is small enough to reduce the dimension substantially and big enough to explain much of the data's variability. 
+
+---
+
+# How many principal components to use? 
+
+* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
+
+
+```r
+screeplot(cars_pca_scaled, type = "lines", main = "Scree Plot")
+```
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+
+* In a scree plot, we look for the "elbow."
+
+---
+
+# How many principal components to use? 
+
+* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# How many principal components to use? 
+
+* In practice, we often look primarily at the first two principal components, because we can plot these in two dimensions. 
+
+.pull-left[
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$
+               scores[, 1],
+             pc2 = cars_pca_scaled$
+               scores[, 2],
+             name = rownames(mtcars))
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name)) + 
+  geom_point() + 
+  geom_text(size = 4, 
+            nudge_x = .12, 
+            nudge_y = .12) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+![](06_svdpca_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# How many principal components to use? 
+
+* In practice, we often look primarily at the first two principal components, because we can plot these in two dimensions. 
+
+.pull-left[
+
+```r
+text_df &lt;- plot_df %&gt;%
+  filter(name %in%
+           c("Merc 230", "Hornet 4 Drive",
+             "Lotus Europa", "Porsche 914-2",
+             "Maserati Bora", "Ferrari Dino"))
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2,
+           label = name)) + 
+  geom_point() + 
+  geom_text(data = text_df,
+            size = 4, 
+            nudge_x = .12, 
+            nudge_y = .12) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+![](06_svdpca_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Biplots 
+
+* Biplots show the observations and loadings for the first two principal components. 
+
+
+```r
+biplot(cars_pca_scaled)
+```
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Biplots 
+
+.pull-left[
+![](06_svdpca_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](06_svdpca_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             transmission = mtcars$am)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(transmission))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Transmission",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             cylinders = mtcars$cyl)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(cylinders))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Cylinders",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             engine = mtcars$vs)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(engine))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Engine",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             hp = mtcars$hp)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = hp)) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Horse Power",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) + 
+  scale_color_continuous(low = "blue", high = "red")
+```
+
+---
+
+class: inverse
+
+.sectionhead[Part 3. Principal Components Regression]
+
+---
+
+# Principal Components Regression
+
+## Multicollinearity 
+
+--
+
+* Multicollinearity is a condition in which one covariate can be linearly predicted from other covariates in a regression. 
+
+--
+
+* This can cause problems with t tests for the coefficients in linear regression.
+
+---
+
+# Principal Components Regression
+
+
+```r
+cor(mtcars[,c("mpg", "disp", "drat", "wt", "qsec")])
+```
+
+```
+##             mpg       disp        drat         wt        qsec
+## mpg   1.0000000 -0.8475514  0.68117191 -0.8676594  0.41868403
+## disp -0.8475514  1.0000000 -0.71021393  0.8879799 -0.43369788
+## drat  0.6811719 -0.7102139  1.00000000 -0.7124406  0.09120476
+## wt   -0.8676594  0.8879799 -0.71244065  1.0000000 -0.17471588
+## qsec  0.4186840 -0.4336979  0.09120476 -0.1747159  1.00000000
+```
+
+
+```r
+cor(mtcars$hp, mtcars[,c("mpg", "disp", "drat", "wt", "qsec")])
+```
+
+```
+##             mpg      disp       drat        wt       qsec
+## [1,] -0.7761684 0.7909486 -0.4487591 0.6587479 -0.7082234
+```
+
+---
+
+# Principal Components Regression
+
+
+```r
+mod &lt;- lm(hp ~ mpg + disp + drat + wt + qsec, data = mtcars)
+summary(mod)
+```
+
+```
+## 
+## Call:
+## lm(formula = hp ~ mpg + disp + drat + wt + qsec, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.959 -18.390  -4.042  14.879 102.802 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 392.8117   119.1055   3.298  0.00282 **
+## mpg          -3.1703     2.3523  -1.348  0.18936   
+## disp          0.1864     0.1356   1.375  0.18099   
+## drat         12.9668    16.7779   0.773  0.44658   
+## wt            7.9787    18.6915   0.427  0.67299   
+## qsec        -16.6811     4.9192  -3.391  0.00223 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 31.74 on 26 degrees of freedom
+## Multiple R-squared:  0.8203,	Adjusted R-squared:  0.7858 
+## F-statistic: 23.74 on 5 and 26 DF,  p-value: 6.262e-09
+```
+
+---
+
+# Principal Components Regression 
+
+## Steps for Principal Components Regression
+
+--
+
+1. Run PCA. 
+
+--
+
+2. Do linear regression on a set of the principal components.
+
+---
+
+# Principal Components Regression
+
+
+```r
+mtcars_pcs &lt;- data.frame(cars_pca_scaled$scores)
+mtcars_pcs$hp &lt;- mtcars$hp
+mod_pc &lt;- lm(hp ~ ., data = mtcars_pcs)
+summary(mod_pc)
+```
+
+```
+## 
+## Call:
+## lm(formula = hp ~ ., data = mtcars_pcs)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.959 -18.390  -4.042  14.879 102.802 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  146.688      5.610  26.147  &lt; 2e-16 ***
+## Comp.1       -28.525      3.002  -9.501 6.09e-10 ***
+## Comp.2       -29.715      5.678  -5.233 1.82e-05 ***
+## Comp.3        -9.541      9.818  -0.972    0.340    
+## Comp.4         2.404     14.311   0.168    0.868    
+## Comp.5        -6.596     24.549  -0.269    0.790    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 31.74 on 26 degrees of freedom
+## Multiple R-squared:  0.8203,	Adjusted R-squared:  0.7858 
+## F-statistic: 23.74 on 5 and 26 DF,  p-value: 6.262e-09
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "default",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
