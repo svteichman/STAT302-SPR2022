@@ -1,0 +1,58 @@
+---
+title: "Short Lab 4"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+In this short lab, you will analyze data from the [Environmental Performance Index](https://epi.yale.edu/), which ranks 180 countries on 32 variables that describe environmental health and ecosystem vitality. We'll consider a subset of those indicators. See [this technical appendix](https://epi.yale.edu/downloads/epi2020technicalappendix20200803.pdf) (Page 2) for descriptions of the variables. 
+
+The following code will load in the dataset and prepare it to run PCA on. 
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+# load in environmental variables to run PCA on 
+pca_df <- read_csv("https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/pca_data.csv")
+pca_indicators <- pca_df %>% select(-country)
+rownames(pca_indicators) <- pca_df$country
+# load in additional data about countries
+other_df <- read_csv("https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/additional_data.csv")
+```
+
+## Run PCA 
+
+**1**. Run PCA on `pca_indicators` using the function `princomp()`. Don't worry about scaling the variables because all of the indicators are already on a 0-100 scale. 
+
+**2**. Make a screeplot of your results from `princomp()` with the function `screeplot()`. What is an appropriate number of principal components to analyze? Why? 
+
+**3**. Plot your first two principal components (see slides 35 and 36 of Slides 5). Label between $5$ and $10$ countries. Interpret your results. Which countries have similar environmental indicators? Which countries have different environmental indicators? 
+
+**4**. Take you plot from (**3**) and color the points by one of the variables in `other_df`. Choose either `region`, `ldc` (which is $1$ for a set of least developed countries and $0$ otherwise), `emmrk` (which is $1$ if the country has an emerging market and $0$ otherwise), or `gdp` (if you choose `gpd` I recommend instead using `log(gdp)` because it is a very right-skewed variable). See slides 41 through 46 of Slides 5 for code inspiration. 
+
+**5**. Describe the relationship between the first principal component and the variable `EPI_cat` in `other_df` (look at numerical and graphical measures of the relationship). `EPI_cat` is a weighted summary of all of the environmental indicators created by the people who built the Environmental Performance Index. Does this relationship make sense to you? Why or why not? 
+
