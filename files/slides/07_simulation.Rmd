@@ -1,0 +1,263 @@
+---
+title: "STAT 302, Lecture Slides 7"
+subtitle: "Simulation Studies"
+author: "Sarah Teichman"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default", "gao-theme.css", "gao-theme-fonts.css"]
+    nature:
+      highlightStyle: default
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+knitr::opts_chunk$set(cache = FALSE)
+knitr::opts_chunk$set(error = TRUE)
+library(kableExtra)
+library(tidyverse)
+```
+
+# Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "700px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/oliver.gif")
+```
+
+---
+
+# Outline
+
+1. Why simulate?
+2. How to simulate?
+
+.middler[**Goal:** Learn how to use simulation to answer statistical questions!]
+
+---
+
+class: inverse
+
+.sectionhead[Part 1. Why simulate?]
+
+---
+
+# Why simulate? 
+
+* In science, how do we support or refute a hypothesis? 
+
+--
+
+* We run an experiment! 
+
+--
+
+* Experiments let us work in a setting where we have precise control
+
+---
+
+# Simulation 
+
+* Often we don't have the resources to run an experiment 
+
+--
+
+* Instead, we can run a simulation 
+
+--
+
+* Simulation: Computer experiment that involves creating data by pseudo-random sampling 
+
+---
+
+# Why do we simulate? 
+
+* We have some statistical problem that we don't know how to answer analytically or want to check our answer for
+
+--
+
+  + What is the probability of flipping $5$ coins and getting all heads? 
+  
+--
+
+* We want to evaluate the performance of a statistical method 
+
+--
+
+  + If our observations are not independent from each other, does a t test for the mean still work? 
+  
+--
+
+  + For a given $H_0$ and $H_a$, what is the relationship between Type I and Type II error? 
+
+---
+
+# Example: flipping coins 
+
+What is the probability of flipping $5$ coins and getting all heads? 
+
+```{r}
+0.5^(5)
+```
+
+---
+
+# Example: flipping coins 
+
+What is the probability of flipping $5$ coins and getting all heads?
+
+```{r}
+coins <- rbinom(n = 100000, size = 5, prob = 0.5)
+mean(coins == 5)
+```
+
+---
+
+# Example: variance of the sample mean
+
+For a set of random variables $X_1,\ldots,X_n$, each independent with variance $\sigma^2$, what is the variance of the sample mean? 
+
+\begin{align*}
+Var(\bar{X}) &= Var(\frac{1}{n}\sum_{i=1}^n X_i) \\
+&= \frac{1}{n^2}\sum_{i=1}^n Var(X_i) \\
+&= \frac{n\sigma^2}{n^2} \\
+&= \frac{\sigma^2}{n}
+\end{align*}
+
+---
+
+# Example: variance of the sample mean
+
+For a set of random variables $X_1,\ldots,X_n$, each independent with variance $\sigma^2$, what is the variance of the sample mean? 
+
+```{r}
+data1 <- rexp(10, rate = 1)
+mean(data1)
+data2 <- rexp(100, rate = 1)
+mean(data2)
+data3 <- rexp(1000, rate = 1)
+mean(data3)
+```
+
+---
+
+# Example: variance of the sample mean
+
+We need to randomly generate data many times to answer our question
+
+```{r}
+n_sim <- 10000
+result_matrix <- matrix(nrow = n_sim, ncol = 3)
+for (i_sim in 1:n_sim) {
+  result_matrix[i_sim, 1] <- mean(rexp(10, rate = 1))
+  result_matrix[i_sim, 2] <- mean(rexp(100, rate = 1))
+  result_matrix[i_sim, 3] <- mean(rexp(1000, rate = 1))
+}
+var(result_matrix[, 1])
+var(result_matrix[, 2])
+var(result_matrix[, 3])
+```
+
+---
+
+class: inverse
+
+.sectionhead[Part 1. How to simulate?]
+
+---
+
+# Psuedocode 
+
+* Psuedocode: writing out the steps of an algorithm 
+
+--
+
+* Useful in general for programming, but especially when designing a simulation study 
+
+---
+
+# Psuedocode 
+
+## Example: flipping coins
+
+Goal: find probability of getting $5$ heads in $5$ coin flips 
+
+* make result vector to hold number of heads for $100000$ trials 
+* for $100000$ trials, do the following: 
+  + Flip $5$ coins 
+  + Count and record the number of heads 
+* Report the proportion of trials that had $5$ heads 
+
+---
+
+# Psuedocode 
+
+## Example: variance of sample mean 
+
+Goal: find variance of sample mean 
+
+* set sample sizes to be $10$, $100$, and $1000$ 
+* make result matrix to hold sample means for $10000$ trials, for each sample size 
+* for $10000$ trials, do the following: 
+  + Generate $10$ independent and identically distributed observations and calculate mean 
+  + Generate $100$ independent and identically distributed observations and calculate mean 
+  + Generate $1000$ independent and identically distributed observations and calculate mean 
+* Calculate variance of means from $10$ observations 
+* Calculate variance of means from $100$ observations 
+* Calculate variance of means from $1000$ observations 
+
+---
+
+# Write a function 
+
+* It is often helpful to write a function that will generate data and do any required calculations for a single trial 
+
+---
+
+# Write a function 
+
+## Example: flipping coins
+
+```{r}
+flip_coins_once <- function() {
+  coins <- rbinom(n = 1, size = 5, prob = 0.5)
+  return(mean(coins == 5))
+}
+```
+
+---
+
+# Write a function 
+
+## Example: variance of sample mean 
+
+```{r}
+generate_data_once <- function(n) {
+  data <- rexp(10, rate = 1)
+  return(mean(data))
+}
+```
+
+---
+
+# Test function 
+
+* Often we will run a simulation with a large number of trials 
+
+--
+
+* Sometimes this will take a long time 
+
+--
+
+* It's always safest to first test with a small number of trials 
+
+---
+
+# Report results 
+
+## Example: flipping coins 

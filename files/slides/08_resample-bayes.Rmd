@@ -1,7 +1,7 @@
 ---
 title: "STAT 302, Lecture Slides 8"
 subtitle: "Resampling"
-author: "Peter Gao"
+author: "Sarah Teichman (adapted from slides by Peter Gao)"
 date: ""
 output:
   xaringan::moon_reader:
