@@ -62,7 +62,7 @@ Let's jump right in and start working with large simulations. You will need the 
 
 **1c.** Compute the mean and standard deviation of your vector from part a. Report them using in-line R code. 
 
-**1d.** In order to standardize vectors, we take each element and subtract the mean and then divide by the standard deviation (computed in part c). Create and store a new vector that is the standardization of your simulations from part (a). Create a histogram for these standardized simulations (don't forget to change the title again!). What do you notice? Include references to the mean and standard deviation of your new data, using in-line R code.
+**1d.** In order to standardize vectors, we take each element and subtract the mean and then divide by the standard deviation (computed in part c). Create and store a new vector that is the standardization of your simulations from part (a). Create a histogram for these standardized simulations (don't forget to change the title again!). What do you notice?
 
 (*Hint: don't use exactly 3 and 5 for the mean and standard deviation when standardizing. As a sanity check, after you standardize your vector, the mean should be exactly 0!*)
 
