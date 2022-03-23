@@ -261,3 +261,80 @@ generate_data_once <- function(n) {
 # Report results 
 
 ## Example: flipping coins 
+
+.pull-left[
+```{r, eval = FALSE}
+plot_df <- data.frame(coins = coins) 
+ggplot(plot_df, aes(x = coins)) + 
+  geom_histogram(bins = 6) + 
+  labs(x = "Number of heads", 
+       y = "Count") + 
+  ggtitle("Distribution of simulated 
+          number of heads") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+```{r, echo = FALSE}
+plot_df <- data.frame(coins = coins) 
+ggplot(plot_df, aes(x = coins)) + 
+  geom_histogram(bins = 6) + 
+  labs(x = "Number of heads", y = "Count") + 
+  ggtitle("Distribution of simulated number of heads") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+]
+
+---
+
+# Report results 
+
+## Example: variance of sample mean 
+
+.pull-left[
+```{r, eval = FALSE}
+vars <- c(var(result_matrix[, 1]),
+          var(result_matrix[, 2]),
+          var(result_matrix[, 3]))
+plot_df <- 
+  data.frame(n = c(10, 100, 1000), 
+             var = vars) 
+ggplot(plot_df, aes(x = n, y = var)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(x = "Sample size", 
+       y = "Variance of sample mean") + 
+  ggtitle("Simulated data from 
+          exponential distribution") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+```{r, echo = FALSE}
+plot_df <- data.frame(n = c(10, 100, 1000), 
+                      var = c(var(result_matrix[, 1]),
+                              var(result_matrix[, 2]),
+                              var(result_matrix[, 3]))) 
+ggplot(plot_df, aes(x = n, y = var)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(x = "Sample size", y = "Variance of sample mean") + 
+  ggtitle("Simulated data from exponential distribution") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+]
+
+---
+
+# Live coding example 
+
+Study the relationship between expected and observed variance for draws from a binomial distribution with sample sizes $n=10$ and $n=1000$. Consider the binomial distribution with $5$ trials and probabilities $p$ in the set $\{0.2, 0.4, 0.6, 0.8\}$. 
+

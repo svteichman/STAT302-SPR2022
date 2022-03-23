@@ -119,7 +119,7 @@ mean(coins == 5)
 ```
 
 ```
-## [1] 0.03169
+## [1] 0.03017
 ```
 
 ---
@@ -148,7 +148,7 @@ mean(data1)
 ```
 
 ```
-## [1] 1.088379
+## [1] 1.280865
 ```
 
 ```r
@@ -157,7 +157,7 @@ mean(data2)
 ```
 
 ```
-## [1] 0.8078838
+## [1] 1.081354
 ```
 
 ```r
@@ -166,7 +166,7 @@ mean(data3)
 ```
 
 ```
-## [1] 0.9551832
+## [1] 0.9637457
 ```
 
 ---
@@ -188,7 +188,7 @@ var(result_matrix[, 1])
 ```
 
 ```
-## [1] 0.1023696
+## [1] 0.09880742
 ```
 
 ```r
@@ -196,7 +196,7 @@ var(result_matrix[, 2])
 ```
 
 ```
-## [1] 0.009845804
+## [1] 0.01007614
 ```
 
 ```r
@@ -204,7 +204,7 @@ var(result_matrix[, 3])
 ```
 
 ```
-## [1] 0.001005715
+## [1] 0.001005421
 ```
 
 ---
@@ -288,6 +288,84 @@ generate_data_once &lt;- function(n) {
   return(mean(data))
 }
 ```
+
+---
+
+# Test function 
+
+* Often we will run a simulation with a large number of trials 
+
+--
+
+* Sometimes this will take a long time 
+
+--
+
+* It's always safest to first test with a small number of trials 
+
+---
+
+# Report results 
+
+## Example: flipping coins 
+
+.pull-left[
+
+```r
+plot_df &lt;- data.frame(coins = coins) 
+ggplot(plot_df, aes(x = coins)) + 
+  geom_histogram(bins = 6) + 
+  labs(x = "Number of heads", 
+       y = "Count") + 
+  ggtitle("Distribution of simulated 
+          number of heads") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+![](07_simulation_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Report results 
+
+## Example: variance of sample mean 
+
+.pull-left[
+
+```r
+vars &lt;- c(var(result_matrix[, 1]),
+          var(result_matrix[, 2]),
+          var(result_matrix[, 3]))
+plot_df &lt;- 
+  data.frame(n = c(10, 100, 1000), 
+             var = vars) 
+ggplot(plot_df, aes(x = n, y = var)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(x = "Sample size", 
+       y = "Variance of sample mean") + 
+  ggtitle("Simulated data from 
+          exponential distribution") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+![](07_simulation_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Live coding example 
+
+Study the relationship between expected and observed variance for draws from a binomial distribution with sample sizes `\(n=10\)` and `\(n=1000\)`. Consider the binomial distribution with `\(5\)` trials and probabilities `\(p\)` in the set `\(\{0.2, 0.4, 0.6, 0.8\}\)`.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
