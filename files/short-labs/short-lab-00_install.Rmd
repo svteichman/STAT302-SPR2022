@@ -71,7 +71,7 @@ print(y)
 print(z)
 ```
 
-**11.** If you have not done so already, install the package palmerpenguins in your by running the command `install_packages("palmerpenguins")` in your console. Run the following code. 
+**11.** If you have not done so already, install the package palmerpenguins by running the command `install_packages("palmerpenguins")` in your console. Run the following code. 
 
 ```{r}
 library(palmerpenguins)
