@@ -19,6 +19,14 @@ knitr::opts_chunk$set(comment = "##")
 library(kableExtra)
 ```
 
+# Introductions
+
+* What should we call you? (name & pronouns)
+* Why are you taking this class?
+* One goal for this quarter
+
+---
+
 # Today's pet picture 
 
 
@@ -47,13 +55,6 @@ knitr::include_graphics("../../files/images/pets/nut_mad.jpg")
 ]]
 ---
 
-# Introductions
-
-* What should we call you? (name & pronouns)
-* Why are you taking this class?
-* One goal for this quarter
-
----
 
 # Discussion Board
 
