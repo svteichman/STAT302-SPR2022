@@ -45,11 +45,20 @@ sample(1:6, 1)
 
 **2.** Run the line of code in RStudio. What do you get? What did your groupmates get? What happens to the result each time you knit the document?
 
-**3.** Below, we introduce the ```set.seed``` function. What do the two lines of code below do? What does the ```456``` mean? What happens to the result each time you knit the document?        
+**3.** Below, we introduce the ```set.seed``` function. What do the two lines of code below do? What happens to the result each time you knit the document?        
 
 ```{r, eval = T}
 set.seed(456)
 sample(1:6, 1)
+```
+
+What if you set a different seed? 
+
+*Uncomment the following lines to edit and run them by removing the # symbol at the beginning of each line.*
+
+```{r, eval = T}
+#set.seed(YOUR CHOICE HERE)
+#sample(1:6, 1)
 ```
 
 **4.** We can also use in-line R code in R Markdown to ensure that we don't have to edit our text each time we knit our file. Edit the text below using in-line code to print out your value of ```x```.
@@ -86,10 +95,14 @@ library(moderndive)
 data("house_prices")
 ```
 
-**8.** The ```house_prices$bedrooms``` vector contains information on the number of bedrooms in each house. What is the median value? What is the most common value?
+**8.** The ```house_prices$bedrooms``` vector contains information on the number of bedrooms in each house. What is the median value? What is the mean value? 
 
 ```{r}
 # Your code here
 ```
 
 **9.** (Optional) The ```house_prices$bedrooms``` vector contains information on the number of bedrooms in each house. What is the maximum value? Is this realistic? Can you figure out what happened here?
+
+```{r}
+# Your code here
+```

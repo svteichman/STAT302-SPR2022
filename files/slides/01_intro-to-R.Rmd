@@ -23,8 +23,10 @@ library(kableExtra)
 
 
 ```{r, echo = FALSE, out.width = "450px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/pet_01-05.jpg")
+knitr::include_graphics("../../files/images/pets/joia_kittens.jpg")
 ```
+
+Thanks to our grader, Joia 
 
 ---
 
@@ -432,6 +434,14 @@ they have **rows** and **columns**
 
 ```{r}
 my_matrix <- matrix(c(x, y), nrow = 2, ncol = 5, byrow = TRUE)
+c(x, y)
+my_matrix
+```
+
+---
+
+```{r}
+my_matrix <- matrix(c(x, y), nrow = 2, ncol = 5, byrow = TRUE)
 my_matrix
 # Note: byrow = FALSE is the default
 my_matrix2 <- matrix(c(x, y), nrow = 2, ncol = 5)
@@ -492,16 +502,16 @@ my_matrix[, -c(1, 3, 4, 5)]
 ---
 
 ```{r}
-my_matrix[, -c(1, 3, 4, 5)]
-is.matrix(my_matrix[, -c(1, 3, 4, 5)])
+small_mat <- my_matrix[, -c(1, 3, 4, 5)]
+is.matrix(small_mat)
 ```
 
 What happened here? When subsetting a matrix reduces one dimension to length 1,
 R automatically coerces it into a vector. We can prevent this by including `drop = FALSE`.
 
 ```{r}
-my_matrix[, -c(1, 3, 4, 5), drop = FALSE]
-is.matrix(my_matrix[, -c(1, 3, 4, 5), drop = FALSE])
+real_small_mat <- my_matrix[, -c(1, 3, 4, 5), drop = FALSE]
+is.matrix(real_small_mat)
 ```
 
 ---
@@ -546,16 +556,6 @@ rbind(c(1, 2, 3), c("a", "b", "c"))
 
 ---
 
-## Today's pet picture 
-
-
-```{r, echo = FALSE, out.width = "550px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/joey_lacey_pets_01-10.jpg")
-```
-
-Thanks Max! 
-
----
 
 ## Functions on Matrices
 

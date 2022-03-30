@@ -242,6 +242,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -262,6 +263,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -382,12 +386,16 @@ h4.date {
 <p>Work with one or two other students,</p>
 <p><strong>1.</strong> In words, what does the following line of code do?</p>
 <pre class="r"><code>sample(1:6, 1)</code></pre>
-<pre><code>## [1] 6</code></pre>
+<pre><code>## [1] 2</code></pre>
 <p><strong>2.</strong> Run the line of code in RStudio. What do you get? What did your groupmates get? What happens to the result each time you knit the document?</p>
-<p><strong>3.</strong> Below, we introduce the <code>set.seed</code> function. What do the two lines of code below do? What does the <code>456</code> mean? What happens to the result each time you knit the document?</p>
+<p><strong>3.</strong> Below, we introduce the <code>set.seed</code> function. What do the two lines of code below do? What happens to the result each time you knit the document?</p>
 <pre class="r"><code>set.seed(456)
 sample(1:6, 1)</code></pre>
 <pre><code>## [1] 5</code></pre>
+<p>What if you set a different seed?</p>
+<p><em>Uncomment the following lines to edit and run them by removing the # symbol at the beginning of each line.</em></p>
+<pre class="r"><code>#set.seed(YOUR CHOICE HERE)
+#sample(1:6, 1)</code></pre>
 <p><strong>4.</strong> We can also use in-line R code in R Markdown to ensure that we don’t have to edit our text each time we knit our file. Edit the text below using in-line code to print out your value of <code>x</code>.</p>
 <pre class="r"><code>x &lt;- sample(1:6, 1)</code></pre>
 <p>The value of <code>x</code> that I obtained is YOUR ANSWER HERE.</p>
@@ -407,9 +415,10 @@ z &lt;- mean(x)</code></pre>
 <p><strong>7.</strong> First, run <code>install.packages(&quot;moderndive&quot;)</code> and then the following code. This loads the <code>house_prices</code> dataset, which contains house sale data for King Country. What time period are these house prices from?</p>
 <pre class="r"><code>library(moderndive)
 data(&quot;house_prices&quot;)</code></pre>
-<p><strong>8.</strong> The <code>house_prices$bedrooms</code> vector contains information on the number of bedrooms in each house. What is the median value? What is the most common value?</p>
+<p><strong>8.</strong> The <code>house_prices$bedrooms</code> vector contains information on the number of bedrooms in each house. What is the median value? What is the mean value?</p>
 <pre class="r"><code># Your code here</code></pre>
 <p><strong>9.</strong> (Optional) The <code>house_prices$bedrooms</code> vector contains information on the number of bedrooms in each house. What is the maximum value? Is this realistic? Can you figure out what happened here?</p>
+<pre class="r"><code># Your code here</code></pre>
 </div>
 
 
