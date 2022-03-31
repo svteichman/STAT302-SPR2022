@@ -13,7 +13,7 @@ description: ''
 
 **Location**: CMU 243
 
-**Office hours**: T 3:30-5, F 1:30-3 via Zoom [(meeting link)](https://washington.zoom.us/j/3955335000)
+**Office hours**: T 3:30-5, F 2-3:30 via Zoom [(meeting link)](https://washington.zoom.us/j/3955335000)
 
 **Note**: When emailing either the instructor or grader, please include "[STAT 302]" at the beginning of the email header!
 It will help us respond to you faster.
