@@ -22,44 +22,11 @@ library(kableExtra)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "550px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/joia_kittens.jpg")
+```{r, echo = FALSE, out.width = "350px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/dog_raphie.jpeg")
 ```
 
----
-
-# Before class
-
-Think about the results and check your answer in R:
-
-```{r, eval = FALSE}
-to_do_list <- 
-  list(saturday = c("sleep", "feed cat", "pet cat"),
-       sunday = c("wake up", "homework", "course prep"))
-# what are each of the following?
-to_do_list[1]
-to_do_list[1][1]
-to_do_list[[1]]
-to_do_list[1][[1]]
-to_do_list[[1]][2]
-```
-
----
-
-```{r, echo = FALSE, include = FALSE}
-to_do_list <- 
-  list(saturday = c("sleep", "feed cat", "pet cat"),
-       sunday = c("wake up", "homework", "course prep"))
-```
-
-```{r}
-to_do_list[1]
-to_do_list[1][1]
-to_do_list[[1]]
-to_do_list[1][[1]]
-to_do_list[[1]][2]
-```
-
+Thanks Raphie!
 
 ---
 
@@ -101,7 +68,7 @@ x <- 1
 # Conditions go in parenthesis after if
 if (x > 0) {
   # code chunks get surrounded by curly brackets
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 }
 ```
 
@@ -111,7 +78,7 @@ x <- 1
 # Conditions go in parenthesis after if
 if (x > 0) {
   # code chunks get surrounded by curly brackets
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 }
 ```
 
@@ -123,7 +90,7 @@ x <- -1
 # Conditions go in parenthesis after if
 if (x > 0) {
   # code chunks get surrounded by curly brackets
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 }
 ```
 
@@ -136,9 +103,9 @@ if (x > 0) {
 ```{r, eval = F}
 x <- 1
 if (x > 0) {
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 } else {
-  print(paste0("x is equal to ", x, ", a negative number!"))
+  paste0("x is equal to ", x, ", a negative number!")
 }
 ```
 
@@ -147,9 +114,9 @@ if (x > 0) {
 ```{r, echo = F}
 x <- 1
 if (x > 0) {
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 } else {
-  print(paste0("x is equal to ", x, ", a negative number!"))
+  paste0("x is equal to ", x, ", a negative number!")
 }
 ```
 
@@ -162,9 +129,9 @@ if (x > 0) {
 ```{r}
 x <- -1
 if (x > 0) {
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 } else {
-  print(paste0("x is equal to ", x, ", a negative number!"))
+  paste0("x is equal to ", x, ", a negative number!")
 }
 ```
 
@@ -223,74 +190,40 @@ layout: true
 # Control Flow: Examples
 ---
 
-## Divisibility
+## Your turn: comparison
 
-Suppose we want to check if `x` is divisible by 5 and print out the answer. What should `CONDITION` be?
+Suppose we want to check if `x` is greater than 5 and print out the answer. What should `CONDITION` be?
 
 ```{r, eval = F}
-x <- 5
+x <- 6
 if (CONDITION) {
-  IF TRUE, DO THIS
+  print("x is greater than 5.")
 } else {
-  ELSE, DO THIS
+  print("x is less than or equal to 5.")
 }
 ```
 ---
 
-## Divisibility
+## Your turn: comparison
 
-Suppose we want to check if `x` is divisible by 5 and print out the answer. What should `CONDITION` be?
+Suppose we want to check if `x` is greater than 5 and print out the answer. What should `CONDITION` be?
 
 ```{r, eval = F}
-x <- 5
-# modulo operator
-if (x %% 5 == 0) {
-  print("divisible by 5")
+x <- 6
+if (x > 5) {
+  print("x is greater than 5.")
 } else {
-  print("not divisible by 5")
+  print("x is less than or equal to 5.")
 }
 ```
 
 --
 ```{r, echo = F}
-x <- 5
-# modulo operator
-if (x %% 5 == 0) {
-  print("divisible by 5")
+x <- 6
+if (x > 5) {
+  print("x is greater than 5.")
 } else {
-  print("not divisible by 5")
-}
-```
-
----
-
-## Check length of strings
-
-Note: We will need the `stringr` package for this 
-```{r}
-# Run this if you have never installed stringr before!
-# install.packages("stringr")
-library(stringr)
-```
-
-```{r}
-x <- "cat"
-if (str_length(x) <= 10) {
-  cat("x is a pretty short string!")
-} else {
-  cat("x is a pretty long string!")
-}
-```
-
----
-
-
-```{r}
-x <- "A big fluffy cat with orange fur and stripes"
-if (str_length(x) <= 10) {
-  cat("x is a pretty short string!")
-} else {
-  cat("x is a pretty long string!")
+  print("x is less than or equal to 5.")
 }
 ```
 
@@ -301,11 +234,11 @@ if (str_length(x) <= 10) {
 ```{r}
 x <- 5
 if (is.numeric(x)) {
-  cat("x is a numeric!")
+  print("x is a numeric!")
 } else if (is.character(x)) {
-  cat("x is a character!")
+  print("x is a character!")
 } else {
-  cat("x is some class I didn't check for in my code!")
+  print("x is some class I didn't check for in my code!")
 }
 ```
 
@@ -316,11 +249,11 @@ if (is.numeric(x)) {
 ```{r}
 x <- list()
 if (is.numeric(x)) {
-  cat("x is a numeric!")
+  print("x is a numeric!")
 } else if (is.character(x)) {
-  cat("x is a character!")
+  print("x is a character!")
 } else {
-  cat("x is some class I didn't check for in my code!")
+  print("x is some class I didn't check for in my code!")
 }
 ```
 
@@ -328,7 +261,7 @@ if (is.numeric(x)) {
 layout: false
 class: inverse
 
-.sectionhead[Part 2: for loops]
+.sectionhead[Part 2: Loops]
 ---
 layout: true
 
@@ -355,12 +288,10 @@ for (i in 1:8) {
 `while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
 
 
-Be careful here! It is possible to get stuck in an infinite loop!
-
 ```{r}
 x <- 0
 while (x < 5) {
-  cat("x is currently", x, ". Let's increase it by 1!")
+  print(paste0("x is currently ", x, ". Let's increase it by 1!"))
   x <- x + 1
 }
 ```
@@ -369,13 +300,16 @@ while (x < 5) {
 
 ## `while` loops
 
-Let's see if we can clean up that output. Add `"\n"` to a string to force a line break. 
+`while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
 
-```{r}
+
+Be careful here! It is possible to get stuck in an infinite loop!
+
+```{r, eval = FALSE}
 x <- 0
 while (x < 5) {
-  cat("x is currently ", x, ". Let's increase it by 1! \n", sep = "")
-  x <- x + 1
+  print(paste0("x is currently ", x, ". Let's increase it by 1!"))
+  x <- x * 2
 }
 ```
 
@@ -445,6 +379,18 @@ x
 
 ---
 
+## Filling in a matrix
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+```{r}
+x <- matrix(rep(1:3, 4), nrow = 4, ncol = 3, byrow = TRUE)
+x
+x * 1:4
+```
+
+---
+
 ## Continue until positive sample
 
 ```{r}
@@ -461,22 +407,21 @@ x
 
 ## Your turn 
 
-Write a loop to simulate flipping a fair coin until you get a head. Once you've done this, tell us in the chat how many flips it took to get a head.
+Write a loop to simulate flipping ten fair coins. At the end, calculate how many heads you flipped. 
 
 ---
 
 ## Your turn 
 
 ```{r}
-counter <- 0 
-coin <- 0 
-while (coin == 0) {
-  coin <- sample(c(0,1), 1)
+coins <- rep(NA, 10)
+for (i in 1:10) {
+  flip <- sample(c(0,1), 1)
   # alternate way to do this
-  # coin <- rbinom(n = 1, size = 1, prob = 0.5)
-  counter <- counter + 1
+  # flip <- rbinom(n = 1, size = 1, prob = 0.5)
+  coins[i] <- flip
 }
-counter
+sum(coins)
 ```
 
 ---
@@ -584,60 +529,18 @@ store_output
 
 ---
 
-## Make a table
-
-We'll use `str_c` from the `stringr` package for this function, which joins multiple strings into a single string.
-
-```{r}
-library(stringr)
-my_summary <- function(input, percentiles = c(.05, .5, .95)) {
-  if (!is.numeric(input) | !is.numeric(percentiles)) {
-    stop("The input and percentiles must be numeric!")
-  }
-  if (max(percentiles) > 1 | min(percentiles) < 0) {
-    stop("Percentiles must all be in [0, 1]")
-  }
-  # Convert percentiles to character percent, append " Percentile" to each
-  labels <- str_c(percentiles * 100, " Percentile")
-  output <- quantile(input, probs = percentiles)
-  names(output) <- labels
-  return(output)
-}
-```
-
----
-
-## Make a table
-
-```{r, error = TRUE}
-x <- rnorm(100)
-my_summary(x)
-my_summary(x, percentiles = c(.07, .5, .63, .91))
-```
-
----
-
-## Make a table
-
-```{r, error = TRUE}
-my_summary(x, c("string1", "string2"))
-my_summary(x, percentiles = c(-7, .5, 1.3))
-```
-
-
----
-
 ## Function with iteration
 
 ```{r}
-my_sum <- function(x) {
-  total <- 0
+my_sum <- function(x, starting_sum = 0) {
+  total <- starting_sum 
   for (i in 1:length(x)) {
     total <- total + x[i]
   }
   return(total)
 }
 my_sum(1:5)
+my_sum(1:5, 128)
 ```
 
 
@@ -648,8 +551,8 @@ my_sum(1:5)
 Want to know what's happening? Add a print statement! 
 
 ```{r}
-my_sum <- function(x) {
-  total <- 0
+my_sum <- function(x, starting_sum = 0) {
+  total <- starting_sum
   for (i in 1:length(x)) {
     total <- total + x[i]
     print(total)
@@ -944,17 +847,6 @@ class: inverse
 layout: true
 
 # Packages
-
----
-
-## Today's pet picture 
-
-
-```{r, echo = FALSE, out.width = "200px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/happy_puppy.jpg")
-```
-
-Thanks Lucy!
 
 ---
 

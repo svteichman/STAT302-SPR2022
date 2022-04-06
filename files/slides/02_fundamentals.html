@@ -6,6 +6,7 @@
     <meta name="author" content="Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)" />
     <link href="02_fundamentals_files/remark-css/default.css" rel="stylesheet" />
     <script src="02_fundamentals_files/kePrint/kePrint.js"></script>
+    <link href="02_fundamentals_files/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="gao-theme.css" type="text/css" />
     <link rel="stylesheet" href="gao-theme-fonts.css" type="text/css" />
   </head>
@@ -25,74 +26,9 @@ class: center, title-slide
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/joia_kittens.jpg" width="550px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/dog_raphie.jpeg" width="350px" style="display: block; margin: auto;" /&gt;
 
----
-
-# Before class
-
-Think about the results and check your answer in R:
-
-
-```r
-to_do_list &lt;- 
-  list(saturday = c("sleep", "feed cat", "pet cat"),
-       sunday = c("wake up", "homework", "course prep"))
-# what are each of the following?
-to_do_list[1]
-to_do_list[1][1]
-to_do_list[[1]]
-to_do_list[1][[1]]
-to_do_list[[1]][2]
-```
-
----
-
-
-
-
-```r
-to_do_list[1]
-```
-
-```
-## $saturday
-## [1] "sleep"    "feed cat" "pet cat"
-```
-
-```r
-to_do_list[1][1]
-```
-
-```
-## $saturday
-## [1] "sleep"    "feed cat" "pet cat"
-```
-
-```r
-to_do_list[[1]]
-```
-
-```
-## [1] "sleep"    "feed cat" "pet cat"
-```
-
-```r
-to_do_list[1][[1]]
-```
-
-```
-## [1] "sleep"    "feed cat" "pet cat"
-```
-
-```r
-to_do_list[[1]][2]
-```
-
-```
-## [1] "feed cat"
-```
-
+Thanks Raphie!
 
 ---
 
@@ -135,7 +71,7 @@ x &lt;- 1
 # Conditions go in parenthesis after if
 if (x &gt; 0) {
   # code chunks get surrounded by curly brackets
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 }
 ```
 
@@ -154,7 +90,7 @@ x &lt;- -1
 # Conditions go in parenthesis after if
 if (x &gt; 0) {
   # code chunks get surrounded by curly brackets
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 }
 ```
 
@@ -168,9 +104,9 @@ if (x &gt; 0) {
 ```r
 x &lt;- 1
 if (x &gt; 0) {
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 } else {
-  print(paste0("x is equal to ", x, ", a negative number!"))
+  paste0("x is equal to ", x, ", a negative number!")
 }
 ```
 
@@ -191,9 +127,9 @@ if (x &gt; 0) {
 ```r
 x &lt;- -1
 if (x &gt; 0) {
-  print(paste0("x is equal to ", x, ", a positive number!"))
+  paste0("x is equal to ", x, ", a positive number!")
 } else {
-  print(paste0("x is equal to ", x, ", a negative number!"))
+  paste0("x is equal to ", x, ", a negative number!")
 }
 ```
 
@@ -271,83 +207,39 @@ layout: true
 # Control Flow: Examples
 ---
 
-## Divisibility
+## Your turn: comparison
 
-Suppose we want to check if `x` is divisible by 5 and print out the answer. What should `CONDITION` be?
+Suppose we want to check if `x` is greater than 5 and print out the answer. What should `CONDITION` be?
 
 
 ```r
-x &lt;- 5
+x &lt;- 6
 if (CONDITION) {
-  IF TRUE, DO THIS
+  print("x is greater than 5.")
 } else {
-  ELSE, DO THIS
+  print("x is less than or equal to 5.")
 }
 ```
 ---
 
-## Divisibility
+## Your turn: comparison
 
-Suppose we want to check if `x` is divisible by 5 and print out the answer. What should `CONDITION` be?
+Suppose we want to check if `x` is greater than 5 and print out the answer. What should `CONDITION` be?
 
 
 ```r
-x &lt;- 5
-# modulo operator
-if (x %% 5 == 0) {
-  print("divisible by 5")
+x &lt;- 6
+if (x &gt; 5) {
+  print("x is greater than 5.")
 } else {
-  print("not divisible by 5")
+  print("x is less than or equal to 5.")
 }
 ```
 
 --
 
 ```
-## [1] "divisible by 5"
-```
-
----
-
-## Check length of strings
-
-Note: We will need the `stringr` package for this 
-
-```r
-# Run this if you have never installed stringr before!
-# install.packages("stringr")
-library(stringr)
-```
-
-
-```r
-x &lt;- "cat"
-if (str_length(x) &lt;= 10) {
-  cat("x is a pretty short string!")
-} else {
-  cat("x is a pretty long string!")
-}
-```
-
-```
-## x is a pretty short string!
-```
-
----
-
-
-
-```r
-x &lt;- "A big fluffy cat with orange fur and stripes"
-if (str_length(x) &lt;= 10) {
-  cat("x is a pretty short string!")
-} else {
-  cat("x is a pretty long string!")
-}
-```
-
-```
-## x is a pretty long string!
+## [1] "x is greater than 5."
 ```
 
 ---
@@ -358,16 +250,16 @@ if (str_length(x) &lt;= 10) {
 ```r
 x &lt;- 5
 if (is.numeric(x)) {
-  cat("x is a numeric!")
+  print("x is a numeric!")
 } else if (is.character(x)) {
-  cat("x is a character!")
+  print("x is a character!")
 } else {
-  cat("x is some class I didn't check for in my code!")
+  print("x is some class I didn't check for in my code!")
 }
 ```
 
 ```
-## x is a numeric!
+## [1] "x is a numeric!"
 ```
 
 ---
@@ -378,23 +270,23 @@ if (is.numeric(x)) {
 ```r
 x &lt;- list()
 if (is.numeric(x)) {
-  cat("x is a numeric!")
+  print("x is a numeric!")
 } else if (is.character(x)) {
-  cat("x is a character!")
+  print("x is a character!")
 } else {
-  cat("x is some class I didn't check for in my code!")
+  print("x is some class I didn't check for in my code!")
 }
 ```
 
 ```
-## x is some class I didn't check for in my code!
+## [1] "x is some class I didn't check for in my code!"
 ```
 
 ---
 layout: false
 class: inverse
 
-.sectionhead[Part 2: for loops]
+.sectionhead[Part 2: Loops]
 ---
 layout: true
 
@@ -433,42 +325,39 @@ for (i in 1:8) {
 `while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
 
 
-Be careful here! It is possible to get stuck in an infinite loop!
-
 
 ```r
 x &lt;- 0
 while (x &lt; 5) {
-  cat("x is currently", x, ". Let's increase it by 1!")
+  print(paste0("x is currently ", x, ". Let's increase it by 1!"))
   x &lt;- x + 1
 }
 ```
 
 ```
-## x is currently 0 . Let's increase it by 1!x is currently 1 . Let's increase it by 1!x is currently 2 . Let's increase it by 1!x is currently 3 . Let's increase it by 1!x is currently 4 . Let's increase it by 1!
+## [1] "x is currently 0. Let's increase it by 1!"
+## [1] "x is currently 1. Let's increase it by 1!"
+## [1] "x is currently 2. Let's increase it by 1!"
+## [1] "x is currently 3. Let's increase it by 1!"
+## [1] "x is currently 4. Let's increase it by 1!"
 ```
 
 ---
 
 ## `while` loops
 
-Let's see if we can clean up that output. Add `"\n"` to a string to force a line break. 
+`while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
+
+
+Be careful here! It is possible to get stuck in an infinite loop!
 
 
 ```r
 x &lt;- 0
 while (x &lt; 5) {
-  cat("x is currently ", x, ". Let's increase it by 1! \n", sep = "")
-  x &lt;- x + 1
+  print(paste0("x is currently ", x, ". Let's increase it by 1!"))
+  x &lt;- x * 2
 }
-```
-
-```
-## x is currently 0. Let's increase it by 1! 
-## x is currently 1. Let's increase it by 1! 
-## x is currently 2. Let's increase it by 1! 
-## x is currently 3. Let's increase it by 1! 
-## x is currently 4. Let's increase it by 1!
 ```
 
 ---
@@ -576,6 +465,38 @@ x
 
 ---
 
+## Filling in a matrix
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+
+```r
+x &lt;- matrix(rep(1:3, 4), nrow = 4, ncol = 3, byrow = TRUE)
+x
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    1    2    3
+## [3,]    1    2    3
+## [4,]    1    2    3
+```
+
+```r
+x * 1:4
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    4    6
+## [3,]    3    6    9
+## [4,]    4    8   12
+```
+
+---
+
 ## Continue until positive sample
 
 
@@ -606,7 +527,7 @@ x
 
 ## Your turn 
 
-Write a loop to simulate flipping a fair coin until you get a head. Once you've done this, tell us in the chat how many flips it took to get a head.
+Write a loop to simulate flipping ten fair coins. At the end, calculate how many heads you flipped. 
 
 ---
 
@@ -614,19 +535,18 @@ Write a loop to simulate flipping a fair coin until you get a head. Once you've 
 
 
 ```r
-counter &lt;- 0 
-coin &lt;- 0 
-while (coin == 0) {
-  coin &lt;- sample(c(0,1), 1)
+coins &lt;- rep(NA, 10)
+for (i in 1:10) {
+  flip &lt;- sample(c(0,1), 1)
   # alternate way to do this
-  # coin &lt;- rbinom(n = 1, size = 1, prob = 0.5)
-  counter &lt;- counter + 1
+  # flip &lt;- rbinom(n = 1, size = 1, prob = 0.5)
+  coins[i] &lt;- flip
 }
-counter
+sum(coins)
 ```
 
 ```
-## [1] 1
+## [1] 7
 ```
 
 ---
@@ -776,82 +696,12 @@ store_output
 
 ---
 
-## Make a table
-
-We'll use `str_c` from the `stringr` package for this function, which joins multiple strings into a single string.
-
-
-```r
-library(stringr)
-my_summary &lt;- function(input, percentiles = c(.05, .5, .95)) {
-  if (!is.numeric(input) | !is.numeric(percentiles)) {
-    stop("The input and percentiles must be numeric!")
-  }
-  if (max(percentiles) &gt; 1 | min(percentiles) &lt; 0) {
-    stop("Percentiles must all be in [0, 1]")
-  }
-  # Convert percentiles to character percent, append " Percentile" to each
-  labels &lt;- str_c(percentiles * 100, " Percentile")
-  output &lt;- quantile(input, probs = percentiles)
-  names(output) &lt;- labels
-  return(output)
-}
-```
-
----
-
-## Make a table
-
-
-```r
-x &lt;- rnorm(100)
-my_summary(x)
-```
-
-```
-##  5 Percentile 50 Percentile 95 Percentile 
-##    -1.3297214    -0.1893119     1.3207927
-```
-
-```r
-my_summary(x, percentiles = c(.07, .5, .63, .91))
-```
-
-```
-##  7 Percentile 50 Percentile 63 Percentile 91 Percentile 
-##    -1.2932186    -0.1893119     0.1209990     1.0829650
-```
-
----
-
-## Make a table
-
-
-```r
-my_summary(x, c("string1", "string2"))
-```
-
-```
-## Error in my_summary(x, c("string1", "string2")): The input and percentiles must be numeric!
-```
-
-```r
-my_summary(x, percentiles = c(-7, .5, 1.3))
-```
-
-```
-## Error in my_summary(x, percentiles = c(-7, 0.5, 1.3)): Percentiles must all be in [0, 1]
-```
-
-
----
-
 ## Function with iteration
 
 
 ```r
-my_sum &lt;- function(x) {
-  total &lt;- 0
+my_sum &lt;- function(x, starting_sum = 0) {
+  total &lt;- starting_sum 
   for (i in 1:length(x)) {
     total &lt;- total + x[i]
   }
@@ -864,6 +714,14 @@ my_sum(1:5)
 ## [1] 15
 ```
 
+```r
+my_sum(1:5, 128)
+```
+
+```
+## [1] 143
+```
+
 
 ---
 
@@ -873,8 +731,8 @@ Want to know what's happening? Add a print statement!
 
 
 ```r
-my_sum &lt;- function(x) {
-  total &lt;- 0
+my_sum &lt;- function(x, starting_sum = 0) {
+  total &lt;- starting_sum
   for (i in 1:length(x)) {
     total &lt;- total + x[i]
     print(total)
@@ -1194,15 +1052,6 @@ class: inverse
 layout: true
 
 # Packages
-
----
-
-## Today's pet picture 
-
-
-&lt;img src="../../files/images/pets/happy_puppy.jpg" width="200px" style="display: block; margin: auto;" /&gt;
-
-Thanks Lucy!
 
 ---
 
@@ -1703,7 +1552,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/sarahteichman/Documents/UW/302/STAT302-WIN2022/files/slides"
+## [1] "/Users/sarahteichman/Documents/UW/302/STAT302-SPR2022/files/slides"
 ```
 
 This location is where R will look by default!
@@ -1727,7 +1576,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/sarahteichman/Documents/UW/302/STAT302-WIN2022/files/slides"
+## [1] "/Users/sarahteichman/Documents/UW/302/STAT302-SPR2022/files/slides"
 ```
 
 ```r
@@ -1736,7 +1585,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/sarahteichman/Documents/UW/302/STAT302-WIN2022/files"
+## [1] "/Users/sarahteichman/Documents/UW/302/STAT302-SPR2022/files"
 ```
 
 ---
