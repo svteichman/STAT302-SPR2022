@@ -564,6 +564,18 @@ my_sum(1:5)
 
 ---
 
+## Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "350px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/tiny_kitten.jpeg")
+```
+
+Thanks Mingfei!
+
+---
+
+
 layout: false
 class: inverse
 
