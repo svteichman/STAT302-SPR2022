@@ -1,7 +1,7 @@
 ---
 title: "Project 1: Data Exploration and Visualization"
-author: "INSERT YOUR NAME(S) HERE"
-date: "Due Date Here"
+author: "Project instructions"
+date: "Due on 04/25"
 output: html_document
 ---
 
@@ -32,19 +32,23 @@ You have the option to work with **one** partner for this project and submit a g
 * If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report.
 * Your Project 1 directory should include an R Project associated with your report and analysis.
 * Final submissions must include .Rmd, .html, and .Rproj files
-* The data are available [here](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv). Note that you can use links within `read_csv()` to read online .csv files. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
+* The data are available [here](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv). Note that you can use links within `read_csv()` to read online .csv files. I recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
 
 ### Requirements
 
 * Your project should include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization should contribute to the substance of your report.
 * Your project should include at least 3 different types of visualizations (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.).
-* At least one of your plots should display variation over time in some way.
-* At least one of your plots should display variation over location in some way.
-* Each visualization should have a title and axis labels.
-* Each visualization should include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.). A good guideline is that someone who has not read your report should be able to look at just a visualization and its caption and fully understand what that visualization is showing.
+* At least one of your plots should display variation over time in some way (using any of the variables related to time).
+* At least one of your plots should display variation over location in some way (using any of the variables related to location).
 * Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine (and likely preferred if you think it's necessary), but it will only count towards 1 of your total visualizations.
 * Your report should have an introductory paragraph describing the data set and a concluding/summary paragraph describing your main takeaways and what you learned about building permits in Seattle through this project. (Feel free to include anything else you'd like in your introductory and concluding paragraphs).
-* **At the end of your report**, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Use comments to label which blocks of code correspond to which visualizations. **You should have no code in the main body of your report!** (Remember: you can use `echo = FALSE` to hide code in the report and `eval = FALSE` to print code without running it for a code appendix.)
+* **At the end of your report**, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Add additional comments to label which blocks of code correspond to which visualizations. **You should have no code in the main body of your report!** (Hint: You can write your report using `echo = FALSE` and `eval = TRUE` for each code chunk in order to hide the code chunk but evaluate the code within it. Then at the end you can provide a code appendix, where you copy each code chunk, now using code chunk parameters `echo = TRUE` and `eval = FALSE` to show each code chunk but not evaluate it.)
+* Visualization rules: 
+  * Each visualization should have a title and axis labels.
+  * All text on your plot should be large enough to read. 
+  * Labels should be meaningful (i.e. write out what a variable represents instead of using the variable name from the csv file).
+  * All x and y axes should start at 0 unless you have a compelling reason for them to start somewhere else. 
+  * If you use color it should be informative or help the reader see trends better (i.e. don't color all the bars in your bar chart bright yellow for no reason)
 
 Keep in mind: **there are no right answers for this project!**
 These are real data, and I'm hoping for creative and interesting analyses that tell a compelling story about the data rather than cookie cutter reports. Have some fun with it, and good luck!
@@ -62,6 +66,7 @@ There are 22 variables in the permit dataset that you can use for your project.
 * "HousingUnits": The number of housing units that will be affected by this permit. 
 * "HousingUnitsRemoved": The number of housing units that will be removed by this permit. 
 * "HousingUnitsAdded": The number of housing units that will be added by this permit. 
+* "EstProjectCost": The estimated cost for this project. Note that costs (or any variable related to money) are often right skewed, which means there are several large outliers. So, if you're looking at the distribution of costs, it can help to take a look at the log of the cost (as well as the cost itself) to make this variable more symmetric and closer to a Normal distribution. 
 * "IssuedDate": The date the permit was issued. I'd recommend using the variables "IssuedYear" and "IssuedMth" instead of this variable. 
 * "StatusCurrent": The current status of the permit. This could be completed, withdrawn, expired, etc. 
 * "OriginalAddress1": Address of the permit. I'd suggest avoiding using this variable unless you have experience manipulating strings in R!
@@ -77,7 +82,7 @@ There are 22 variables in the permit dataset that you can use for your project.
 
 ## Example visualizations 
 
-To give you a sense of a plot, caption, and explanation paragraph that would score well on this project, I've included the following two examples using a different dataset. Your plots don't need to look anything like these, they are simply examples of how to pair visualizations and text to point out certain patterns in a dataset. 
+To give you a sense of a plot and explanation paragraph that would score well on this project, I've included the following two examples using a different dataset. Your plots don't need to look anything like these, they are simply examples of how to pair visualizations and text to point out certain patterns in a dataset. 
 
 Note that my examples show the code then the output but in your report I expect to see only the visualizations and text in the body of the report and all code in a code appendix. 
 
@@ -103,9 +108,7 @@ ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp)) +
   ylim(c(0,90))
 ```
 
-Figure 1: This plot shows life expectancy by the log of GDP per capita for each continent. 
-
-There are several different things I notice in this plot. First, I see a positive relationship between the log of GDP per capita and life expectancy for every continent. This tells us that wealthier countries have longer life expectancies. This trend is expecially pronounced in Europe and Oceania, and less pronounced in Africa. Oceania has both high GDP per capita and high life expectancies for all of its countries, while the other continents have a greater range of both variables. Asia especially has the largest range of GDP per capita and of life expectancy. Overall, this plot shows us that while every continent has a positive relationship between the log of GDP per capita and life expectancy, the strength of this relationship and range of each variable vary by continent. 
+This plot shows life expectancy by the log of GDP per capita for each continent. There are several different things I notice in this plot. First, I see a positive relationship between the log of GDP per capita and life expectancy for every continent. This tells us that wealthier countries have longer life expectancies. This trend is expecially pronounced in Europe and Oceania, and less pronounced in Africa. Oceania has both high GDP per capita and high life expectancies for all of its countries, while the other continents have a greater range of both variables. Asia especially has the largest range of GDP per capita and of life expectancy. Overall, this plot shows us that while every continent has a positive relationship between the log of GDP per capita and life expectancy, the strength of this relationship and range of each variable vary by continent. 
 
 ```{r}
 # compute the average life expectancy by continent in 1952
@@ -131,7 +134,6 @@ ggplot(data = life_exp_1952, aes(x = continent, y = avg_life_exp)) +
   ylim(c(0, 85))
 ```
 
-Figure 2: This plot shows the average life expectancy for each continent in 1952. 
 
 ```{r}
 # make bar plot for average life expectancy by continent in 2007
@@ -145,6 +147,4 @@ ggplot(data = life_exp_2007, aes(x = continent, y = avg_life_exp)) +
   ylim(c(0, 85))
 ```
 
-Figure 3: This plot shows the average life expectancy for each continent in 2007. 
-
-From these two plots, we can see life expectancy increased for every continent from 1952 to 2007. In both years, the ordering of continents by life expectancy from lowest to highest is Africa, Asia, the Americas, Europe, then Oceania. The largest change happened for Asia, which went from an average life expectancy of roughly 45 in 1952 to a average life expectancy of roughly 70 in 2007. The smallest change happened in Oceania, in which life expectancy only increased about 10 years from 1952 to 2007. Additionally, these two plots show us that while the ordering of continents by life expectancy is constant between 1952 and 2007, average life expectancies had a larger range between continents in 1952 compared to 2007. This suggests that the differences in average life expectancy by continent could be decreasing over time.
+My first plot shows the average life expectancy by continent in 1952 and my second plot shows the average life expectancy by continent in 2007. From these two plots, we can see life expectancy increased for every continent from 1952 to 2007. In both years, the ordering of continents by life expectancy from lowest to highest is Africa, Asia, the Americas, Europe, then Oceania. The largest change happened for Asia, which went from an average life expectancy of roughly 45 in 1952 to a average life expectancy of roughly 70 in 2007. The smallest change happened in Oceania, in which life expectancy only increased about 10 years from 1952 to 2007. Additionally, these two plots show us that while the ordering of continents by life expectancy is constant between 1952 and 2007, average life expectancies had a larger range between continents in 1952 compared to 2007. This suggests that the differences in average life expectancy by continent could be decreasing over time.
