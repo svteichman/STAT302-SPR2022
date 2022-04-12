@@ -26,7 +26,9 @@ class: center, title-slide
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/pig.png" width="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/sansa.jpeg" width="250px" style="display: block; margin: auto;" /&gt;
+
+Thanks Pranav!
 
 ---
 
@@ -1015,12 +1017,11 @@ ggplot(data = gapminder,
 .pull-left[## Don'ts
 * 3D plots
 * Deceptive axes
-* Excessive labels
 * Excessive/bad coloring
-* Fancy shading/effects
 * Bad variable/axis names
 * Unreadable labels
 * Overloaded with information
+* Pie charts (usually)
 ]
 
 .pull-right[## Do's
@@ -1136,43 +1137,6 @@ layout: false
 
 ---
 
-# Today's pet picture 
-
-
-&lt;img src="../../files/images/pets/duke.png" width="500px" style="display: block; margin: auto;" /&gt;
-
----
-
-# Before we start 
-
-Let's reload the gapminder package.
-
-
-```r
-library(gapminder)
-data(gapminder)
-```
-
-Remind ourselves what data is here.
-
-
-```r
-head(gapminder)
-```
-
-```
-## # A tibble: 6 × 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.
-## 5 Afghanistan Asia       1972    36.1 13079460      740.
-## 6 Afghanistan Asia       1977    38.4 14880372      786.
-```
-
----
 
 # Before we start 
 
@@ -1187,7 +1151,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-79-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1206,7 +1170,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-81-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1231,7 +1195,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-80-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1285,7 +1249,6 @@ gapminder %&gt;%
 ```
 
 But what about the rest?
-
 ---
 
 class: inverse
@@ -2573,7 +2536,7 @@ ggplot(data = lifeExpDiff,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-129-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-126-1.png)&lt;!-- --&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

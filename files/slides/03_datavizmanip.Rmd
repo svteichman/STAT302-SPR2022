@@ -25,9 +25,11 @@ library(kableExtra)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/pig.png")
+```{r, echo = FALSE, out.width = "250px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/sansa.jpeg")
 ```
+
+Thanks Pranav!
 
 ---
 
@@ -1160,12 +1162,11 @@ ggplot(data = gapminder,
 .pull-left[## Don'ts
 * 3D plots
 * Deceptive axes
-* Excessive labels
 * Excessive/bad coloring
-* Fancy shading/effects
 * Bad variable/axis names
 * Unreadable labels
 * Overloaded with information
+* Pie charts (usually)
 ]
 
 .pull-right[## Do's
@@ -1281,31 +1282,6 @@ layout: false
 
 ---
 
-# Today's pet picture 
-
-
-```{r, echo = FALSE, out.width = "500px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/duke.png")
-```
-
----
-
-# Before we start 
-
-Let's reload the gapminder package.
-
-```{r}
-library(gapminder)
-data(gapminder)
-```
-
-Remind ourselves what data is here.
-
-```{r}
-head(gapminder)
-```
-
----
 
 # Before we start 
 
@@ -1406,7 +1382,6 @@ gapminder %>%
 ```
 
 But what about the rest?
-
 ---
 
 class: inverse
