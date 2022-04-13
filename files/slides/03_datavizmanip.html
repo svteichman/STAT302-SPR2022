@@ -156,30 +156,6 @@ head(gapminder, 10)
 
 ---
 
-## A brief note on factors
-
-
-```r
-str(gapminder)
-```
-
-```
-## tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
-##  $ pop      : int [1:1704] 8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
-##  $ gdpPercap: num [1:1704] 779 821 853 836 740 ...
-```
-
-**factors** are categorical data that use integer representation.
-
-This can be efficient to store character vectors, because each string is only entered once. 
-Because of this, data frames (but not tibbles!) in R default to setting strings as factors. 
-However, it can also get annoying! 
-Factors limit the categories, or `levels`, of the vector, which can cause problems.
----
 
 ## Functions in Functions
 
@@ -288,7 +264,7 @@ First, let's initialize a plot. Use the `data` parameter to tell `ggplot` what d
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -306,7 +282,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -326,7 +302,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -343,7 +319,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -360,7 +336,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -378,7 +354,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -402,7 +378,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -430,7 +406,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -458,7 +434,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -490,7 +466,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -521,7 +497,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -547,7 +523,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -576,7 +552,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -603,7 +579,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -634,7 +610,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -664,7 +640,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -693,7 +669,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -729,7 +705,7 @@ lifeExp_plot
 ```
 
 .center[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -773,7 +749,7 @@ They will be lower quality and non-reproducible!]
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -795,7 +771,7 @@ ggplot(data = gapminder,
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](03_datavizmanip_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -812,7 +788,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -831,7 +807,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -851,7 +827,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -873,7 +849,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -889,7 +865,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -906,7 +882,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -923,7 +899,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -941,7 +917,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -962,7 +938,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-69-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -985,7 +961,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1009,7 +985,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1035,93 +1011,6 @@ ggplot(data = gapminder,
 
 ---
 layout: false
-layout: true
-
-# Bad Visualizations!
-
----
-
-.center[&lt;img src="images/bad1.jpg" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Pie charts! These proportions are completely off!
----
-
-.center[&lt;img src="images/bad2.jpg" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Pie charts! These percents don't add up!
-
----
-
-.center[&lt;img src="images/bad3.png" alt="" height="300"/&gt;]
-
---
-
-**No-no:** 3d bar charts?!
-
----
-
-.center[&lt;img src="images/bad4.png" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Bad use of color
-
----
-
-.center[&lt;img src="images/bad5.jpg" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Bad axis, lack of information, 3D bar chart
-
----
-
-.center[&lt;img src="images/bad6.jpg" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Four numbers displayed as a cluttered chart, terrible labels, bad axis range
-
----
-
-.center[&lt;img src="images/bad7.jpg" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Deceptively flipped y-axis! (and excessive color)
-
----
-
-.center[&lt;img src="images/bad8.jpg" alt="" height="300"/&gt;]
-.center[(This was presented in Congress!)]
-
---
-
-**No-no:** Two axes in a single plot, bad axis range
-
----
-
-.center[&lt;img src="images/bad9.png" alt="" height="300"/&gt;]
-
---
-
-**No-no:** Deceptive axis range (should start at 0)
-
----
-
-.center[&lt;img src="images/bad10.png" alt="" height="300"/&gt;]
-.center[(From the Gates Foundation!)]
-
---
-
-**No-no:** Inconsistent x-axis intervals
-
----
-layout: false
 
 # ggplot cheatsheet
 
@@ -1137,72 +1026,90 @@ layout: false
 
 ---
 
+# What plot to use?
 
-# Before we start 
-
-Let's make a bar chart for the number of observations for each continent.
-
-.pull-left[
-
-```r
-ggplot(data = gapminder, 
-       aes(x = continent)) 
-```
-]
-
-.pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
-]
+* What if you have 1 variable? 2 variables?
+* What if you have numeric data? What about categorical?
 
 ---
 
-# Before we start 
+# One numeric variable: histogram 
+## `geom_histogram()`
 
-Let's make a bar chart for the number of observations for each continent.
-
-.pull-left[
-
-```r
-ggplot(data = gapminder, 
-       aes(x = continent)) + 
-  geom_bar()
-```
-]
-
-.pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
-]
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-74-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Before we start 
+# One numeric variable: boxplot
+## `geom_boxplot()`
 
-Let's make a bar chart for the number of observations for each continent.
-
-.pull-left[
-
-```r
-ggplot(data = gapminder, 
-       aes(x = continent)) + 
-  geom_bar() +
-  theme_bw(base_size = 20) +
-  labs(title = "Observations by Continent", 
-       x = "Continent", 
-       y = "Number of Observations") +
-  theme(plot.title =
-          element_text(hjust = 0.5)) 
-```
-]
-
-.pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-80-1.png)&lt;!-- --&gt;
-]
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-75-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Before we start 
+# One categorical variable: bar chart
+## `geom_bar()`
 
-However, what if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-76-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# One numeric and one categorical variable
+## `geom_boxplot()`
+
+Here, we have multiple observations for each category. 
+
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-77-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# One numeric and one categorical variable
+## `geom_bar()` (with argument `stat = "identity"`)
+
+Here we have only one observation per category.
+
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-78-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Two numeric variables: scatterplot
+## `geom_point()`
+
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-79-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Two numeric variables, one time-based
+## `geom_line()`
+
+Hint: often when I make a line plot I like to use both `geom_point()` and `geom_line()`! 
+
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-80-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Two categorical variables
+## `geom_bar()` setting `x` and `fill` within `aes()`
+
+&lt;img src="03_datavizmanip_files/figure-html/unnamed-chunk-81-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Three variables 
+
+* Two numeric variables and one categorical? 
+
+--
+
+  * Scatterplot or line plot colored by category 
+  * Scatterplot or line plot faceted by category
+  * Many possibilities! See slides 17-40! 
+
+---
+
+# What about data manipulation?
+
+What if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
 
 
 ```r
@@ -1210,22 +1117,22 @@ head(gapminder)
 ```
 
 ```
-## # A tibble: 6 × 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.
-## 5 Afghanistan Asia       1972    36.1 13079460      740.
-## 6 Afghanistan Asia       1977    38.4 14880372      786.
+## # A tibble: 6 × 7
+##   country     continent  year lifeExp      pop gdpPercap lifeExpCat
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;     
+## 1 Afghanistan Asia       1952    28.8  8425333      779. FALSE     
+## 2 Afghanistan Asia       1957    30.3  9240934      821. FALSE     
+## 3 Afghanistan Asia       1962    32.0 10267083      853. FALSE     
+## 4 Afghanistan Asia       1967    34.0 11537966      836. FALSE     
+## 5 Afghanistan Asia       1972    36.1 13079460      740. FALSE     
+## 6 Afghanistan Asia       1977    38.4 14880372      786. FALSE
 ```
 
 ---
 
-# Before we start 
+# What about data manipulation?
 
-However, what if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
+What if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
 
 We know how to filter the data to only include data in Europe. 
 
@@ -1237,15 +1144,15 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 × 6
-##   country continent  year lifeExp     pop gdpPercap
-##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
-## 1 Albania Europe     1952    55.2 1282697     1601.
-## 2 Albania Europe     1957    59.3 1476505     1942.
-## 3 Albania Europe     1962    64.8 1728137     2313.
-## 4 Albania Europe     1967    66.2 1984060     2760.
-## 5 Albania Europe     1972    67.7 2263554     3313.
-## 6 Albania Europe     1977    68.9 2509048     3533.
+## # A tibble: 6 × 7
+##   country continent  year lifeExp     pop gdpPercap lifeExpCat
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;     
+## 1 Albania Europe     1952    55.2 1282697     1601. FALSE     
+## 2 Albania Europe     1957    59.3 1476505     1942. FALSE     
+## 3 Albania Europe     1962    64.8 1728137     2313. TRUE      
+## 4 Albania Europe     1967    66.2 1984060     2760. TRUE      
+## 5 Albania Europe     1972    67.7 2263554     3313. TRUE      
+## 6 Albania Europe     1977    68.9 2509048     3533. TRUE
 ```
 
 But what about the rest?
@@ -1298,19 +1205,19 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 1,704 × 4
-##    country     continent  year      pop
-##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;
-##  1 Afghanistan Asia       1952  8425333
-##  2 Afghanistan Asia       1957  9240934
-##  3 Afghanistan Asia       1962 10267083
-##  4 Afghanistan Asia       1967 11537966
-##  5 Afghanistan Asia       1972 13079460
-##  6 Afghanistan Asia       1977 14880372
-##  7 Afghanistan Asia       1982 12881816
-##  8 Afghanistan Asia       1987 13867957
-##  9 Afghanistan Asia       1992 16317921
-## 10 Afghanistan Asia       1997 22227415
+## # A tibble: 1,704 × 5
+##    country     continent  year      pop lifeExpCat
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;    &lt;int&gt; &lt;lgl&gt;     
+##  1 Afghanistan Asia       1952  8425333 FALSE     
+##  2 Afghanistan Asia       1957  9240934 FALSE     
+##  3 Afghanistan Asia       1962 10267083 FALSE     
+##  4 Afghanistan Asia       1967 11537966 FALSE     
+##  5 Afghanistan Asia       1972 13079460 FALSE     
+##  6 Afghanistan Asia       1977 14880372 FALSE     
+##  7 Afghanistan Asia       1982 12881816 FALSE     
+##  8 Afghanistan Asia       1987 13867957 FALSE     
+##  9 Afghanistan Asia       1992 16317921 FALSE     
+## 10 Afghanistan Asia       1997 22227415 FALSE     
 ## # … with 1,694 more rows
 ```
 
@@ -1328,7 +1235,8 @@ names(gapminder)
 ```
 
 ```
-## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+## [1] "country"    "continent"  "year"       "lifeExp"    "pop"       
+## [6] "gdpPercap"  "lifeExpCat"
 ```
 
 ```r
@@ -1363,7 +1271,8 @@ names(gapminder)
 ```
 
 ```
-## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+## [1] "country"    "continent"  "year"       "lifeExp"    "pop"       
+## [6] "gdpPercap"  "lifeExpCat"
 ```
 
 ```r
@@ -1398,7 +1307,8 @@ names(gapminder)
 ```
 
 ```
-## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+## [1] "country"    "continent"  "year"       "lifeExp"    "pop"       
+## [6] "gdpPercap"  "lifeExpCat"
 ```
 
 ```r
@@ -1450,15 +1360,15 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 × 7
-##   country     continent  year lifeExp      pop gdpPercap          gdp
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
-## 5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
-## 6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+## # A tibble: 6 × 8
+##   country     continent  year lifeExp      pop gdpPercap lifeExpCat          gdp
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;             &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779. FALSE       6567086330.
+## 2 Afghanistan Asia       1957    30.3  9240934      821. FALSE       7585448670.
+## 3 Afghanistan Asia       1962    32.0 10267083      853. FALSE       8758855797.
+## 4 Afghanistan Asia       1967    34.0 11537966      836. FALSE       9648014150.
+## 5 Afghanistan Asia       1972    36.1 13079460      740. FALSE       9678553274.
+## 6 Afghanistan Asia       1977    38.4 14880372      786. FALSE      11697659231.
 ```
 
 ---
@@ -1474,15 +1384,15 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 × 8
-##   country     continent  year lifeExp      pop gdpPercap          gdp logGDP
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.   22.6
-## 2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.   22.7
-## 3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.   22.9
-## 4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.   23.0
-## 5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.   23.0
-## 6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.   23.2
+## # A tibble: 6 × 9
+##   country     continent  year lifeExp    pop gdpPercap lifeExpCat     gdp logGDP
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8 8.43e6      779. FALSE      6.57e 9   22.6
+## 2 Afghanistan Asia       1957    30.3 9.24e6      821. FALSE      7.59e 9   22.7
+## 3 Afghanistan Asia       1962    32.0 1.03e7      853. FALSE      8.76e 9   22.9
+## 4 Afghanistan Asia       1967    34.0 1.15e7      836. FALSE      9.65e 9   23.0
+## 5 Afghanistan Asia       1972    36.1 1.31e7      740. FALSE      9.68e 9   23.0
+## 6 Afghanistan Asia       1977    38.4 1.49e7      786. FALSE      1.17e10   23.2
 ```
 
 ---
@@ -1624,15 +1534,15 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 × 6
-##   country   continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Albania   Europe     2002    75.7  3508512     4604.
-## 2 Albania   Europe     2007    76.4  3600523     5937.
-## 3 Argentina Americas   2002    74.3 38331121     8798.
-## 4 Argentina Americas   2007    75.3 40301927    12779.
-## 5 Austria   Europe     2002    79.0  8148312    32418.
-## 6 Austria   Europe     2007    79.8  8199783    36126.
+## # A tibble: 6 × 7
+##   country   continent  year lifeExp      pop gdpPercap lifeExpCat
+##   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;     
+## 1 Albania   Europe     2002    75.7  3508512     4604. TRUE      
+## 2 Albania   Europe     2007    76.4  3600523     5937. TRUE      
+## 3 Argentina Americas   2002    74.3 38331121     8798. TRUE      
+## 4 Argentina Americas   2007    75.3 40301927    12779. TRUE      
+## 5 Austria   Europe     2002    79.0  8148312    32418. TRUE      
+## 6 Austria   Europe     2007    79.8  8199783    36126. TRUE
 ```
 
 ---
@@ -1667,14 +1577,14 @@ head(grouped_gap, 4)
 ```
 
 ```
-## # A tibble: 4 × 6
+## # A tibble: 4 × 7
 ## # Groups:   continent [1]
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.
+##   country     continent  year lifeExp      pop gdpPercap lifeExpCat
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;     
+## 1 Afghanistan Asia       1952    28.8  8425333      779. FALSE     
+## 2 Afghanistan Asia       1957    30.3  9240934      821. FALSE     
+## 3 Afghanistan Asia       1962    32.0 10267083      853. FALSE     
+## 4 Afghanistan Asia       1967    34.0 11537966      836. FALSE
 ```
 
 ---
@@ -1699,15 +1609,15 @@ head(ungrouped_gap)
 ```
 
 ```
-## # A tibble: 6 × 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.
-## 5 Afghanistan Asia       1972    36.1 13079460      740.
-## 6 Afghanistan Asia       1977    38.4 14880372      786.
+## # A tibble: 6 × 7
+##   country     continent  year lifeExp      pop gdpPercap lifeExpCat
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;     
+## 1 Afghanistan Asia       1952    28.8  8425333      779. FALSE     
+## 2 Afghanistan Asia       1957    30.3  9240934      821. FALSE     
+## 3 Afghanistan Asia       1962    32.0 10267083      853. FALSE     
+## 4 Afghanistan Asia       1967    34.0 11537966      836. FALSE     
+## 5 Afghanistan Asia       1972    36.1 13079460      740. FALSE     
+## 6 Afghanistan Asia       1977    38.4 14880372      786. FALSE
 ```
 
 ---
@@ -1791,113 +1701,6 @@ gapminder %&gt;%
 
 
 ---
-
-## `count()`
-
-If we want to count by groups, we can use the notation we've already earned.
-
-
-```r
-gapminder %&gt;%
-  group_by(continent) %&gt;%
-  summarize(count = n())
-```
-
-```
-## # A tibble: 5 × 2
-##   continent count
-##   &lt;fct&gt;     &lt;int&gt;
-## 1 Africa      624
-## 2 Americas    300
-## 3 Asia        396
-## 4 Europe      360
-## 5 Oceania      24
-```
-
----
-
-## `count()`
-
-Alternatively, we can use the shorthand `count()`, with optional argument `sort` to order.
-
-
-```r
-gapminder %&gt;%
-  count(continent, sort = FALSE)
-```
-
-```
-## # A tibble: 5 × 2
-##   continent     n
-##   &lt;fct&gt;     &lt;int&gt;
-## 1 Africa      624
-## 2 Americas    300
-## 3 Asia        396
-## 4 Europe      360
-## 5 Oceania      24
-```
-
----
-
-## `count()`
-
-We can also count combinations of categories by supplying multiple variables to `count()`.
-
-
-```r
-gapminder %&gt;%
-  count(continent, country)
-```
-
-```
-## # A tibble: 142 × 3
-##    continent country                      n
-##    &lt;fct&gt;     &lt;fct&gt;                    &lt;int&gt;
-##  1 Africa    Algeria                     12
-##  2 Africa    Angola                      12
-##  3 Africa    Benin                       12
-##  4 Africa    Botswana                    12
-##  5 Africa    Burkina Faso                12
-##  6 Africa    Burundi                     12
-##  7 Africa    Cameroon                    12
-##  8 Africa    Central African Republic    12
-##  9 Africa    Chad                        12
-## 10 Africa    Comoros                     12
-## # … with 132 more rows
-```
-
----
-
-## `count()`
-
-We can also count combinations of categories by supplying multiple variables to `count()`, we can then sort using `arrange()`.
-
-
-```r
-gapminder %&gt;%
-  count(continent, country) %&gt;%
-  arrange(country, desc(n))
-```
-
-```
-## # A tibble: 142 × 3
-##    continent country         n
-##    &lt;fct&gt;     &lt;fct&gt;       &lt;int&gt;
-##  1 Asia      Afghanistan    12
-##  2 Europe    Albania        12
-##  3 Africa    Algeria        12
-##  4 Africa    Angola         12
-##  5 Americas  Argentina      12
-##  6 Oceania   Australia      12
-##  7 Europe    Austria        12
-##  8 Asia      Bahrain        12
-##  9 Asia      Bangladesh     12
-## 10 Europe    Belgium        12
-## # … with 132 more rows
-```
-
-
----
 layout:false 
 
 # &lt;TT&gt;pull()&lt;/TT&gt;: extract column as vector
@@ -1945,19 +1748,19 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 1,704 × 6
-##    country     continent  year life_exp      pop gdpPercap
-##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;    &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-##  1 Afghanistan Asia       1952     28.8  8425333      779.
-##  2 Afghanistan Asia       1957     30.3  9240934      821.
-##  3 Afghanistan Asia       1962     32.0 10267083      853.
-##  4 Afghanistan Asia       1967     34.0 11537966      836.
-##  5 Afghanistan Asia       1972     36.1 13079460      740.
-##  6 Afghanistan Asia       1977     38.4 14880372      786.
-##  7 Afghanistan Asia       1982     39.9 12881816      978.
-##  8 Afghanistan Asia       1987     40.8 13867957      852.
-##  9 Afghanistan Asia       1992     41.7 16317921      649.
-## 10 Afghanistan Asia       1997     41.8 22227415      635.
+## # A tibble: 1,704 × 7
+##    country     continent  year life_exp      pop gdpPercap lifeExpCat
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;    &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;lgl&gt;     
+##  1 Afghanistan Asia       1952     28.8  8425333      779. FALSE     
+##  2 Afghanistan Asia       1957     30.3  9240934      821. FALSE     
+##  3 Afghanistan Asia       1962     32.0 10267083      853. FALSE     
+##  4 Afghanistan Asia       1967     34.0 11537966      836. FALSE     
+##  5 Afghanistan Asia       1972     36.1 13079460      740. FALSE     
+##  6 Afghanistan Asia       1977     38.4 14880372      786. FALSE     
+##  7 Afghanistan Asia       1982     39.9 12881816      978. FALSE     
+##  8 Afghanistan Asia       1987     40.8 13867957      852. FALSE     
+##  9 Afghanistan Asia       1992     41.7 16317921      649. FALSE     
+## 10 Afghanistan Asia       1997     41.8 22227415      635. FALSE     
 ## # … with 1,694 more rows
 ```
 
@@ -2536,7 +2339,7 @@ ggplot(data = lifeExpDiff,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-126-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-123-1.png)&lt;!-- --&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

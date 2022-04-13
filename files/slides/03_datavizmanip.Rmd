@@ -139,19 +139,6 @@ head(gapminder, 10)
 
 ---
 
-## A brief note on factors
-
-```{r}
-str(gapminder)
-```
-
-**factors** are categorical data that use integer representation.
-
-This can be efficient to store character vectors, because each string is only entered once. 
-Because of this, data frames (but not tibbles!) in R default to setting strings as factors. 
-However, it can also get annoying! 
-Factors limit the categories, or `levels`, of the vector, which can cause problems.
----
 
 ## Functions in Functions
 
@@ -1180,93 +1167,6 @@ ggplot(data = gapminder,
 
 ---
 layout: false
-layout: true
-
-# Bad Visualizations!
-
----
-
-.center[<img src="images/bad1.jpg" alt="" height="300"/>]
-
---
-
-**No-no:** Pie charts! These proportions are completely off!
----
-
-.center[<img src="images/bad2.jpg" alt="" height="300"/>]
-
---
-
-**No-no:** Pie charts! These percents don't add up!
-
----
-
-.center[<img src="images/bad3.png" alt="" height="300"/>]
-
---
-
-**No-no:** 3d bar charts?!
-
----
-
-.center[<img src="images/bad4.png" alt="" height="300"/>]
-
---
-
-**No-no:** Bad use of color
-
----
-
-.center[<img src="images/bad5.jpg" alt="" height="300"/>]
-
---
-
-**No-no:** Bad axis, lack of information, 3D bar chart
-
----
-
-.center[<img src="images/bad6.jpg" alt="" height="300"/>]
-
---
-
-**No-no:** Four numbers displayed as a cluttered chart, terrible labels, bad axis range
-
----
-
-.center[<img src="images/bad7.jpg" alt="" height="300"/>]
-
---
-
-**No-no:** Deceptively flipped y-axis! (and excessive color)
-
----
-
-.center[<img src="images/bad8.jpg" alt="" height="300"/>]
-.center[(This was presented in Congress!)]
-
---
-
-**No-no:** Two axes in a single plot, bad axis range
-
----
-
-.center[<img src="images/bad9.png" alt="" height="300"/>]
-
---
-
-**No-no:** Deceptive axis range (should start at 0)
-
----
-
-.center[<img src="images/bad10.png" alt="" height="300"/>]
-.center[(From the Gates Foundation!)]
-
---
-
-**No-no:** Inconsistent x-axis intervals
-
----
-layout: false
 
 # ggplot cheatsheet
 
@@ -1282,86 +1182,179 @@ layout: false
 
 ---
 
+# What plot to use?
 
-# Before we start 
-
-Let's make a bar chart for the number of observations for each continent.
-
-.pull-left[
-```{r, eval = FALSE}
-ggplot(data = gapminder, 
-       aes(x = continent)) 
-```
-]
-
-.pull-right[
-```{r, echo = FALSE, fig.height = 5}
-ggplot(data = gapminder, 
-       aes(x = continent))
-```
-]
+* What if you have 1 variable? 2 variables?
+* What if you have numeric data? What about categorical?
 
 ---
 
-# Before we start 
+# One numeric variable: histogram 
+## `geom_histogram()`
 
-Let's make a bar chart for the number of observations for each continent.
-
-.pull-left[
-```{r, eval = FALSE}
-ggplot(data = gapminder, 
-       aes(x = continent)) + 
-  geom_bar()
-```
-]
-
-.pull-right[
-```{r, echo = FALSE, fig.height = 5}
-ggplot(data = gapminder, 
-       aes(x = continent)) + 
-  geom_bar()
-```
-]
-
----
-
-# Before we start 
-
-Let's make a bar chart for the number of observations for each continent.
-
-.pull-left[
-```{r, eval = FALSE}
-ggplot(data = gapminder, 
-       aes(x = continent)) + 
-  geom_bar() +
-  theme_bw(base_size = 20) +
-  labs(title = "Observations by Continent", 
-       x = "Continent", 
-       y = "Number of Observations") +
-  theme(plot.title =
+```{r echo = FALSE, message=FALSE, fig.height = 7, fig.align='center'}
+ggplot(gapminder, aes(x = lifeExp)) + 
+  geom_histogram() + 
+  labs(x = "Life Expectancy",
+       y = "Count",
+       title = "Distribution of Life Expectancy") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
           element_text(hjust = 0.5)) 
 ```
-]
-
-.pull-right[
-```{r, echo = FALSE, fig.height = 5}
-ggplot(data = gapminder, 
-       aes(x = continent)) + 
-  geom_bar() +
-  theme_bw(base_size = 20) +
-  labs(title = "Observations by Continent", 
-       x = "Continent", 
-       y = "Number of Observations") +
-  theme(plot.title =
-          element_text(hjust = 0.5)) 
-```
-]
 
 ---
 
-# Before we start 
+# One numeric variable: boxplot
+## `geom_boxplot()`
 
-However, what if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
+```{r echo = FALSE, message=FALSE, fig.height = 7, fig.align='center'}
+ggplot(gapminder, aes(y = lifeExp)) + 
+  geom_boxplot() + 
+  labs(x = "",
+       y = "Life Expectancy",
+       title = "Distribution of Life Expectancy") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  ylim(c(0,90))
+```
+
+---
+
+# One categorical variable: bar chart
+## `geom_bar()`
+
+```{r echo = FALSE, message=FALSE, fig.height = 7, fig.align='center'}
+ggplot(gapminder, aes(x = continent)) + 
+  geom_bar() + 
+  labs(x = "Continent",
+       y = "Count",
+       title = "Distribution of Continent") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) 
+```
+
+---
+
+# One numeric and one categorical variable
+## `geom_boxplot()`
+
+Here, we have multiple observations for each category. 
+
+```{r echo = FALSE, message=FALSE, fig.height = 6, fig.align='center'}
+ggplot(gapminder, aes(x = continent, y = lifeExp)) + 
+  geom_boxplot() + 
+  labs(x = "Continent",
+       y = "Life Expectancy",
+       title = "Life Expectancy by Continent") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) 
+```
+
+---
+
+# One numeric and one categorical variable
+## `geom_bar()` (with argument `stat = "identity"`)
+
+Here we have only one observation per category.
+
+```{r echo = FALSE, message=FALSE, fig.height = 5.5, fig.align='center'}
+mean_lifeExp <- gapminder %>%
+  group_by(continent) %>%
+  summarise(mean_lifeExp = mean(lifeExp))
+
+ggplot(mean_lifeExp, aes(x = continent, y = mean_lifeExp)) + 
+  geom_bar(stat = "identity") + 
+  labs(x = "Continent",
+       y = "Mean Life Expectancy",
+       title = "Mean Life Expectancy by Continent") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) 
+```
+
+---
+
+# Two numeric variables: scatterplot
+## `geom_point()`
+
+```{r echo = FALSE, message=FALSE, fig.height = 7, fig.align='center'}
+ggplot(gapminder, aes(y = lifeExp, x = log(gdpPercap))) + 
+  geom_point() + 
+  labs(y = "Life expectancy",
+       x = "Log GDP per capita",
+       title = "Life Expectancy by Log GDP per capita") + 
+  ylim(c(0,90)) + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) 
+```
+
+---
+
+# Two numeric variables, one time-based
+## `geom_line()`
+
+Hint: often when I make a line plot I like to use both `geom_point()` and `geom_line()`! 
+
+```{r echo = FALSE, message=FALSE, fig.height = 6, fig.align='center'}
+time_maxlifeExp <- gapminder %>%
+  group_by(year) %>%
+  summarise(maxlifeExp = max(lifeExp))
+
+ggplot(time_maxlifeExp, aes(x = year, y = maxlifeExp)) + 
+  geom_line() + 
+  geom_point() + 
+  labs(y = "Maximum life expectancy",
+       x = "Year",
+       title = "Maximum Life Expectancy by Year") + 
+  ylim(c(0,85)) + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) 
+```
+
+---
+
+# Two categorical variables
+## `geom_bar()` setting `x` and `fill` within `aes()`
+
+```{r echo = FALSE, message=FALSE, fig.height = 6, fig.align='center'}
+gapminder <- gapminder %>% 
+  mutate(lifeExpCat = ifelse(lifeExp > 60, TRUE, FALSE))
+ggplot(gapminder, aes(x = continent, fill = lifeExpCat)) + 
+  geom_bar() + 
+  xlab("Continent") + 
+  ylab("Count") + 
+  labs(fill = "Life Exp. > 60") + 
+  ggtitle("Distribution of Continent and Life Expectancy") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) 
+```
+
+---
+
+# Three variables 
+
+* Two numeric variables and one categorical? 
+
+--
+
+  * Scatterplot or line plot colored by category 
+  * Scatterplot or line plot faceted by category
+  * Many possibilities! See slides 17-40! 
+
+---
+
+# What about data manipulation?
+
+What if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
 
 ```{r}
 head(gapminder)
@@ -1369,9 +1362,9 @@ head(gapminder)
 
 ---
 
-# Before we start 
+# What about data manipulation?
 
-However, what if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
+What if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
 
 We know how to filter the data to only include data in Europe. 
 
@@ -1646,53 +1639,6 @@ gapminder %>%
   summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
             max_gdp = max(gdpPercap)) %>%
   arrange(desc(mean_lifeExp))
-```
-
-
----
-
-## `count()`
-
-If we want to count by groups, we can use the notation we've already earned.
-
-```{r, message = FALSE}
-gapminder %>%
-  group_by(continent) %>%
-  summarize(count = n())
-```
-
----
-
-## `count()`
-
-Alternatively, we can use the shorthand `count()`, with optional argument `sort` to order.
-
-```{r}
-gapminder %>%
-  count(continent, sort = FALSE)
-```
-
----
-
-## `count()`
-
-We can also count combinations of categories by supplying multiple variables to `count()`.
-
-```{r}
-gapminder %>%
-  count(continent, country)
-```
-
----
-
-## `count()`
-
-We can also count combinations of categories by supplying multiple variables to `count()`, we can then sort using `arrange()`.
-
-```{r}
-gapminder %>%
-  count(continent, country) %>%
-  arrange(country, desc(n))
 ```
 
 
