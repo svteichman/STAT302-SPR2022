@@ -1352,6 +1352,17 @@ ggplot(gapminder, aes(x = continent, fill = lifeExpCat)) +
 
 ---
 
+# Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/Macie_and_Bluto.jpeg")
+```
+
+Thanks Moira!
+
+---
+
 # What about data manipulation?
 
 What if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? 
@@ -1894,6 +1905,13 @@ layout: false
 * `inner_join()`, `left_join()`, `right_join()`, `outer_join()` combine data (like SQL)
 
 .pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
+
+
+---
+
+# Back to our earlier example
+
+What if we want to plot the differences between the minimum and maximum life expectancy for each country in Europe? Let's only consider countries with the ten largest differences. 
 
 ---
 
