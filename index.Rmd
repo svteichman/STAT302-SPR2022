@@ -30,11 +30,11 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 ### Week Four
 
 * **M 04/18**: No new assignment
-* **W 04/20**: Short lab 2 assigned 
+* **W 04/20**: (optional) Short lab 2 assigned 
 
 ### Week Five
 
-* **M 04/25**: Project 1 and Short lab 2 due before class; Short lab 3 assigned
+* **M 04/25**: Project 1 and (optional) Short lab 2 due before class; Short lab 3 assigned
 * **W 04/27**: Short lab 3 due before class; Lab 3 assigned
 
 ### Week Six

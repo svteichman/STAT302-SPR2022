@@ -13,8 +13,8 @@
       "title": "STAT 302",
       "description": "Statistical Software and its Applications\n",
       "author": [],
-      "contents": "\nMaterials for this course were originally developed by Bryan Martin.\nSchedule\nWeek One\nM 03/28: Short lab 0 assigned\nW 03/30: Short lab 0 due before class; Short lab 1 assigned\nWeek Two\nM 04/04: Short lab 1 due before class; Lab 1 assigned\nW 04/06: Lab 2 assigned\nWeek Three\nM 04/11: Lab 1 due before class\nW 04/13: Lab 2 due before class, Project 1 assigned\nWeek Four\nM 04/18: No new assignment\nW 04/20: Short lab 2 assigned\nWeek Five\nM 04/25: Project 1 and Short lab 2 due before class; Short lab 3 assigned\nW 04/27: Short lab 3 due before class; Lab 3 assigned\nWeek Six\nM 05/02: No new assignment\nW 05/04: Lab 3 due before class; Project 2 assigned\nWeek Seven\nM 05/09: No new assignment\nW 05/11: Short lab 4 assigned\nWeek Eight\nM 05/16: Project 2 and Short lab 4 due before class; Short lab 5 assigned\nW 05/18: Short lab 5 due before class; Lab 4 assigned\nWeek Nine\nM 05/23: No new assignment\nW 05/25: Lab 4 due before class; Project 3 assigned\nWeek Ten\nM 05/30: No class\nW 06/01: No new assignment\nF 06/03: Project 3 due at 11:59\n\n\n\n",
-      "last_modified": "2022-03-20T14:32:01-07:00"
+      "contents": "\nMaterials for this course were originally developed by Bryan Martin.\nSchedule\nWeek One\nM 03/28: Short lab 0 assigned\nW 03/30: Short lab 0 due before class; Short lab 1 assigned\nWeek Two\nM 04/04: Short lab 1 due before class; Lab 1 assigned\nW 04/06: Lab 2 assigned\nWeek Three\nM 04/11: Lab 1 due before class\nW 04/13: Lab 2 due before class, Project 1 assigned\nWeek Four\nM 04/18: No new assignment\nW 04/20: (optional) Short lab 2 assigned\nWeek Five\nM 04/25: Project 1 and (optional) Short lab 2 due before class; Short lab 3 assigned\nW 04/27: Short lab 3 due before class; Lab 3 assigned\nWeek Six\nM 05/02: No new assignment\nW 05/04: Lab 3 due before class; Project 2 assigned\nWeek Seven\nM 05/09: No new assignment\nW 05/11: Short lab 4 assigned\nWeek Eight\nM 05/16: Project 2 and Short lab 4 due before class; Short lab 5 assigned\nW 05/18: Short lab 5 due before class; Lab 4 assigned\nWeek Nine\nM 05/23: No new assignment\nW 05/25: Lab 4 due before class; Project 3 assigned\nWeek Ten\nM 05/30: No class\nW 06/01: No new assignment\nF 06/03: Project 3 due at 11:59\n\n\n\n",
+      "last_modified": "2022-04-20T11:12:44-07:00"
     },
     {
       "path": "labs.html",
@@ -37,15 +37,15 @@
       "title": "Short Labs",
       "description": "",
       "author": [],
-      "contents": "\nShort Lab 0: Course Overview [.html] [.Rmd]\nShort Lab 1: Introduction to R [.html] [.Rmd]\n\n\n\n\n",
-      "last_modified": "2022-03-30T11:18:57-07:00"
+      "contents": "\nShort Lab 0: Course Overview [.html] [.Rmd]\nShort Lab 1: Introduction to R [.html] [.Rmd]\nShort Lab 2: Strings, Factors, and Dates [.html] [.Rmd]\n\n\n\n\n",
+      "last_modified": "2022-04-20T11:11:53-07:00"
     },
     {
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
-      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-04-12T16:39:28-07:00"
+      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-04-20T10:19:45-07:00"
     },
     {
       "path": "syllabus.html",

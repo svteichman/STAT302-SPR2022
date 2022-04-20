@@ -1,10 +1,11 @@
 ---
-title: "Short Lab 3"
+title: "Short Lab 2"
 author: "INSERT YOUR NAME HERE"
 date: "Due Date Here"
 output: html_document
 ---
 
+This short lab is optional. If you do not turn it in, you will have no grade decrease. If you do turn it in, you can drop your two worst short lab grades (every student will already have their lowest short lab grade dropped). 
 
 As usual, all code below should follow the style guidelines from the lecture slides.
 

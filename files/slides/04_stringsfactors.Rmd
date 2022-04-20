@@ -23,11 +23,10 @@ library(kableExtra)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "300px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/munchkin_tiffany.jpeg")
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/pig.png")
 ```
 
-Thanks Christian! 
 
 ---
 
@@ -37,18 +36,22 @@ Thanks Christian!
 1. Strings
 2. Factors
 3. Dates and Times
-4. Regular Expressions
 
 .middler[**Goal:** Learn how to efficiently work with strings, factors, and dates!]
 
 ---
+
+# Load the tidyverse
 
 ```{r}
 library(tidyverse)
 ```
 
 ---
-# Today's data set 
+# Board games data set  
+
+Data at: 
+"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv"
 
 ```{r}
 board_games <- 
@@ -58,7 +61,7 @@ board_games <-
 ```
 
 ---
-# Today's data set 
+# Board games data set  
 
 ```{r}
 names(board_games)
@@ -66,9 +69,15 @@ head(board_games)
 ```
 
 ---
-# Today's data set 
+# Board games data set  
 
-```{r}
+How can we plot the average rating of a board game against the number of users that have rated that game? 
+
+---
+# Board games data set  
+
+
+```{r, fig.align='center'}
 ggplot(board_games, aes(x = users_rated, y = average_rating)) +
   geom_point() + labs(x = "Number of ratings", y = "Average rating") + theme_bw()
 ```
@@ -94,7 +103,7 @@ Even when we do quantitative work, lots of important and interesting data often 
 
 ---
 
-# Today's data set 
+# Board games data set  
 
 ```{r}
 head(board_games$name, 20)
@@ -135,9 +144,15 @@ str_trim(c("cats", "    dogs", "cows    ", "   chickens    "))
 ```
 ---
 
-# Today's data set 
+# Board games data set  
 
-```{r, fig.height = 5, fig.width = 8}
+How can we plot the number of users who have rated a game against the length of the game's name?
+
+---
+# Board games data set  
+
+
+```{r, fig.height = 5, fig.width = 8, fig.align='center'}
 board_games <- board_games %>%
   mutate(name_length = str_length(name))
 ggplot(board_games, aes(x = name_length, y = users_rated)) +
@@ -248,7 +263,13 @@ str_count(strings, "[aeiou]")
 ```
 ---
 
-# Today's data set 
+# Board games data set  
+
+How can we plot the average rating of a game against the number of users that rated it specifically for Monopoly games? 
+
+---
+# Board games data set  
+
 
 ```{r, fig.height = 5, fig.width = 8, eval = F}
 monopoly_games <- board_games %>%
@@ -414,8 +435,6 @@ class: inverse
 
 # Factors 
 
-Recall...
-
 **factors** are categorical data that use integer representation.
 
 This can be efficient to store character vectors, because each string is only entered once. 
@@ -455,6 +474,12 @@ object.size(genre_fct)
 
 # Movies data
 
+How can we plot the different genres on the basis of the ratio of profit to cost? 
+
+---
+
+# Movies data
+
 ```{r, warning = F, message = F, cache = T}
 movies <- movies %>%
   mutate(genre = as.factor(genre)) %>%
@@ -469,7 +494,7 @@ head(genre_median)
 # Movies data
 
 
-```{r, warning = F, message = F, cache = T, fig.height = 5, fig.width = 6}
+```{r, warning = F, message = F, cache = T, fig.height = 5, fig.width = 6, fig.align='center'}
 ggplot(genre_median, aes(x = genre, y = median_return)) +
   geom_bar(stat="identity") + 
   theme_bw() + 
@@ -554,7 +579,10 @@ fct_recode(f2, x = "a")
 fct_recode(f2, x = "a", y = "b", z = "c", w = "d")
 ```
 
+---
+# Movies data
 
+How can we make our median return by genre plot for earlier, but with Horror replaced with "Scary"? 
 
 ---
 # Movies data
@@ -570,7 +598,7 @@ genre_medians <- movies %>%
 ---
 # Movies data
 
-```{r, warning = F, message = F, cache = T, fig.height = 5, fig.width = 6}
+```{r, warning = F, message = F, cache = T, fig.height = 5, fig.width = 6, fig.align='center'}
 ggplot(genre_medians, aes(x = genre, y = median_return)) +
   geom_bar(stat="identity") + 
   theme_bw() + 
@@ -605,12 +633,16 @@ class: inverse
 
 ---
 
+# New package alert! Lubridate
 
 ```{r}
+# install.packages("lubridate")
 library(lubridate)
 ```
 
 ---
+
+# Consider release dates for movies
 
 ```{r}
 head(movies$release_date)
@@ -755,6 +787,44 @@ day(y)
 
 ---
 
+# Movies data set 
+
+Which days of the week do you think have the most movie releases?
+
+Can we plot the number of movies in our dataset that were released on each day of the week? 
+
+---
+
+# Movies data set 
+
+```{r, fig.align='center', eval = FALSE}
+movies_day_week <- movies %>%
+  mutate(day_week = wday(mdy(release_date), label = TRUE))
+ggplot(movies_day_week, aes(x = day_week)) + 
+  geom_bar() + 
+  xlab("Day of the week") + ylab("Count") + 
+  ggtitle("Number of movies released by day of week") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+---
+
+# Movies data set 
+
+```{r, fig.align='center', echo = FALSE}
+movies_day_week <- movies %>%
+  mutate(day_week = wday(mdy(release_date), label = TRUE))
+ggplot(movies_day_week, aes(x = day_week)) + 
+  geom_bar() + 
+  xlab("Day of the week") + ylab("Count") + 
+  ggtitle("Number of movies released by day of week") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+---
+
 # <TT>lubridate</TT> cheatsheet
 
 * Dates: `y` year, `m` month, `d` day, `q` quarter
@@ -766,205 +836,6 @@ You can do much more that we didn't cover here, such as intervals, arithmetic, d
 .center[[Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
 
 <img src="images/lubridate.png" alt="" height="150"/>]
-
----
-class: inverse
-
-.sectionhead[Part 4: Regular Expressions]
-
----
-layout: true
-
-# Regular Expressions
-
----
-
-Many, many thanks to the developers of `stringr`, who developed these excellent demonstrations of regular expressions.
-
----
-
-Recall that strings in R are characters grouped together within double quotes `""` or single quotes `''`. However, there are characters that cannot be represented directly in an R string. For example, what if your string contains a double quote, or a line break?
-
-A line break in R is done using the regular expression `\n`. For example:
-
-```{r}
-cat("Line 1\nLine 2")
-```
-
-However, with regular expressions, the backslash `\` is a special character. Thus, in order to have `\` within a regular expression, we must precede the backslash with its own backslash! For example, the regular expression `\\` matches the string `\`. Thus, if we want to use a new line in a regular expression, we need to type `\\n`, giving us `\n`.
-
-Confusing? Don't worry, we will go through many examples.
-
----
-
-```{r}
-see <- function(rx) {
-  str_extract_all("abc ABC 123\t.!?\\(){}\n", rx) %>%
-    unlist() %>%
-    str_c(collapse = "")
-}
-print("abc ABC 123\t.!?\\(){}\n")
-```
-
-```{r}
-see("a")
-```
-
-
----
-
-
-```{r}
-see(".")
-```
-
-
-What happened here? `.` is a special character in a regular expression, meaning every character except a new line. If we want to search for `.`
-
-```{r}
-see("\\.")
-```
-
-
-```{r, error = TRUE}
-see("?")
-```
-`?` is also special character. So to search for that symbol
-
-```{r}
-see("\\?")
-```
-
----
-
-Similarly for other special characters.
-
-```{r}
-see("\\}")
-see("\\(")
-```
-
-What if we want to search for the backslash itself?
-
-```{r}
-see("\\\\")
-```
-
----
-
-We can search for special commands, such as...
-
-* new line `\n`
-
-```{r}
-see("\\n")
-```
-
-* Tabs `\t`
-
-```{r}
-see("\\t")
-```
-
-* Any white spaces `\s`
-
-```{r}
-see("\\s")
-```
-
----
-
-* Any digit `\d`
-```{r}
-see("\\d")
-```
-* Any word character `\w`
-```{r}
-see("\\w")
-```
-* Any boundaries `\b` 
-```{r}
-see("\\b")
-```
-(note this doesn't return any characters, but try it with `str_view()` in your console)
-
----
-
-We can search for groups of characters such as
-
-* digits `[:digit:]`
-```{r}
-see("[:digit:]")
-```
-* letters `[:alpha:]`
-```{r}
-see("[:alpha:]")
-```
-* letters and numbers `[:alnum:]`
-```{r}
-see("[:alnum:]")
-```
-
----
-
-* lowercase letters `[:lower:]`
-```{r}
-see("[:lower:]")
-```
-* uppercase letters `[:upper:]`
-```{r}
-see("[:upper:]")
-```
-* punctuation `[:punct:]`
-```{r}
-see("[:punct:]")
-```
-
----
-* letters, numbers, and punctuation `[:graph:]`
-```{r}
-see("[:graph:]")
-```
-* space characters `[:space:]`
-```{r}
-see("[:space:]")
-```
-
----
-
-## Alternates
-
-```{r}
-alt <- function(rx) {
-  str_extract_all("abcde", rx) %>%
-    unlist() %>%
-    str_c(collapse = "")
-}
-```
-
-* or `|`
-
-```{r}
-alt("a|e")
-alt("ab|d")
-```
-
----
-
-## Alternates
-
-* one of `[bae]`
-```{r}
-alt("[bae]")
-```
-* anything but `[^bae]`
-```{r}
-alt("[^bae]")
-```
-* range of values `[a-c]`
-```{r}
-alt("[a-c]")
-```
 
 ---
 layout: true

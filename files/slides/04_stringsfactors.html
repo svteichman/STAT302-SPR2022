@@ -24,9 +24,8 @@ class: center, title-slide
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/munchkin_tiffany.jpeg" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/pig.png" width="400px" style="display: block; margin: auto;" /&gt;
 
-Thanks Christian! 
 
 ---
 
@@ -36,11 +35,12 @@ Thanks Christian!
 1. Strings
 2. Factors
 3. Dates and Times
-4. Regular Expressions
 
 .middler[**Goal:** Learn how to efficiently work with strings, factors, and dates!]
 
 ---
+
+# Load the tidyverse
 
 
 ```r
@@ -48,7 +48,10 @@ library(tidyverse)
 ```
 
 ---
-# Today's data set 
+# Board games data set  
+
+Data at: 
+"https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv"
 
 
 ```r
@@ -79,7 +82,7 @@ board_games &lt;-
 ```
 
 ---
-# Today's data set 
+# Board games data set  
 
 
 ```r
@@ -116,7 +119,13 @@ head(board_games)
 ```
 
 ---
-# Today's data set 
+# Board games data set  
+
+How can we plot the average rating of a board game against the number of users that have rated that game? 
+
+---
+# Board games data set  
+
 
 
 ```r
@@ -124,7 +133,7 @@ ggplot(board_games, aes(x = users_rated, y = average_rating)) +
   geom_point() + labs(x = "Number of ratings", y = "Average rating") + theme_bw()
 ```
 
-![](04_stringsfactors_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+&lt;img src="04_stringsfactors_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -147,7 +156,7 @@ Even when we do quantitative work, lots of important and interesting data often 
 
 ---
 
-# Today's data set 
+# Board games data set  
 
 
 ```r
@@ -254,7 +263,13 @@ str_trim(c("cats", "    dogs", "cows    ", "   chickens    "))
 ```
 ---
 
-# Today's data set 
+# Board games data set  
+
+How can we plot the number of users who have rated a game against the length of the game's name?
+
+---
+# Board games data set  
+
 
 
 ```r
@@ -264,7 +279,7 @@ ggplot(board_games, aes(x = name_length, y = users_rated)) +
   geom_point() + theme_bw() + labs(x = "Length of Name", y = "Number of Ratings")
 ```
 
-![](04_stringsfactors_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+&lt;img src="04_stringsfactors_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse
@@ -559,7 +574,13 @@ str_count(strings, "[aeiou]")
 ```
 ---
 
-# Today's data set 
+# Board games data set  
+
+How can we plot the average rating of a game against the number of users that rated it specifically for Monopoly games? 
+
+---
+# Board games data set  
+
 
 
 ```r
@@ -878,8 +899,6 @@ class: inverse
 
 # Factors 
 
-Recall...
-
 **factors** are categorical data that use integer representation.
 
 This can be efficient to store character vectors, because each string is only entered once. 
@@ -951,6 +970,12 @@ object.size(genre_fct)
 
 # Movies data
 
+How can we plot the different genres on the basis of the ratio of profit to cost? 
+
+---
+
+# Movies data
+
 
 ```r
 movies &lt;- movies %&gt;%
@@ -986,7 +1011,7 @@ ggplot(genre_median, aes(x = genre, y = median_return)) +
   labs(x = "Genre", y = "Median Return") 
 ```
 
-![](04_stringsfactors_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+&lt;img src="04_stringsfactors_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 ---
 
 # &lt;TT&gt;factor()&lt;/TT&gt;: create a factor
@@ -1210,7 +1235,10 @@ fct_recode(f2, x = "a", y = "b", z = "c", w = "d")
 ## Levels: x y z w
 ```
 
+---
+# Movies data
 
+How can we make our median return by genre plot for earlier, but with Horror replaced with "Scary"? 
 
 ---
 # Movies data
@@ -1236,7 +1264,7 @@ ggplot(genre_medians, aes(x = genre, y = median_return)) +
   labs(x = "Genre", y = "Median Return") 
 ```
 
-![](04_stringsfactors_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+&lt;img src="04_stringsfactors_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
 ---
 
 # &lt;TT&gt;forcats&lt;/TT&gt; cheatsheet
@@ -1265,13 +1293,17 @@ class: inverse
 
 ---
 
+# New package alert! Lubridate
 
 
 ```r
+# install.packages("lubridate")
 library(lubridate)
 ```
 
 ---
+
+# Consider release dates for movies
 
 
 ```r
@@ -1612,6 +1644,36 @@ day(y)
 
 ---
 
+# Movies data set 
+
+Which days of the week do you think have the most movie releases?
+
+Can we plot the number of movies in our dataset that were released on each day of the week? 
+
+---
+
+# Movies data set 
+
+
+```r
+movies_day_week &lt;- movies %&gt;%
+  mutate(day_week = wday(mdy(release_date), label = TRUE))
+ggplot(movies_day_week, aes(x = day_week)) + 
+  geom_bar() + 
+  xlab("Day of the week") + ylab("Count") + 
+  ggtitle("Number of movies released by day of week") + 
+  theme_bw(base_size = 16) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+---
+
+# Movies data set 
+
+&lt;img src="04_stringsfactors_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
 # &lt;TT&gt;lubridate&lt;/TT&gt; cheatsheet
 
 * Dates: `y` year, `m` month, `d` day, `q` quarter
@@ -1623,356 +1685,6 @@ You can do much more that we didn't cover here, such as intervals, arithmetic, d
 .center[[Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
 
 &lt;img src="images/lubridate.png" alt="" height="150"/&gt;]
-
----
-class: inverse
-
-.sectionhead[Part 4: Regular Expressions]
-
----
-layout: true
-
-# Regular Expressions
-
----
-
-Many, many thanks to the developers of `stringr`, who developed these excellent demonstrations of regular expressions.
-
----
-
-Recall that strings in R are characters grouped together within double quotes `""` or single quotes `''`. However, there are characters that cannot be represented directly in an R string. For example, what if your string contains a double quote, or a line break?
-
-A line break in R is done using the regular expression `\n`. For example:
-
-
-```r
-cat("Line 1\nLine 2")
-```
-
-```
-## Line 1
-## Line 2
-```
-
-However, with regular expressions, the backslash `\` is a special character. Thus, in order to have `\` within a regular expression, we must precede the backslash with its own backslash! For example, the regular expression `\\` matches the string `\`. Thus, if we want to use a new line in a regular expression, we need to type `\\n`, giving us `\n`.
-
-Confusing? Don't worry, we will go through many examples.
-
----
-
-
-```r
-see &lt;- function(rx) {
-  str_extract_all("abc ABC 123\t.!?\\(){}\n", rx) %&gt;%
-    unlist() %&gt;%
-    str_c(collapse = "")
-}
-print("abc ABC 123\t.!?\\(){}\n")
-```
-
-```
-## [1] "abc ABC 123\t.!?\\(){}\n"
-```
-
-
-```r
-see("a")
-```
-
-```
-## [1] "a"
-```
-
-
----
-
-
-
-```r
-see(".")
-```
-
-```
-## [1] "abc ABC 123\t.!?\\(){}"
-```
-
-
-What happened here? `.` is a special character in a regular expression, meaning every character except a new line. If we want to search for `.`
-
-
-```r
-see("\\.")
-```
-
-```
-## [1] "."
-```
-
-
-
-```r
-see("?")
-```
-
-```
-## Error in stri_extract_all_regex(string, pattern, simplify = simplify, : Syntax error in regex pattern. (U_REGEX_RULE_SYNTAX, context=`?`)
-```
-`?` is also special character. So to search for that symbol
-
-
-```r
-see("\\?")
-```
-
-```
-## [1] "?"
-```
-
----
-
-Similarly for other special characters.
-
-
-```r
-see("\\}")
-```
-
-```
-## [1] "}"
-```
-
-```r
-see("\\(")
-```
-
-```
-## [1] "("
-```
-
-What if we want to search for the backslash itself?
-
-
-```r
-see("\\\\")
-```
-
-```
-## [1] "\\"
-```
-
----
-
-We can search for special commands, such as...
-
-* new line `\n`
-
-
-```r
-see("\\n")
-```
-
-```
-## [1] "\n"
-```
-
-* Tabs `\t`
-
-
-```r
-see("\\t")
-```
-
-```
-## [1] "\t"
-```
-
-* Any white spaces `\s`
-
-
-```r
-see("\\s")
-```
-
-```
-## [1] "  \t\n"
-```
-
----
-
-* Any digit `\d`
-
-```r
-see("\\d")
-```
-
-```
-## [1] "123"
-```
-* Any word character `\w`
-
-```r
-see("\\w")
-```
-
-```
-## [1] "abcABC123"
-```
-* Any boundaries `\b` 
-
-```r
-see("\\b")
-```
-
-```
-## [1] ""
-```
-(note this doesn't return any characters, but try it with `str_view()` in your console)
-
----
-
-We can search for groups of characters such as
-
-* digits `[:digit:]`
-
-```r
-see("[:digit:]")
-```
-
-```
-## [1] "123"
-```
-* letters `[:alpha:]`
-
-```r
-see("[:alpha:]")
-```
-
-```
-## [1] "abcABC"
-```
-* letters and numbers `[:alnum:]`
-
-```r
-see("[:alnum:]")
-```
-
-```
-## [1] "abcABC123"
-```
-
----
-
-* lowercase letters `[:lower:]`
-
-```r
-see("[:lower:]")
-```
-
-```
-## [1] "abc"
-```
-* uppercase letters `[:upper:]`
-
-```r
-see("[:upper:]")
-```
-
-```
-## [1] "ABC"
-```
-* punctuation `[:punct:]`
-
-```r
-see("[:punct:]")
-```
-
-```
-## [1] ".!?\\(){}"
-```
-
----
-* letters, numbers, and punctuation `[:graph:]`
-
-```r
-see("[:graph:]")
-```
-
-```
-## [1] "abcABC123.!?\\(){}"
-```
-* space characters `[:space:]`
-
-```r
-see("[:space:]")
-```
-
-```
-## [1] "  \t\n"
-```
-
----
-
-## Alternates
-
-
-```r
-alt &lt;- function(rx) {
-  str_extract_all("abcde", rx) %&gt;%
-    unlist() %&gt;%
-    str_c(collapse = "")
-}
-```
-
-* or `|`
-
-
-```r
-alt("a|e")
-```
-
-```
-## [1] "ae"
-```
-
-```r
-alt("ab|d")
-```
-
-```
-## [1] "abd"
-```
-
----
-
-## Alternates
-
-* one of `[bae]`
-
-```r
-alt("[bae]")
-```
-
-```
-## [1] "abe"
-```
-* anything but `[^bae]`
-
-```r
-alt("[^bae]")
-```
-
-```
-## [1] "cd"
-```
-* range of values `[a-c]`
-
-```r
-alt("[a-c]")
-```
-
-```
-## [1] "abc"
-```
 
 ---
 layout: true
