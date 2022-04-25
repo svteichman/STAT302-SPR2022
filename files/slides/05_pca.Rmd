@@ -25,11 +25,11 @@ library(tidyverse)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "700px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/siffy.JPG")
+```{r, echo = FALSE, out.width = "350px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/orange_cat.jpg")
 ```
 
-Thanks Joia! 
+Thanks Esther! 
 
 ---
 
@@ -59,14 +59,11 @@ class: inverse
 
 --
 
-```{r, echo = FALSE}
+```{r, message = FALSE}
 data(mtcars)
 library(tidyverse)
 library(gapminder)
 data(gapminder)
-```
-
-```{r}
 names(mtcars)
 names(gapminder)
 ```
@@ -115,26 +112,11 @@ ggplot(gapminder, aes(x = lifeExp, y = log(gdpPercap))) +
 
 # Multivariate Data 
 
-How have we analyzed multivariate data so far in our class? 
-
-```{r}
-mod <- lm(gdpPercap ~ continent + year + lifeExp + pop,
-          data = gapminder)
-```
-
-```{r, echo = FALSE, fig.align = 'center', fig.height = 5}
-summary(mod)
-```
-
----
-
-# Multivariate Data 
-
 What if we want a way to look at all our variables at once? 
 
 --
 
-What if we want our analysis to consider the relationships between all the variables in our data, not just one or two? 
+What if we want our analysis to consider the relationships between observations based on all the variables in our data, not just one or two? 
 
 ---
 
@@ -466,27 +448,6 @@ screeplot(cars_pca_scaled, type = "lines", main = "Scree Plot")
 ```
 
 * In a scree plot, we look for the "elbow."
-
----
-
-# How many principal components to use? 
-
-* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
-
-```{r, fig.align='center', echo = FALSE, fig.height = 6.5} 
-scree_df <- data.frame(component = 1:length(cars_pca_scaled$sdev),
-                       variance = cars_pca_scaled$sdev^2)
-scree_df$cum_var <- cumsum(scree_df$variance)
-ggplot(scree_df, aes(x = as.numeric(component), y = cum_var)) + 
-  geom_line() + 
-  geom_point() + 
-  ylim(c(0, 5)) + 
-  xlab("Component") + 
-  ylab("Cumulative Variance Explained") + 
-  ggtitle("Cumulative Scree Plot") + 
-  theme_bw(base_size = 14) + 
-  theme(plot.title = element_text(hjust = 0.5))
-```
 
 ---
 

@@ -242,6 +242,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -262,6 +263,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -387,8 +391,8 @@ other_df &lt;- read_csv(&quot;https://raw.githubusercontent.com/svteichman/STAT3
 <h2>Run PCA</h2>
 <p><strong>1</strong>. Run PCA on <code>pca_indicators</code> using the function <code>princomp()</code>. Don’t worry about scaling the variables because all of the indicators are already on a 0-100 scale.</p>
 <p><strong>2</strong>. Make a screeplot of your results from <code>princomp()</code> with the function <code>screeplot()</code>. What is an appropriate number of principal components to analyze? Why?</p>
-<p><strong>3</strong>. Plot your first two principal components (see slides 35 and 36 of Slides 5). Label between <span class="math inline">\(5\)</span> and <span class="math inline">\(10\)</span> countries. Interpret your results. Which countries have similar environmental indicators? Which countries have different environmental indicators?</p>
-<p><strong>4</strong>. Take you plot from (<strong>3</strong>) and color the points by one of the variables in <code>other_df</code>. Choose either <code>region</code>, <code>ldc</code> (which is <span class="math inline">\(1\)</span> for a set of least developed countries and <span class="math inline">\(0\)</span> otherwise), <code>emmrk</code> (which is <span class="math inline">\(1\)</span> if the country has an emerging market and <span class="math inline">\(0\)</span> otherwise), or <code>gdp</code> (if you choose <code>gpd</code> I recommend instead using <code>log(gdp)</code> because it is a very right-skewed variable). See slides 41 through 46 of Slides 5 for code inspiration.</p>
+<p><strong>3</strong>. Plot your first two principal components (see slides 34 and 35 of Slides 5). Label between <span class="math inline">\(5\)</span> and <span class="math inline">\(10\)</span> countries. Interpret your results. Which countries have similar environmental indicators? Which countries have different environmental indicators?</p>
+<p><strong>4</strong>. Take you plot from (<strong>3</strong>) and color the points by one of the variables in <code>other_df</code>. Choose either <code>region</code>, <code>ldc</code> (which is <span class="math inline">\(1\)</span> for a set of least developed countries and <span class="math inline">\(0\)</span> otherwise), <code>emmrk</code> (which is <span class="math inline">\(1\)</span> if the country has an emerging market and <span class="math inline">\(0\)</span> otherwise), or <code>gdp</code> (if you choose <code>gpd</code> I recommend instead using <code>log(gdp)</code> because it is a very right-skewed variable). See slides 39 through 44 of Slides 5 for code inspiration.</p>
 <p><strong>5</strong>. Describe the relationship between the first principal component and the variable <code>EPI_cat</code> in <code>other_df</code> (look at numerical and graphical measures of the relationship). <code>EPI_cat</code> is a weighted summary of all of the environmental indicators created by the people who built the Environmental Performance Index. Does this relationship make sense to you? Why or why not?</p>
 </div>
 

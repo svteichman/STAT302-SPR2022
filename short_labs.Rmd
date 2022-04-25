@@ -15,6 +15,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Short Lab 2: Strings, Factors, and Dates [[.html](files/short-labs/short-lab-02_strings.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/short-labs/short-lab-02_strings.Rmd)]
 
+### Short Lab 3: PCA [[.html](files/short-labs/short-lab-03_pca.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/short-labs/short-lab-03_pca.Rmd)]
+
 \begin{comment}
 
 ### Short Lab 2: Functions and Loops [[.html](files/short-labs/short-lab-02_fundamentals.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/short-labs/short-lab-02_fundamentals.Rmd)]
