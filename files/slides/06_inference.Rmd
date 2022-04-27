@@ -24,11 +24,11 @@ library(tidyverse)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "700px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/huating_cat.jpg")
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/chunI_cat.jpeg")
 ```
 
-Thanks Huating! 
+Thanks Chun-I! 
 
 ---
 # Outline
@@ -409,12 +409,18 @@ layout: false
 
 # Type 1 and 2 Errors
 
-.middler-nocent[
 * We can decrease the probability of a Type 2 errors by increasing our Type 1 error.
   * Why?
+  
+--
+  
+  * Type I: $P(\text{reject } H_0 | H_0 \text{ true})$
+  * Type II: $P(\text{fail to reject } H_0 | H_0 \text{ false})$
+  
+--
+
 * We can decrease the probability of a Type 2 error *without sacrificing* Type 1 error by increasing our sample size.
   * Why?
-]
 
 
 ---
