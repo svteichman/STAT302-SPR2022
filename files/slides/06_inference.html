@@ -712,9 +712,9 @@ t.test(x, mu = 0)
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/kuma.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/hunter.jpeg" width="800px" style="display: block; margin: auto;" /&gt;
 
-Thanks Christian! 
+Thanks Jiaxin! 
 
 ---
 class: inverse
@@ -878,13 +878,13 @@ The independent variables are added on the right-hand side.
 Using this formula will give us a model in the form of
 \\[
 `\begin{eqnarray}
-&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \epsilon,\\
 &amp;\epsilon &amp;\sim N(0,\sigma^2) 
 \end{eqnarray}`
 \\]
 
 ```r
-lm(Y ~ X_1 + X_2 + ... + X_p)
+lm(Y ~ X_1 + X_2 + X_3 + X_4)
 ```
 
 
@@ -986,6 +986,20 @@ summary(my_lm)
 ## F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12
 ```
 
+
+---
+
+# &lt;TT&gt;summary():&lt;/TT&gt; Model summaries
+
+What do our test statistics and p-values represent? 
+
+--
+
+For each coefficient, we test the null hypothesis: `\(H_0: \beta_j = 0\)`
+
+--
+
+For the non-intercept coefficients, this hypothesis represents no linear relationship between predictor `\(j\)` and the outcome `\(Y\)`
 
 ---
 

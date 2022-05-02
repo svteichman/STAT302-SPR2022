@@ -694,11 +694,11 @@ t.test(x, mu = 0)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/kuma.jpg")
+```{r, echo = FALSE, out.width = "800px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/hunter.jpeg")
 ```
 
-Thanks Christian! 
+Thanks Jiaxin! 
 
 ---
 class: inverse
@@ -862,12 +862,12 @@ The independent variables are added on the right-hand side.
 Using this formula will give us a model in the form of
 \\[
 \begin{eqnarray}
-&Y &= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&Y &= \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + \epsilon,\\
 &\epsilon &\sim N(0,\sigma^2) 
 \end{eqnarray}
 \\]
 ```{r, eval = F}
-lm(Y ~ X_1 + X_2 + ... + X_p)
+lm(Y ~ X_1 + X_2 + X_3 + X_4)
 ```
 
 
@@ -911,6 +911,20 @@ names(my_lm)
 summary(my_lm)
 ```
 
+
+---
+
+# <TT>summary():</TT> Model summaries
+
+What do our test statistics and p-values represent? 
+
+--
+
+For each coefficient, we test the null hypothesis: $H_0: \beta_j = 0$
+
+--
+
+For the non-intercept coefficients, this hypothesis represents no linear relationship between predictor $j$ and the outcome $Y$
 
 ---
 
