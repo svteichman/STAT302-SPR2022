@@ -19,7 +19,7 @@ Part 1 includes three different simulations. For each simulation, include the co
 * Commenting your code and following the style guidelines (1.5 points) 
 * Plotting your results, with a well-labeled plot that follows our visualization style guidelines (1 point) 
 * Generating correct results (1.5 points)
-* Describing the results (1.5 points)
+* Describing the results (1 points)
 * Explaining what this simulation taught you (1 point)
 
 ### Simulation 1
