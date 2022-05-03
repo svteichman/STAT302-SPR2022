@@ -1,0 +1,32 @@
+---
+title: "Simulation Lecture Coding Example"
+author: "Sarah Teichman"
+date: "5/3/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+Study the relationship between expected and observed variance for draws from a binomial distribution with sample sizes $n=10$ and $n=1000$. Consider the binomial distribution with $5$ trials and probabilities $p$ in the set $\{0.2, 0.4, 0.6, 0.8\}$. 
+
+```{r}
+# set nsim 
+
+# write function to draw data and calculate variance once 
+
+# create sample sizes vector 
+
+# create probabilities vector 
+
+# create matrix to hold results 
+
+# run simulation 
+
+# calculate results 
+
+# plot results 
+
+```

@@ -20,9 +20,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 06: Regression and Inference [[.html](files/slides/06_inference.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/06_inference.Rmd)]
 
-\begin{comment}
-
 * Lecture 07: Simulation [[.html](files/slides/07_simulation.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/07_simulation.Rmd)]
+
+\begin{comment}
 
 * Lecture 08: Application: Resampling [[.html](files/slides/08_resample-bayes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/08_resample-bayes.html)]
 

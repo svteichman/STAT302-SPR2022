@@ -49,8 +49,8 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 
 ### Week Eight
 
-* **M 05/16**: Project 2 and Short lab 4 due before class; Short lab 5 assigned
-* **W 05/18**: Short lab 5 due before class; Lab 4 assigned
+* **M 05/16**: Project 2 due by 11:59 PM; Short lab 5 assigned
+* **W 05/18**: Short lab 4 and Short lab 5 due before class; Lab 4 assigned
 
 ### Week Nine
 
@@ -61,7 +61,7 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 
 * **M 05/30**: No class
 * **W 06/01**: No new assignment
-* **F 06/03**: Project 3 due at 11:59
+* **F 06/03**: Project 3 due at 11:59 PM
 
 
 

@@ -25,9 +25,11 @@ library(tidyverse)
 # Today's pet picture 
 
 
-```{r, echo = FALSE, out.width = "700px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/oliver.gif")
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/Luda.png")
 ```
+
+Thanks Riley! 
 
 ---
 
@@ -43,6 +45,12 @@ knitr::include_graphics("../../files/images/pets/oliver.gif")
 class: inverse
 
 .sectionhead[Part 1. Why simulate?]
+
+---
+
+# Why simulate? 
+
+* Can you think of any examples from this or other classes when you've used simulation to answer a question? 
 
 ---
 
@@ -70,7 +78,11 @@ class: inverse
 
 --
 
-* Simulation: Computer experiment that involves creating data by pseudo-random sampling 
+* Simulation: Computer experiment that involves creating data by pseudo-random sampling and using that data to study a topic or answer a question 
+
+--
+
+* Intuition: If we do something random over and over again, we can eventually learn about the expected behavior
 
 ---
 
@@ -88,11 +100,11 @@ class: inverse
 
 --
 
-  + If our observations are not independent from each other, does a t test for the mean still work? 
+  + If our residuals in a linear model are not normal, can we still trust the estimates of our coefficients? 
   
 --
 
-  + For a given $H_0$ and $H_a$, what is the relationship between Type I and Type II error? 
+  + For a given $H_0$ and $H_a$ and statistical test, what is the relationship between Type I and Type II error? 
 
 ---
 
@@ -134,6 +146,8 @@ Var(\bar{X}) &= Var(\frac{1}{n}\sum_{i=1}^n X_i) \\
 
 For a set of random variables $X_1,\ldots,X_n$, each independent with variance $\sigma^2$, what is the variance of the sample mean? 
 
+We can individually generate data and calculate sample means. But this doesn't give us information about the variance of these means. 
+
 ```{r}
 data1 <- rexp(10, rate = 1)
 mean(data1)
@@ -157,6 +171,16 @@ for (i_sim in 1:n_sim) {
   result_matrix[i_sim, 2] <- mean(rexp(100, rate = 1))
   result_matrix[i_sim, 3] <- mean(rexp(1000, rate = 1))
 }
+head(result_matrix)
+```
+
+---
+
+# Example: variance of the sample mean
+
+We need to randomly generate data many times to answer our question
+
+```{r}
 var(result_matrix[, 1])
 var(result_matrix[, 2])
 var(result_matrix[, 3])
@@ -237,7 +261,7 @@ flip_coins_once <- function() {
 
 ```{r}
 generate_data_once <- function(n) {
-  data <- rexp(10, rate = 1)
+  data <- rexp(n, rate = 1)
   return(mean(data))
 }
 ```
@@ -255,6 +279,38 @@ generate_data_once <- function(n) {
 --
 
 * It's always safest to first test with a small number of trials 
+
+---
+
+# Test function 
+
+Start with `nsim = 10`. Check that this works and gives you reasonable results! 
+
+```{r}
+n_sim <- 10
+result_matrix <- matrix(nrow = n_sim, ncol = 3)
+for (i_sim in 1:n_sim) {
+  result_matrix[i_sim, 1] <- mean(rexp(10, rate = 1))
+  result_matrix[i_sim, 2] <- mean(rexp(100, rate = 1))
+  result_matrix[i_sim, 3] <- mean(rexp(1000, rate = 1))
+}
+```
+
+---
+
+# Test function 
+
+If `nsim = 10` works as expected, them move on to your planned number of simulations. 
+
+```{r}
+n_sim <- 10000
+result_matrix <- matrix(nrow = n_sim, ncol = 3)
+for (i_sim in 1:n_sim) {
+  result_matrix[i_sim, 1] <- mean(rexp(10, rate = 1))
+  result_matrix[i_sim, 2] <- mean(rexp(100, rate = 1))
+  result_matrix[i_sim, 3] <- mean(rexp(1000, rate = 1))
+}
+```
 
 ---
 

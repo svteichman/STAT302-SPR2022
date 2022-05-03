@@ -24,7 +24,9 @@ class: center, title-slide
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/oliver.gif" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/Luda.png" width="400px" style="display: block; margin: auto;" /&gt;
+
+Thanks Riley! 
 
 ---
 
@@ -40,6 +42,12 @@ class: center, title-slide
 class: inverse
 
 .sectionhead[Part 1. Why simulate?]
+
+---
+
+# Why simulate? 
+
+* Can you think of any examples from this or other classes when you've used simulation to answer a question? 
 
 ---
 
@@ -67,7 +75,11 @@ class: inverse
 
 --
 
-* Simulation: Computer experiment that involves creating data by pseudo-random sampling 
+* Simulation: Computer experiment that involves creating data by pseudo-random sampling and using that data to study a topic or answer a question 
+
+--
+
+* Intuition: If we do something random over and over again, we can eventually learn about the expected behavior
 
 ---
 
@@ -85,11 +97,11 @@ class: inverse
 
 --
 
-  + If our observations are not independent from each other, does a t test for the mean still work? 
+  + If our residuals in a linear model are not normal, can we still trust the estimates of our coefficients? 
   
 --
 
-  + For a given `\(H_0\)` and `\(H_a\)`, what is the relationship between Type I and Type II error? 
+  + For a given `\(H_0\)` and `\(H_a\)` and statistical test, what is the relationship between Type I and Type II error? 
 
 ---
 
@@ -119,7 +131,7 @@ mean(coins == 5)
 ```
 
 ```
-## [1] 0.03017
+## [1] 0.03125
 ```
 
 ---
@@ -141,6 +153,8 @@ Var(\bar{X}) &amp;= Var(\frac{1}{n}\sum_{i=1}^n X_i) \\
 
 For a set of random variables `\(X_1,\ldots,X_n\)`, each independent with variance `\(\sigma^2\)`, what is the variance of the sample mean? 
 
+We can individually generate data and calculate sample means. But this doesn't give us information about the variance of these means. 
+
 
 ```r
 data1 &lt;- rexp(10, rate = 1)
@@ -148,7 +162,7 @@ mean(data1)
 ```
 
 ```
-## [1] 1.280865
+## [1] 0.783191
 ```
 
 ```r
@@ -157,7 +171,7 @@ mean(data2)
 ```
 
 ```
-## [1] 1.081354
+## [1] 1.123284
 ```
 
 ```r
@@ -166,7 +180,7 @@ mean(data3)
 ```
 
 ```
-## [1] 0.9637457
+## [1] 0.989531
 ```
 
 ---
@@ -184,11 +198,32 @@ for (i_sim in 1:n_sim) {
   result_matrix[i_sim, 2] &lt;- mean(rexp(100, rate = 1))
   result_matrix[i_sim, 3] &lt;- mean(rexp(1000, rate = 1))
 }
+head(result_matrix)
+```
+
+```
+##           [,1]      [,2]      [,3]
+## [1,] 0.9618710 1.0154072 0.9765661
+## [2,] 1.0393700 0.8782085 1.0441141
+## [3,] 1.2077076 0.9285779 0.9384220
+## [4,] 1.5195154 0.9722360 0.9870572
+## [5,] 0.6031563 1.0005390 0.9823156
+## [6,] 1.2328754 1.0969512 1.0012434
+```
+
+---
+
+# Example: variance of the sample mean
+
+We need to randomly generate data many times to answer our question
+
+
+```r
 var(result_matrix[, 1])
 ```
 
 ```
-## [1] 0.09880742
+## [1] 0.1018188
 ```
 
 ```r
@@ -196,7 +231,7 @@ var(result_matrix[, 2])
 ```
 
 ```
-## [1] 0.01007614
+## [1] 0.01001158
 ```
 
 ```r
@@ -204,7 +239,7 @@ var(result_matrix[, 3])
 ```
 
 ```
-## [1] 0.001005421
+## [1] 0.001003858
 ```
 
 ---
@@ -284,7 +319,7 @@ flip_coins_once &lt;- function() {
 
 ```r
 generate_data_once &lt;- function(n) {
-  data &lt;- rexp(10, rate = 1)
+  data &lt;- rexp(n, rate = 1)
   return(mean(data))
 }
 ```
@@ -326,7 +361,7 @@ ggplot(plot_df, aes(x = coins)) +
 ]
 
 .pull-right[
-![](07_simulation_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](07_simulation_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -358,7 +393,7 @@ ggplot(plot_df, aes(x = n, y = var)) +
 ]
 
 .pull-right[
-![](07_simulation_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](07_simulation_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ]
 
 ---

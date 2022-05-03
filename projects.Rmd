@@ -15,16 +15,14 @@ knitr::opts_chunk$set(echo = FALSE)
 * Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/01_data-visualization/01_dataviz.Rmd)]
 * Data [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
 
+# Project 2: Simulation 
+
+![](https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/cute-birthday-instagram-captions-1584723902.jpg?resize=980:*)
+
+
+* Instructions [[.html](files/projects/02_simulation/project-02_simulation.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/02_simulation/project-02_simulation.Rmd)]
+
 \begin{comment}
-
-# Project 2: Data Analysis Using PCA
-
-![](https://eige.europa.eu/sites/default/files/styles/eige_original_optimised/public/images/environment_climate_change_0.jpg?itok=OgfBMStR)
-
-
-* Instructions [[.html](files/projects/02_dimension_reduction/02-dimension_reduction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/02_dimension_reduction/02-dimension_reduction.Rmd)]
-* Dataset 1 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/02_dimension_reduction/pca_data.csv)]
-* Dataset 2 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/02_dimension_reduction/additional_data.csv)]
 
 
 # Project 3: Making your own R package
