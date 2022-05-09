@@ -24,7 +24,7 @@ class: center, title-slide
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/oliver.gif" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/pig_nutmeg.jpg" width="700px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -36,61 +36,7 @@ class: center, title-slide
 .middler[**Goal:** Learn how to understand and fix R errors independently and get started with git!]
 
 ---
-# Scope 
 
-
-```r
-x &lt;- 10
-main_fn &lt;- function(y) {
-  print(x + y)
-}
-```
-
-```r
-main_fn(y = 20)
-```
---
-
-```
-## [1] 30
-```
-
---
-
-
-```r
-x
-```
-
-```
-## [1] 10
-```
-
-```r
-y
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'y' not found
-```
-
-The **scope** of a variable describes the location/part of a program where that variable name is recognized.
-
----
-# Scope 
-
-
-```r
-x &lt;- 5
-main_fn(y = 20)
-```
---
-
-```
-## [1] 25
-```
-
----
 class: inverse
 
 .sectionhead[Part 1. Debugging]
@@ -127,6 +73,19 @@ nums[1] + 1
 
 ```
 ## Error in nums[1] + 1: non-numeric argument to binary operator
+```
+
+---
+
+# Step 1: Google!
+
+
+```r
+df &lt;- readr::read_csv("data.csv")
+```
+
+```
+## Error: 'data.csv' does not exist in current working directory ('/Users/sarahteichman/Documents/UW/302/STAT302-SPR2022/files/slides').
 ```
 
 ---
@@ -197,6 +156,43 @@ my_lm(y ~ x, my_df)
 
 ```
 ## Error in se_mat[i, i]: subscript out of bounds
+```
+
+---
+
+# Step 3: Repeat!
+
+
+```r
+sum &lt;- function(vec) {
+  curr &lt;- 0 
+  for (i in 1:length(vec)) {
+    curr &lt;- curr + vec[i]
+  }
+  return(curr + 1)
+}
+```
+
+
+```r
+sum(seq(from = 5, to = 500, by = 5))
+```
+
+```
+## [1] 25251
+```
+
+---
+
+# Step 3: Repeat!
+
+
+```r
+sum(c(1, 2, 3))
+```
+
+```
+## [1] 7
 ```
 
 ---
@@ -308,22 +304,6 @@ In general, most debugging will be done through the **Console**!
 
 ---
 layout: false
-
-# Stop on error: &lt;TT&gt;traceback&lt;/TT&gt;
-
-We can also set `traceback()` as our default error handler using
-
-```r
-options(error = traceback)
-```
-and `traceback()` will automatically be called whenever we encounter an error. 
-I personally don't like doing this, but to each their own.
-
-
-
-
----
-layout: false
 layout: true
 # &lt;TT&gt;print(), cat(), str()&lt;/TT&gt;: messages
 ---
@@ -412,6 +392,1569 @@ This can often be more informative if the structure is not what you expect (a co
 
 The main downside to these approaches is that it can get messy quickly if you use multiple print statements, and you cannot further investigate the object. 
 However, many bugs come down to typos or other trivial errors, and print statements are often all you need!
+
+---
+
+
+```r
+sum_matrix &lt;- function(mat) {
+  curr_sum &lt;- 0
+  for (i in 1:(nrow(mat) + 1)) {
+    for (j in 1:ncol(mat)) {
+      curr_sum &lt;- curr_sum + mat[i, j]
+      cat("i is ", i, "\n")
+      cat("j is ", j, "\n")
+      cat("sum is ", curr_sum, "\n")
+    }
+  }
+}
+```
+
+---
+
+
+```r
+sum_matrix(matrix(rnorm(6), nrow = 3))
+```
+
+```
+## i is  1 
+## j is  1 
+## sum is  -0.525414 
+## i is  1 
+## j is  2 
+## sum is  1.488625 
+## i is  2 
+## j is  1 
+## sum is  2.198257 
+## i is  2 
+## j is  2 
+## sum is  1.498659 
+## i is  3 
+## j is  1 
+## sum is  -0.008524981 
+## i is  3 
+## j is  2 
+## sum is  -0.3442097
+```
+
+```
+## Error in mat[i, j]: subscript out of bounds
+```
+
+---
+
+
+```r
+sum_matrix(matrix(rnorm(500), nrow = 100))
+```
+
+```
+## i is  1 
+## j is  1 
+## sum is  -0.3848421 
+## i is  1 
+## j is  2 
+## sum is  -1.362627 
+## i is  1 
+## j is  3 
+## sum is  -1.013921 
+## i is  1 
+## j is  4 
+## sum is  -2.165218 
+## i is  1 
+## j is  5 
+## sum is  -1.658525 
+## i is  2 
+## j is  1 
+## sum is  -2.335486 
+## i is  2 
+## j is  2 
+## sum is  -2.739613 
+## i is  2 
+## j is  3 
+## sum is  -2.002694 
+## i is  2 
+## j is  4 
+## sum is  -1.02304 
+## i is  2 
+## j is  5 
+## sum is  -0.01850162 
+## i is  3 
+## j is  1 
+## sum is  -0.7391867 
+## i is  3 
+## j is  2 
+## sum is  -0.4980746 
+## i is  3 
+## j is  3 
+## sum is  -0.637796 
+## i is  3 
+## j is  4 
+## sum is  -0.8156758 
+## i is  3 
+## j is  5 
+## sum is  -0.5996236 
+## i is  4 
+## j is  1 
+## sum is  -1.671315 
+## i is  4 
+## j is  2 
+## sum is  -2.402568 
+## i is  4 
+## j is  3 
+## sum is  -2.038901 
+## i is  4 
+## j is  4 
+## sum is  -1.3634 
+## i is  4 
+## j is  5 
+## sum is  -2.191899 
+## i is  5 
+## j is  1 
+## sum is  -0.5214038 
+## i is  5 
+## j is  2 
+## sum is  -1.023722 
+## i is  5 
+## j is  3 
+## sum is  0.184767 
+## i is  5 
+## j is  4 
+## sum is  0.9403985 
+## i is  5 
+## j is  5 
+## sum is  1.675558 
+## i is  6 
+## j is  1 
+## sum is  0.491811 
+## i is  6 
+## j is  2 
+## sum is  0.1684534 
+## i is  6 
+## j is  3 
+## sum is  0.3408869 
+## i is  6 
+## j is  4 
+## sum is  -1.159021 
+## i is  6 
+## j is  5 
+## sum is  0.5017497 
+## i is  7 
+## j is  1 
+## sum is  0.1802392 
+## i is  7 
+## j is  2 
+## sum is  0.06061116 
+## i is  7 
+## j is  3 
+## sum is  -0.2144428 
+## i is  7 
+## j is  4 
+## sum is  -0.6871291 
+## i is  7 
+## j is  5 
+## sum is  -0.6058807 
+## i is  8 
+## j is  1 
+## sum is  -0.015798 
+## i is  8 
+## j is  2 
+## sum is  0.2190691 
+## i is  8 
+## j is  3 
+## sum is  2.288748 
+## i is  8 
+## j is  4 
+## sum is  1.33158 
+## i is  8 
+## j is  5 
+## sum is  2.747866 
+## i is  9 
+## j is  1 
+## sum is  2.167675 
+## i is  9 
+## j is  2 
+## sum is  2.552833 
+## i is  9 
+## j is  3 
+## sum is  2.946676 
+## i is  9 
+## j is  4 
+## sum is  2.180861 
+## i is  9 
+## j is  5 
+## sum is  0.8735899 
+## i is  10 
+## j is  1 
+## sum is  1.624249 
+## i is  10 
+## j is  2 
+## sum is  2.463084 
+## i is  10 
+## j is  3 
+## sum is  3.43817 
+## i is  10 
+## j is  4 
+## sum is  4.038499 
+## i is  10 
+## j is  5 
+## sum is  3.159081 
+## i is  11 
+## j is  1 
+## sum is  4.181084 
+## i is  11 
+## j is  2 
+## sum is  5.040303 
+## i is  11 
+## j is  3 
+## sum is  4.041305 
+## i is  11 
+## j is  4 
+## sum is  2.866512 
+## i is  11 
+## j is  5 
+## sum is  2.989134 
+## i is  12 
+## j is  1 
+## sum is  3.038568 
+## i is  12 
+## j is  2 
+## sum is  5.121227 
+## i is  12 
+## j is  3 
+## sum is  4.500361 
+## i is  12 
+## j is  4 
+## sum is  3.835593 
+## i is  12 
+## j is  5 
+## sum is  3.281009 
+## i is  13 
+## j is  1 
+## sum is  4.777404 
+## i is  13 
+## j is  2 
+## sum is  4.098155 
+## i is  13 
+## j is  3 
+## sum is  3.774436 
+## i is  13 
+## j is  4 
+## sum is  4.378445 
+## i is  13 
+## j is  5 
+## sum is  5.830014 
+## i is  14 
+## j is  1 
+## sum is  5.166102 
+## i is  14 
+## j is  2 
+## sum is  4.547378 
+## i is  14 
+## j is  3 
+## sum is  3.694241 
+## i is  14 
+## j is  4 
+## sum is  3.776184 
+## i is  14 
+## j is  5 
+## sum is  1.672002 
+## i is  15 
+## j is  1 
+## sum is  1.73528 
+## i is  15 
+## j is  2 
+## sum is  1.796657 
+## i is  15 
+## j is  3 
+## sum is  0.9844289 
+## i is  15 
+## j is  4 
+## sum is  0.01147393 
+## i is  15 
+## j is  5 
+## sum is  0.3496017 
+## i is  16 
+## j is  1 
+## sum is  -0.8095987 
+## i is  16 
+## j is  2 
+## sum is  0.2482675 
+## i is  16 
+## j is  3 
+## sum is  -0.9924905 
+## i is  16 
+## j is  4 
+## sum is  -1.735668 
+## i is  16 
+## j is  5 
+## sum is  -2.489759 
+## i is  17 
+## j is  1 
+## sum is  -3.83051 
+## i is  17 
+## j is  2 
+## sum is  -4.946888 
+## i is  17 
+## j is  3 
+## sum is  -4.49013 
+## i is  17 
+## j is  4 
+## sum is  -5.360349 
+## i is  17 
+## j is  5 
+## sum is  -5.319286 
+## i is  18 
+## j is  1 
+## sum is  -6.349673 
+## i is  18 
+## j is  2 
+## sum is  -6.092634 
+## i is  18 
+## j is  3 
+## sum is  -6.829986 
+## i is  18 
+## j is  4 
+## sum is  -6.719998 
+## i is  18 
+## j is  5 
+## sum is  -8.393981 
+## i is  19 
+## j is  1 
+## sum is  -6.817708 
+## i is  19 
+## j is  2 
+## sum is  -7.775487 
+## i is  19 
+## j is  3 
+## sum is  -8.384238 
+## i is  19 
+## j is  4 
+## sum is  -9.276189 
+## i is  19 
+## j is  5 
+## sum is  -7.911281 
+## i is  20 
+## j is  1 
+## sum is  -9.008479 
+## i is  20 
+## j is  2 
+## sum is  -9.949895 
+## i is  20 
+## j is  3 
+## sum is  -11.70468 
+## i is  20 
+## j is  4 
+## sum is  -11.6004 
+## i is  20 
+## j is  5 
+## sum is  -13.04954 
+## i is  21 
+## j is  1 
+## sum is  -15.27329 
+## i is  21 
+## j is  2 
+## sum is  -16.31964 
+## i is  21 
+## j is  3 
+## sum is  -15.65269 
+## i is  21 
+## j is  4 
+## sum is  -16.5706 
+## i is  21 
+## j is  5 
+## sum is  -16.81527 
+## i is  22 
+## j is  1 
+## sum is  -16.46188 
+## i is  22 
+## j is  2 
+## sum is  -17.08785 
+## i is  22 
+## j is  3 
+## sum is  -17.73987 
+## i is  22 
+## j is  4 
+## sum is  -17.62767 
+## i is  22 
+## j is  5 
+## sum is  -16.49927 
+## i is  23 
+## j is  1 
+## sum is  -16.96161 
+## i is  23 
+## j is  2 
+## sum is  -16.84293 
+## i is  23 
+## j is  3 
+## sum is  -16.66055 
+## i is  23 
+## j is  4 
+## sum is  -15.82018 
+## i is  23 
+## j is  5 
+## sum is  -15.8444 
+## i is  24 
+## j is  1 
+## sum is  -16.98045 
+## i is  24 
+## j is  2 
+## sum is  -17.69553 
+## i is  24 
+## j is  3 
+## sum is  -17.51958 
+## i is  24 
+## j is  4 
+## sum is  -17.18457 
+## i is  24 
+## j is  5 
+## sum is  -14.91361 
+## i is  25 
+## j is  1 
+## sum is  -15.32576 
+## i is  25 
+## j is  2 
+## sum is  -14.3349 
+## i is  25 
+## j is  3 
+## sum is  -13.76958 
+## i is  25 
+## j is  4 
+## sum is  -12.52717 
+## i is  25 
+## j is  5 
+## sum is  -11.48586 
+## i is  26 
+## j is  1 
+## sum is  -11.26481 
+## i is  26 
+## j is  2 
+## sum is  -10.81358 
+## i is  26 
+## j is  3 
+## sum is  -12.01013 
+## i is  26 
+## j is  4 
+## sum is  -12.18034 
+## i is  26 
+## j is  5 
+## sum is  -12.18548 
+## i is  27 
+## j is  1 
+## sum is  -12.93099 
+## i is  27 
+## j is  2 
+## sum is  -12.2764 
+## i is  27 
+## j is  3 
+## sum is  -11.04666 
+## i is  27 
+## j is  4 
+## sum is  -12.28495 
+## i is  27 
+## j is  5 
+## sum is  -11.78645 
+## i is  28 
+## j is  1 
+## sum is  -13.17381 
+## i is  28 
+## j is  2 
+## sum is  -11.2942 
+## i is  28 
+## j is  3 
+## sum is  -12.17943 
+## i is  28 
+## j is  4 
+## sum is  -12.56592 
+## i is  28 
+## j is  5 
+## sum is  -12.02056 
+## i is  29 
+## j is  1 
+## sum is  -11.0604 
+## i is  29 
+## j is  2 
+## sum is  -11.18431 
+## i is  29 
+## j is  3 
+## sum is  -13.22295 
+## i is  29 
+## j is  4 
+## sum is  -13.87789 
+## i is  29 
+## j is  5 
+## sum is  -13.71652 
+## i is  30 
+## j is  1 
+## sum is  -12.603 
+## i is  30 
+## j is  2 
+## sum is  -11.69173 
+## i is  30 
+## j is  3 
+## sum is  -13.27543 
+## i is  30 
+## j is  4 
+## sum is  -13.11214 
+## i is  30 
+## j is  5 
+## sum is  -11.59159 
+## i is  31 
+## j is  1 
+## sum is  -11.10162 
+## i is  31 
+## j is  2 
+## sum is  -10.86009 
+## i is  31 
+## j is  3 
+## sum is  -10.56462 
+## i is  31 
+## j is  4 
+## sum is  -9.537921 
+## i is  31 
+## j is  5 
+## sum is  -9.344185 
+## i is  32 
+## j is  1 
+## sum is  -8.924197 
+## i is  32 
+## j is  2 
+## sum is  -8.298761 
+## i is  32 
+## j is  3 
+## sum is  -10.28171 
+## i is  32 
+## j is  4 
+## sum is  -9.588245 
+## i is  32 
+## j is  5 
+## sum is  -8.913767 
+## i is  33 
+## j is  1 
+## sum is  -9.665884 
+## i is  33 
+## j is  2 
+## sum is  -10.3413 
+## i is  33 
+## j is  3 
+## sum is  -9.47933 
+## i is  33 
+## j is  4 
+## sum is  -7.786361 
+## i is  33 
+## j is  5 
+## sum is  -7.619748 
+## i is  34 
+## j is  1 
+## sum is  -7.425245 
+## i is  34 
+## j is  2 
+## sum is  -7.155406 
+## i is  34 
+## j is  3 
+## sum is  -7.292311 
+## i is  34 
+## j is  4 
+## sum is  -8.015665 
+## i is  34 
+## j is  5 
+## sum is  -8.802018 
+## i is  35 
+## j is  1 
+## sum is  -8.924007 
+## i is  35 
+## j is  2 
+## sum is  -9.98825 
+## i is  35 
+## j is  3 
+## sum is  -10.06324 
+## i is  35 
+## j is  4 
+## sum is  -11.13194 
+## i is  35 
+## j is  5 
+## sum is  -9.559339 
+## i is  36 
+## j is  1 
+## sum is  -8.576788 
+## i is  36 
+## j is  2 
+## sum is  -8.845893 
+## i is  36 
+## j is  3 
+## sum is  -9.513639 
+## i is  36 
+## j is  4 
+## sum is  -10.7934 
+## i is  36 
+## j is  5 
+## sum is  -13.2929 
+## i is  37 
+## j is  1 
+## sum is  -14.094 
+## i is  37 
+## j is  2 
+## sum is  -15.34902 
+## i is  37 
+## j is  3 
+## sum is  -15.18755 
+## i is  37 
+## j is  4 
+## sum is  -15.68691 
+## i is  37 
+## j is  5 
+## sum is  -16.3395 
+## i is  38 
+## j is  1 
+## sum is  -17.01778 
+## i is  38 
+## j is  2 
+## sum is  -17.29322 
+## i is  38 
+## j is  3 
+## sum is  -15.84603 
+## i is  38 
+## j is  4 
+## sum is  -16.40153 
+## i is  38 
+## j is  5 
+## sum is  -16.03652 
+## i is  39 
+## j is  1 
+## sum is  -16.74834 
+## i is  39 
+## j is  2 
+## sum is  -15.51359 
+## i is  39 
+## j is  3 
+## sum is  -15.67928 
+## i is  39 
+## j is  4 
+## sum is  -15.84002 
+## i is  39 
+## j is  5 
+## sum is  -14.89247 
+## i is  40 
+## j is  1 
+## sum is  -15.7001 
+## i is  40 
+## j is  2 
+## sum is  -13.95094 
+## i is  40 
+## j is  3 
+## sum is  -13.88428 
+## i is  40 
+## j is  4 
+## sum is  -14.17471 
+## i is  40 
+## j is  5 
+## sum is  -15.6574 
+## i is  41 
+## j is  1 
+## sum is  -14.51066 
+## i is  41 
+## j is  2 
+## sum is  -15.38531 
+## i is  41 
+## j is  3 
+## sum is  -15.75743 
+## i is  41 
+## j is  4 
+## sum is  -17.39286 
+## i is  41 
+## j is  5 
+## sum is  -16.22828 
+## i is  42 
+## j is  1 
+## sum is  -15.03357 
+## i is  42 
+## j is  2 
+## sum is  -14.50019 
+## i is  42 
+## j is  3 
+## sum is  -15.98258 
+## i is  42 
+## j is  4 
+## sum is  -15.14709 
+## i is  42 
+## j is  5 
+## sum is  -15.5922 
+## i is  43 
+## j is  1 
+## sum is  -17.55825 
+## i is  43 
+## j is  2 
+## sum is  -18.80094 
+## i is  43 
+## j is  3 
+## sum is  -19.14009 
+## i is  43 
+## j is  4 
+## sum is  -20.1857 
+## i is  43 
+## j is  5 
+## sum is  -21.80031 
+## i is  44 
+## j is  1 
+## sum is  -21.88315 
+## i is  44 
+## j is  2 
+## sum is  -22.11845 
+## i is  44 
+## j is  3 
+## sum is  -23.05097 
+## i is  44 
+## j is  4 
+## sum is  -22.64797 
+## i is  44 
+## j is  5 
+## sum is  -23.43493 
+## i is  45 
+## j is  1 
+## sum is  -24.67675 
+## i is  45 
+## j is  2 
+## sum is  -24.49661 
+## i is  45 
+## j is  3 
+## sum is  -25.75712 
+## i is  45 
+## j is  4 
+## sum is  -24.82793 
+## i is  45 
+## j is  5 
+## sum is  -24.97151 
+## i is  46 
+## j is  1 
+## sum is  -25.11661 
+## i is  46 
+## j is  2 
+## sum is  -26.06073 
+## i is  46 
+## j is  3 
+## sum is  -26.14947 
+## i is  46 
+## j is  4 
+## sum is  -26.68237 
+## i is  46 
+## j is  5 
+## sum is  -27.83991 
+## i is  47 
+## j is  1 
+## sum is  -26.67148 
+## i is  47 
+## j is  2 
+## sum is  -26.05468 
+## i is  47 
+## j is  3 
+## sum is  -26.73516 
+## i is  47 
+## j is  4 
+## sum is  -25.90046 
+## i is  47 
+## j is  5 
+## sum is  -27.33967 
+## i is  48 
+## j is  1 
+## sum is  -27.02536 
+## i is  48 
+## j is  2 
+## sum is  -28.30359 
+## i is  48 
+## j is  3 
+## sum is  -25.83973 
+## i is  48 
+## j is  4 
+## sum is  -25.3203 
+## i is  48 
+## j is  5 
+## sum is  -25.06568 
+## i is  49 
+## j is  1 
+## sum is  -25.7889 
+## i is  49 
+## j is  2 
+## sum is  -23.67387 
+## i is  49 
+## j is  3 
+## sum is  -24.1234 
+## i is  49 
+## j is  4 
+## sum is  -22.30606 
+## i is  49 
+## j is  5 
+## sum is  -24.93399 
+## i is  50 
+## j is  1 
+## sum is  -25.53541 
+## i is  50 
+## j is  2 
+## sum is  -24.17937 
+## i is  50 
+## j is  3 
+## sum is  -24.16809 
+## i is  50 
+## j is  4 
+## sum is  -24.56516 
+## i is  50 
+## j is  5 
+## sum is  -22.55243 
+## i is  51 
+## j is  1 
+## sum is  -22.43062 
+## i is  51 
+## j is  2 
+## sum is  -22.46227 
+## i is  51 
+## j is  3 
+## sum is  -23.43667 
+## i is  51 
+## j is  4 
+## sum is  -22.48451 
+## i is  51 
+## j is  5 
+## sum is  -22.69898 
+## i is  52 
+## j is  1 
+## sum is  -21.17274 
+## i is  52 
+## j is  2 
+## sum is  -19.97547 
+## i is  52 
+## j is  3 
+## sum is  -19.26908 
+## i is  52 
+## j is  4 
+## sum is  -18.06387 
+## i is  52 
+## j is  5 
+## sum is  -17.58801 
+## i is  53 
+## j is  1 
+## sum is  -17.30312 
+## i is  53 
+## j is  2 
+## sum is  -18.41321 
+## i is  53 
+## j is  3 
+## sum is  -18.78513 
+## i is  53 
+## j is  4 
+## sum is  -18.41343 
+## i is  53 
+## j is  5 
+## sum is  -19.372 
+## i is  54 
+## j is  1 
+## sum is  -20.71162 
+## i is  54 
+## j is  2 
+## sum is  -21.06476 
+## i is  54 
+## j is  3 
+## sum is  -20.91844 
+## i is  54 
+## j is  4 
+## sum is  -20.38993 
+## i is  54 
+## j is  5 
+## sum is  -21.05583 
+## i is  55 
+## j is  1 
+## sum is  -19.62448 
+## i is  55 
+## j is  2 
+## sum is  -21.01186 
+## i is  55 
+## j is  3 
+## sum is  -21.11851 
+## i is  55 
+## j is  4 
+## sum is  -22.38111 
+## i is  55 
+## j is  5 
+## sum is  -22.73197 
+## i is  56 
+## j is  1 
+## sum is  -23.10024 
+## i is  56 
+## j is  2 
+## sum is  -22.03114 
+## i is  56 
+## j is  3 
+## sum is  -22.44685 
+## i is  56 
+## j is  4 
+## sum is  -21.06245 
+## i is  56 
+## j is  5 
+## sum is  -20.55286 
+## i is  57 
+## j is  1 
+## sum is  -19.55134 
+## i is  57 
+## j is  2 
+## sum is  -18.65546 
+## i is  57 
+## j is  3 
+## sum is  -17.03353 
+## i is  57 
+## j is  4 
+## sum is  -17.00099 
+## i is  57 
+## j is  5 
+## sum is  -15.02452 
+## i is  58 
+## j is  1 
+## sum is  -15.37767 
+## i is  58 
+## j is  2 
+## sum is  -14.69015 
+## i is  58 
+## j is  3 
+## sum is  -15.91043 
+## i is  58 
+## j is  4 
+## sum is  -16.80533 
+## i is  58 
+## j is  5 
+## sum is  -16.23282 
+## i is  59 
+## j is  1 
+## sum is  -16.48396 
+## i is  59 
+## j is  2 
+## sum is  -17.25664 
+## i is  59 
+## j is  3 
+## sum is  -18.60816 
+## i is  59 
+## j is  4 
+## sum is  -17.17567 
+## i is  59 
+## j is  5 
+## sum is  -19.35022 
+## i is  60 
+## j is  1 
+## sum is  -19.52604 
+## i is  60 
+## j is  2 
+## sum is  -19.14998 
+## i is  60 
+## j is  3 
+## sum is  -19.67007 
+## i is  60 
+## j is  4 
+## sum is  -21.23352 
+## i is  60 
+## j is  5 
+## sum is  -21.88226 
+## i is  61 
+## j is  1 
+## sum is  -22.79528 
+## i is  61 
+## j is  2 
+## sum is  -23.74511 
+## i is  61 
+## j is  3 
+## sum is  -23.16295 
+## i is  61 
+## j is  4 
+## sum is  -22.84429 
+## i is  61 
+## j is  5 
+## sum is  -23.73909 
+## i is  62 
+## j is  1 
+## sum is  -22.28355 
+## i is  62 
+## j is  2 
+## sum is  -21.08076 
+## i is  62 
+## j is  3 
+## sum is  -21.53865 
+## i is  62 
+## j is  4 
+## sum is  -18.83359 
+## i is  62 
+## j is  5 
+## sum is  -18.09637 
+## i is  63 
+## j is  1 
+## sum is  -18.93471 
+## i is  63 
+## j is  2 
+## sum is  -17.23567 
+## i is  63 
+## j is  3 
+## sum is  -17.50677 
+## i is  63 
+## j is  4 
+## sum is  -16.84724 
+## i is  63 
+## j is  5 
+## sum is  -17.15168 
+## i is  64 
+## j is  1 
+## sum is  -18.44154 
+## i is  64 
+## j is  2 
+## sum is  -17.9298 
+## i is  64 
+## j is  3 
+## sum is  -19.57412 
+## i is  64 
+## j is  4 
+## sum is  -19.42085 
+## i is  64 
+## j is  5 
+## sum is  -19.73031 
+## i is  65 
+## j is  1 
+## sum is  -20.6478 
+## i is  65 
+## j is  2 
+## sum is  -21.45728 
+## i is  65 
+## j is  3 
+## sum is  -21.69023 
+## i is  65 
+## j is  4 
+## sum is  -21.82024 
+## i is  65 
+## j is  5 
+## sum is  -22.44953 
+## i is  66 
+## j is  1 
+## sum is  -22.37656 
+## i is  66 
+## j is  2 
+## sum is  -22.93854 
+## i is  66 
+## j is  3 
+## sum is  -22.30478 
+## i is  66 
+## j is  4 
+## sum is  -21.79837 
+## i is  66 
+## j is  5 
+## sum is  -21.04143 
+## i is  67 
+## j is  1 
+## sum is  -21.30407 
+## i is  67 
+## j is  2 
+## sum is  -20.2574 
+## i is  67 
+## j is  3 
+## sum is  -20.02867 
+## i is  67 
+## j is  4 
+## sum is  -20.31122 
+## i is  67 
+## j is  5 
+## sum is  -19.65807 
+## i is  68 
+## j is  1 
+## sum is  -19.63524 
+## i is  68 
+## j is  2 
+## sum is  -19.10738 
+## i is  68 
+## j is  3 
+## sum is  -18.88787 
+## i is  68 
+## j is  4 
+## sum is  -17.85369 
+## i is  68 
+## j is  5 
+## sum is  -19.04869 
+## i is  69 
+## j is  1 
+## sum is  -19.90833 
+## i is  69 
+## j is  2 
+## sum is  -17.84277 
+## i is  69 
+## j is  3 
+## sum is  -17.25042 
+## i is  69 
+## j is  4 
+## sum is  -19.03016 
+## i is  69 
+## j is  5 
+## sum is  -20.131 
+## i is  70 
+## j is  1 
+## sum is  -20.81731 
+## i is  70 
+## j is  2 
+## sum is  -21.3123 
+## i is  70 
+## j is  3 
+## sum is  -21.13671 
+## i is  70 
+## j is  4 
+## sum is  -22.01562 
+## i is  70 
+## j is  5 
+## sum is  -22.7453 
+## i is  71 
+## j is  1 
+## sum is  -22.89679 
+## i is  71 
+## j is  2 
+## sum is  -22.31604 
+## i is  71 
+## j is  3 
+## sum is  -22.77059 
+## i is  71 
+## j is  4 
+## sum is  -21.95494 
+## i is  71 
+## j is  5 
+## sum is  -21.54692 
+## i is  72 
+## j is  1 
+## sum is  -21.75882 
+## i is  72 
+## j is  2 
+## sum is  -20.07445 
+## i is  72 
+## j is  3 
+## sum is  -20.21105 
+## i is  72 
+## j is  4 
+## sum is  -20.65543 
+## i is  72 
+## j is  5 
+## sum is  -20.80898 
+## i is  73 
+## j is  1 
+## sum is  -22.6349 
+## i is  73 
+## j is  2 
+## sum is  -21.9283 
+## i is  73 
+## j is  3 
+## sum is  -19.32435 
+## i is  73 
+## j is  4 
+## sum is  -19.07972 
+## i is  73 
+## j is  5 
+## sum is  -19.09414 
+## i is  74 
+## j is  1 
+## sum is  -19.91121 
+## i is  74 
+## j is  2 
+## sum is  -20.96357 
+## i is  74 
+## j is  3 
+## sum is  -22.36535 
+## i is  74 
+## j is  4 
+## sum is  -22.16596 
+## i is  74 
+## j is  5 
+## sum is  -21.87295 
+## i is  75 
+## j is  1 
+## sum is  -21.22191 
+## i is  75 
+## j is  2 
+## sum is  -22.35539 
+## i is  75 
+## j is  3 
+## sum is  -22.67127 
+## i is  75 
+## j is  4 
+## sum is  -22.03792 
+## i is  75 
+## j is  5 
+## sum is  -23.47865 
+## i is  76 
+## j is  1 
+## sum is  -24.28343 
+## i is  76 
+## j is  2 
+## sum is  -23.82905 
+## i is  76 
+## j is  3 
+## sum is  -22.68507 
+## i is  76 
+## j is  4 
+## sum is  -22.45383 
+## i is  76 
+## j is  5 
+## sum is  -21.64308 
+## i is  77 
+## j is  1 
+## sum is  -24.45226 
+## i is  77 
+## j is  2 
+## sum is  -24.68298 
+## i is  77 
+## j is  3 
+## sum is  -24.75107 
+## i is  77 
+## j is  4 
+## sum is  -23.3108 
+## i is  77 
+## j is  5 
+## sum is  -23.45676 
+## i is  78 
+## j is  1 
+## sum is  -23.16257 
+## i is  78 
+## j is  2 
+## sum is  -22.05213 
+## i is  78 
+## j is  3 
+## sum is  -21.94245 
+## i is  78 
+## j is  4 
+## sum is  -21.4213 
+## i is  78 
+## j is  5 
+## sum is  -20.83093 
+## i is  79 
+## j is  1 
+## sum is  -21.50651 
+## i is  79 
+## j is  2 
+## sum is  -23.00082 
+## i is  79 
+## j is  3 
+## sum is  -22.06033 
+## i is  79 
+## j is  4 
+## sum is  -20.86986 
+## i is  79 
+## j is  5 
+## sum is  -20.81296 
+## i is  80 
+## j is  1 
+## sum is  -21.27644 
+## i is  80 
+## j is  2 
+## sum is  -22.33334 
+## i is  80 
+## j is  3 
+## sum is  -22.29157 
+## i is  80 
+## j is  4 
+## sum is  -23.65247 
+## i is  80 
+## j is  5 
+## sum is  -24.83161 
+## i is  81 
+## j is  1 
+## sum is  -25.21449 
+## i is  81 
+## j is  2 
+## sum is  -25.93704 
+## i is  81 
+## j is  3 
+## sum is  -25.0445 
+## i is  81 
+## j is  4 
+## sum is  -24.74892 
+## i is  81 
+## j is  5 
+## sum is  -23.88648 
+## i is  82 
+## j is  1 
+## sum is  -23.35056 
+## i is  82 
+## j is  2 
+## sum is  -21.99254 
+## i is  82 
+## j is  3 
+## sum is  -21.18283 
+## i is  82 
+## j is  4 
+## sum is  -20.49257 
+## i is  82 
+## j is  5 
+## sum is  -21.85952 
+## i is  83 
+## j is  1 
+## sum is  -21.92562 
+## i is  83 
+## j is  2 
+## sum is  -20.98978 
+## i is  83 
+## j is  3 
+## sum is  -21.89245 
+## i is  83 
+## j is  4 
+## sum is  -20.85111 
+## i is  83 
+## j is  5 
+## sum is  -20.67539 
+## i is  84 
+## j is  1 
+## sum is  -21.34116 
+## i is  84 
+## j is  2 
+## sum is  -21.72444 
+## i is  84 
+## j is  3 
+## sum is  -23.88442 
+## i is  84 
+## j is  4 
+## sum is  -23.41418 
+## i is  84 
+## j is  5 
+## sum is  -25.30431 
+## i is  85 
+## j is  1 
+## sum is  -27.22229 
+## i is  85 
+## j is  2 
+## sum is  -27.16105 
+## i is  85 
+## j is  3 
+## sum is  -27.05797 
+## i is  85 
+## j is  4 
+## sum is  -26.27657 
+## i is  85 
+## j is  5 
+## sum is  -25.84557 
+## i is  86 
+## j is  1 
+## sum is  -26.66869 
+## i is  86 
+## j is  2 
+## sum is  -26.2361 
+## i is  86 
+## j is  3 
+## sum is  -27.11089 
+## i is  86 
+## j is  4 
+## sum is  -26.89552 
+## i is  86 
+## j is  5 
+## sum is  -27.09179 
+## i is  87 
+## j is  1 
+## sum is  -26.73154 
+## i is  87 
+## j is  2 
+## sum is  -26.23431 
+## i is  87 
+## j is  3 
+## sum is  -26.17828 
+## i is  87 
+## j is  4 
+## sum is  -25.08424 
+## i is  87 
+## j is  5 
+## sum is  -24.96432 
+## i is  88 
+## j is  1 
+## sum is  -22.60701 
+## i is  88 
+## j is  2 
+## sum is  -23.83081 
+## i is  88 
+## j is  3 
+## sum is  -23.50165 
+## i is  88 
+## j is  4 
+## sum is  -21.71381 
+## i is  88 
+## j is  5 
+## sum is  -19.8387 
+## i is  89 
+## j is  1 
+## sum is  -18.25549 
+## i is  89 
+## j is  2 
+## sum is  -16.56754 
+## i is  89 
+## j is  3 
+## sum is  -16.83845 
+## i is  89 
+## j is  4 
+## sum is  -16.99699 
+## i is  89 
+## j is  5 
+## sum is  -17.61309 
+## i is  90 
+## j is  1 
+## sum is  -17.09015 
+## i is  90 
+## j is  2 
+## sum is  -16.76107 
+## i is  90 
+## j is  3 
+## sum is  -15.76514 
+## i is  90 
+## j is  4 
+## sum is  -17.25912 
+## i is  90 
+## j is  5 
+## sum is  -17.69441 
+## i is  91 
+## j is  1 
+## sum is  -18.41101 
+## i is  91 
+## j is  2 
+## sum is  -17.54319 
+## i is  91 
+## j is  3 
+## sum is  -16.77536 
+## i is  91 
+## j is  4 
+## sum is  -18.39728 
+## i is  91 
+## j is  5 
+## sum is  -18.21698 
+## i is  92 
+## j is  1 
+## sum is  -20.16001 
+## i is  92 
+## j is  2 
+## sum is  -19.26406 
+## i is  92 
+## j is  3 
+## sum is  -21.06407 
+## i is  92 
+## j is  4 
+## sum is  -22.19655 
+## i is  92 
+## j is  5 
+## sum is  -20.49915 
+## i is  93 
+## j is  1 
+## sum is  -19.92339 
+## i is  93 
+## j is  2 
+## sum is  -20.23214 
+## i is  93 
+## j is  3 
+## sum is  -19.16691 
+## i is  93 
+## j is  4 
+## sum is  -17.9843 
+## i is  93 
+## j is  5 
+## sum is  -19.56042 
+## i is  94 
+## j is  1 
+## sum is  -19.14933 
+## i is  94 
+## j is  2 
+## sum is  -17.85147 
+## i is  94 
+## j is  3 
+## sum is  -17.52985 
+## i is  94 
+## j is  4 
+## sum is  -17.43132 
+## i is  94 
+## j is  5 
+## sum is  -18.26962 
+## i is  95 
+## j is  1 
+## sum is  -18.62711 
+## i is  95 
+## j is  2 
+## sum is  -18.95086 
+## i is  95 
+## j is  3 
+## sum is  -17.13142 
+## i is  95 
+## j is  4 
+## sum is  -17.63795 
+## i is  95 
+## j is  5 
+## sum is  -18.94932 
+## i is  96 
+## j is  1 
+## sum is  -18.85717 
+## i is  96 
+## j is  2 
+## sum is  -17.971 
+## i is  96 
+## j is  3 
+## sum is  -16.59891 
+## i is  96 
+## j is  4 
+## sum is  -15.80101 
+## i is  96 
+## j is  5 
+## sum is  -15.60222 
+## i is  97 
+## j is  1 
+## sum is  -16.05011 
+## i is  97 
+## j is  2 
+## sum is  -15.7612 
+## i is  97 
+## j is  3 
+## sum is  -15.44994 
+## i is  97 
+## j is  4 
+## sum is  -15.86262 
+## i is  97 
+## j is  5 
+## sum is  -15.11713 
+## i is  98 
+## j is  1 
+## sum is  -14.63464 
+## i is  98 
+## j is  2 
+## sum is  -15.19127 
+## i is  98 
+## j is  3 
+## sum is  -15.72472 
+## i is  98 
+## j is  4 
+## sum is  -17.16105 
+## i is  98 
+## j is  5 
+## sum is  -18.35706 
+## i is  99 
+## j is  1 
+## sum is  -17.51758 
+## i is  99 
+## j is  2 
+## sum is  -17.21795 
+## i is  99 
+## j is  3 
+## sum is  -16.99451 
+## i is  99 
+## j is  4 
+## sum is  -16.26297 
+## i is  99 
+## j is  5 
+## sum is  -16.65629 
+## i is  100 
+## j is  1 
+## sum is  -17.84317 
+## i is  100 
+## j is  2 
+## sum is  -18.42996 
+## i is  100 
+## j is  3 
+## sum is  -17.45419 
+## i is  100 
+## j is  4 
+## sum is  -18.28959 
+## i is  100 
+## j is  5 
+## sum is  -17.95056
+```
+
+```
+## Error in mat[i, j]: subscript out of bounds
+```
 
 ---
 layout: false
@@ -526,118 +2069,24 @@ What I often do is execute my function within an interactive debugger until I hi
 To check I'm in the right place, I then copy and paste the next line of code into my `Browse` console.
 This will trigger the error without exiting the interactive debugger.
 
-Once I am there, I am now interacting with the exact environment R is using before the error is triggered.
-I then usually examine one-by-one each object in the environment to make sure the structure matches up with what I expect.
-Usually doing this allows me to identify what object does not look what I expect and why, allowing me to fix it.
-However, if I still can't figure it out, I then `s` "Step into" the next function and repeat this process.
-
 ---
-
-.center[.huge[[Demo](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/slides/07_debuggit.Rmd)]]
-
-&lt;br/&gt;
 
 
 ```r
-# BROWSER DEMO 2
-loop_fun &lt;- function(x) {
-  # browser()
-  n &lt;- length(x)
-  y &lt;- rep(NA, n)
-  z &lt;- rep(NA, n)
-  for (i in 1:n) {
-    y[i] &lt;- x[i] * 2
-    z[i] &lt;- y[i] * 2
+sum_matrix &lt;- function(mat) {
+  browser()
+  curr_sum &lt;- 0
+  for (i in 1:(nrow(mat))) {
+    for (j in 1:ncol(mat)) {
+      curr_sum &lt;- curr_sum + mat[i, j]
+    }
   }
-  return(list("y" = y, "z" = z))
+  curr_sum &lt;- curr_sum + mat[nrow(mat) + 1, 1]
 }
-loop_fun(1:5)
-loop_fun(diag(1:5))
-```
----
-layout: false
-layout: true
-# Breakpoints
----
-
-Breakpoints are an RStudio-specific tool that work as an alternative to `browser()`.
-A breakpoint at a line is equivalent to a `browser()` call before that line, but with the benefit that you don't need to change your source code and worry about leaving a `browser()` where it doesn't belong.
-Personally, I find them a bit more tedious because they require sourcing and saving, and I prefer working with code directly rather than IDE's.
-
-To set a break point, just click the empty space next to a line number.
-If your file is not saved, it will prompt you to save it. 
-You will then then see an empty circle, indicating that RStudio will remember the breakpoint, but it has not been enabled.
-
-
-In order to enable a breakpoint, you need to save and source file.
-You can then enable as many breakpoints as you want with a single click.
-However, as soon as you edit the file at all (even if you don't save), it will no longer be considered sourced, and you will have to re-source it to enable breakpoints.
-
-.center[&lt;img src="images/breakpoint1.png" alt="" height="75"/&gt; &amp;nbsp; &amp;nbsp;  &lt;img src="images/breakpoint2.png" alt="" height="60"/&gt;]
-
----
-
-.center[.huge[[Demo](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/slides/07_debuggit.Rmd)]]
-
-&lt;br/&gt;
-
-
-```r
-# BREAKPOINT DEMO
-loop_fun &lt;- function(x) {
-  # browser()
-  n &lt;- length(x)
-  y &lt;- rep(NA, n)
-  z &lt;- rep(NA, n)
-  for (i in 1:n) {
-    y[i] &lt;- x[i] * 2
-    z[i] &lt;- y[i] * 2
-  }
-  return(list("y" = y, "z" = z))
-}
-loop_fun(1:5)
-loop_fun(diag(1:5))
 ```
 
 ---
 layout: false
-
-# Stop on error: &lt;TT&gt;recover&lt;/TT&gt;
-
-Note that we can also set an interactive debugger as our default error handler using `recover`
-
-```r
-options(error = recover)
-```
-This works similarly to `options(error = traceback)` except you will now be able to select a frame and interactively debug within the frames.
-Again, I personally don't like doing this because often a quick bug I can identify right away from the error message without needing to enter an interactive debugger, so I don't like to have it do this on every error.
-
----
-
-# Stop on error: &lt;TT&gt;recover&lt;/TT&gt;
-
-
-.center[.huge[[Demo](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/slides/07_debuggit.Rmd)]]
-
-&lt;br/&gt;
-
-
-```r
-# RECOVER DEMO
-f &lt;- function(a) g(a)
-g &lt;- function(b) h(b)
-h &lt;- function(c) i(c)
-i &lt;- function(d) {
-  if (!is.numeric(d)) {
-    stop("`d` must be numeric", call. = FALSE)
-  }
-  d + 10
-}
-# options(error = recover)
-f("a")
-```
-
----
 
 # &lt;TT&gt;debug()&lt;/TT&gt;: debug a function
 
@@ -646,6 +2095,8 @@ Even for your own functions, it may be more convenient to debug the entire funct
 When a function is in debug mode, it will remain in debug mode until you call `undebug()`.
 
 ---
+
+# &lt;TT&gt;debug()&lt;/TT&gt;: debug a function
 
 .center[.huge[[Demo](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/slides/07_debuggit.Rmd)]]
 
@@ -679,80 +2130,6 @@ f("a")
 
 ---
 
-# &lt;TT&gt;trace()&lt;/TT&gt;: debug at chosen place
-
-`trace()` is an alternative to `debug()`. It is similar in that a function will be traced until you call `untrace()`. 
-It is more flexible in that it allows you to choose where you want to debug a function, but it can also be more complicated to use.
-
-
-```r
-trace(print, quote(if (is.numeric(x) &amp;&amp; x &gt;= 3) cat("hi\n")), print = FALSE)
-```
-
-```
-## Tracing function "print" in package "base"
-```
-
-```
-## [1] "print"
-```
-
-```r
-print(1)
-```
-
-```
-## [1] 1
-```
-
-```r
-print(3)
-```
-
-```
-## hi
-## [1] 3
-```
-
-```r
-untrace(print)
-```
-
-```
-## Untracing function "print" in package "base"
-```
-
----
-
-# &lt;TT&gt;trace()&lt;/TT&gt;: debug at chosen place
-
-.center[.huge[[Demo](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/slides/07_debuggit.Rmd)]]
-
-&lt;br/&gt;
-
-
-```r
-# TRACE DEMO
-fun &lt;- function() {
-  for (i in 1:10000) {
-    if (i == 9876) {
-      stop("Oh no!")
-    }
-  }
-}
-
-# x &lt;- as.list(body(fun))
-# x
-# as.list(x[[2]])
-# as.list(x[[c(2, 4)]])
-# as.list(x[[c(2, 4, 2)]])
-# as.list(x[[c(2, 4, 2, 3)]])
-trace(fun, browser, at = list(c(2, 4, 2, 3)))
-fun()
-```
-
----
-
 # Debugging Summary
 
 .middler-nocent[
@@ -763,10 +2140,9 @@ fun()
 ### 4. Locate:
 * Call stack: `traceback()`
 * Non-interactive messages: `print()`, `cat()`, `str()`
-* Interactive debugging: breakpoints, `browser()`, `debug()`,
-`debugonce()`, `trace()`, breakpoints
+* Interactive debugging:  `browser()`, `debug()`,
+`debugonce()`
 * Interactive debugging commands: Next `n`, Step into &lt;img src="images/stepin.png" alt="" height="22"/&gt; `s`, Finish &lt;img src="images/finish.png" alt="" height="22"/&gt; `f`, Continue `c`, Stop `Q`, `where`
-* Stop on error: `traceback` (non-interactive), `recover` (interactive)
 ]
 
 ---
@@ -790,9 +2166,9 @@ fun()
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/rolo.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/tired_pup.jpeg" width="700px" style="display: block; margin: auto;" /&gt;
 
-Thanks Katie! 
+Thanks Xiangyi! 
 
 ---
 
@@ -1005,7 +2381,7 @@ Remember, GitHub can become a part of your professional portfolio, and it likely
 * Make it timeless (don't include your current university affiliation, etc)
 * All lowercase is recommended
 
-All users get unlimited free private repositories with up to three collaborators. As students, I highly recommend you sign up for free student benefits at [https://education.github.com/](https://education.github.com/), which includes unlimited free private repositories with unlimited collaborators.
+All users get unlimited free private repositories with up to three collaborators. As students, you alo can sign up for free student benefits at [https://education.github.com/](https://education.github.com/), which includes unlimited free private repositories with unlimited collaborators. If you plan to use GitHub after this class, I would recommend doing this! 
 
 ---
 # Introduce yourself to Git (*)
@@ -1071,14 +2447,6 @@ In R, call `gitcreds::gitcreds_set()` to paste your PAT:
 
 ---
 
-# Optional: Install a git client (*)
-
-Some people recommend installing a GUI for git. 
-One option is [GitKraken](https://www.gitkraken.com/), and it works on all common operating systems.
-
-See [https://happygitwithr.com/git-client.html](https://happygitwithr.com/git-client.html) to see Jenny Bryan's writeup of more git clients as well as why they are helpful.
-
----
 class: inverse
 
 .sectionhead[The next few things will be your submission for Short Lab 4]
@@ -1090,13 +2458,14 @@ class: inverse
 1. Go to GitHub and click the green "New Repository" button. 
 2. Repository name: `shortlab4` or similar, following the naming conventions you've used in the class so far.
 3. Description: Whatever you want, but fill in something.
-4. Public or Private. Up to you! If private, you **must** add both `svteichman` and 
-`joiazhang` as collaborators.
+4. Public or Private: Please choose public, this will make grading easier. Feel free to delete this repository or make it private after grades are released for Short Lab 4. 
 5. YES initialize the repository with a README.
 ]
 
 ---
-# Clone your git repo (*)
+# Clone your git repo (*) 
+## One way to work with git and RStudio 
+
 
 .middler-nocent[
 1. Open a shell window.
@@ -1160,7 +2529,7 @@ Now check the repository online at GitHub. What changed?
 # Add Short Lab 4 (*)
 
 
-1. Navigate to [the shortlab section of the course webpage](https://svteichman.github.io/STAT302-WIN2022/short_labs.html).
+1. Navigate to [the shortlab section of the course webpage](https://svteichman.github.io/STAT302-SPR2022/short_labs.html).
 2. Download the .Rmd for Short Lab 4.
 3. Using your standard file browser, copy the .Rmd into the `shortlab4` or similarly named folder (git repo) you created.
 4. In RStudio, in the Short Lab 4 .Rmd, fill in the required text for the link to your repo.
@@ -1181,10 +2550,9 @@ If you were prompted to re-enter your GitHub credentials, then please follow the
 ---
 
 # Use git through RStudio (*)
+## A second (and better) way to work with git and RStudio 
 
-After you have confirmed that the online GitHub repository matches what you expect:
-
-1. Delete the local repository on your computer.
+1. Delete the local repository on your computer (pretend that we never cloned the Short Lab 4 repository on to your computer).
 2. In RStudio, click *File &gt; New Project &gt; Version Control &gt; Git*. In the "repository URL", paste the HTTPS URL for your repository.
 3. **Create this project within your `ShortLabs` parent directory for short labs!**
 4. Click "Open in new session"
@@ -1192,6 +2560,7 @@ After you have confirmed that the online GitHub repository matches what you expe
 **This is the recommended set up for all of your R projects!** 
 
 That is, first create on GitHub, then clone through RStudio.
+
 
 ---
 
@@ -1222,13 +2591,11 @@ If this is true, then congratulations, you are done with this Short Lab 4!
 
 If this is not true, then let me know and we will work through it together!
 
-Don't forget, if you created a private repository, be sure to add both `svteichman` and `joiazhang` as collaborators.
-
 ---
 
 # More on git and GitHub
 
-I highly encourage you to check out [Happy Git and GitHub for the useR](https://happygitwithr.com/) by Jenny Bryan and others for more details on much of what we went over for this section.
+Check out [Happy Git and GitHub for the useR](https://happygitwithr.com/) by Jenny Bryan and others for more details on much of what we went over for this section.
 
 There are also several helpful public cheatsheets available for [git](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet).
     </textarea>

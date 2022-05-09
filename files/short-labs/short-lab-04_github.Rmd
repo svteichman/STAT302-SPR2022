@@ -5,24 +5,23 @@ date: "Due Date Here"
 output: html_document
 ---
 
+These instructions correspond with the instructions from the lecture slides. See [lectures slides 8](https://svteichman.github.io/STAT302-SPR2022/files/slides/08_debuggit.html) for more information on each of these steps. 
 
 ## Part 1. Set up Git and GitHub
 
-1. Register for a (free) [GitHub](https://github.com/) account. You may want to also add the [Student Developer Pack](https://education.github.com/pack) to your account. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#67)
+1. Register for a (free) [GitHub](https://github.com/) account. You may want to also add the [Student Developer Pack](https://education.github.com/pack) to your account. 
 
-2. Install Git on your computer. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#60)
+2. Install Git on your computer. 
 
-3. Introduce yourself to Git. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#68)
+3. Introduce yourself to Git. 
 
-4. Introduce your computer to GitHub. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#70)
+4. Introduce your computer to GitHub. 
 
-5. Create a Git repo for Short Lab 4 and clone it to your computer. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#73)
+5. Create a Git repo for Short Lab 4 and clone it to your computer. 
 
-6. Commit a local change using the shell. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#75)
+6. Commit a local change using the shell. 
 
-7. Delete your local repository, then use RStudio to clone your repository back to your computer and commit a local change using RStudio. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#78)
-
-8. If you use a private repository, add me and the grader as collaborators.
+7. Delete your local repository, then use RStudio to clone your repository back to your computer and commit a local change using RStudio. 
 
 ## Part 2. Send us your repository
 
