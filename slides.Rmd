@@ -21,6 +21,7 @@ knitr::opts_chunk$set(echo = FALSE)
 * Lecture 06: Regression and Inference [[.html](files/slides/06_inference.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/06_inference.Rmd)]
 
 * Lecture 07: Simulation [[.html](files/slides/07_simulation.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/07_simulation.Rmd)]
+  * Lecture 07: Code Example [[.html](files/slides/07_simulation_example.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/07_simulation_example.Rmd)]
 
 \begin{comment}
 
