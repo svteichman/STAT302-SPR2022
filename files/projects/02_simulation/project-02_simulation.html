@@ -406,7 +406,13 @@ pre code {
 <p><span class="math display">\[Y_i = 5 + X_i\beta + \epsilon_i\]</span> <span class="math display">\[\epsilon_i\sim N(0,1)\]</span> Use a sample size of <span class="math inline">\(n = 100\)</span>. Use the <span class="math inline">\(X\)</span> vector below.</p>
 <pre class="r"><code>set.seed(302)
 X &lt;- rbinom(100, size = 1, prob = 0.5)</code></pre>
-<p>For each effect size (value of <span class="math inline">\(\beta\)</span>), simulate data <span class="math inline">\(1000\)</span> times. In your description of your results, be sure to define power.</p>
+<p>For each effect size (value of <span class="math inline">\(\beta\)</span>), simulate data <span class="math inline">\(1000\)</span> times. Each time you simulate data, you can use the following code, using the appropriate value for <span class="math inline">\(\beta\)</span>. Make sure to put this into a function (that takes in the value of <span class="math inline">\(\beta\)</span> as an input) to generate data once!</p>
+<pre class="r"><code>beta &lt;- 1
+errors &lt;- rnorm(100, mean = 0, sd = 1)
+Y &lt;- 5 + X*beta + errors 
+df &lt;- data.frame(X = X, 
+                 Y = Y)</code></pre>
+<p>Remember that the <code>lm()</code> function (or your <code>my_lm()</code>) will run a t-test for each coefficient in a linear model. You can use either of these functions within your simulation. In your description of your results, be sure to define power.</p>
 </div>
 </div>
 <div id="part-2-simulate-to-teach" class="section level2">

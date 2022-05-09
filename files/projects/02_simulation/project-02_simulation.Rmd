@@ -82,7 +82,18 @@ set.seed(302)
 X <- rbinom(100, size = 1, prob = 0.5)
 ```
 
-For each effect size (value of $\beta$), simulate data $1000$ times. In your description of your results, be sure to define power. 
+For each effect size (value of $\beta$), simulate data $1000$ times. Each time you simulate data, you can use the following code, using the appropriate value for $\beta$. Make sure to put this into a function (that takes in the value of $\beta$ as an input) to generate data once! 
+
+```{r}
+beta <- 1
+errors <- rnorm(100, mean = 0, sd = 1)
+Y <- 5 + X*beta + errors 
+df <- data.frame(X = X, 
+                 Y = Y)
+```
+
+
+Remember that the `lm()` function (or your `my_lm()`) will run a t-test for each coefficient in a linear model. You can use either of these functions within your simulation. In your description of your results, be sure to define power. 
 
 ## Part 2: Simulate to Teach 
 
