@@ -19,9 +19,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Short Lab 4: Setting up GitHub [[.html](files/short-labs/short-lab-04_github.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/short-labs/short-lab-04_github.Rmd)]
 
-\begin{comment}
-
 ### Short Lab 5: Resampling [[.html](files/short-labs/short-lab-05_resampling.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/short-labs/short-lab-05_resampling.Rmd)]
+
+\begin{comment}
 
 ### Short Lab: Principal components analysis [[.html](files/short-labs/short-lab_pca.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/short-labs/short-lab_pca.Rmd)]
 
