@@ -25,9 +25,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 08: Debugging and Git [[.html](files/slides/08_debuggit.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/08_debuggit.html)]
 
-\begin{comment}
-
 * Lecture 09: Application: Resampling [[.html](files/slides/09_resample-bayes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/09_resample-bayes.html)]
+
+\begin{comment}
 
 
 * Lecture 10: Prediction [[.html](files/slides/10_prediction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/10_prediction.html)]

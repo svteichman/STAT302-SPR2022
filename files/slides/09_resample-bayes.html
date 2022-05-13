@@ -22,6 +22,13 @@ class: center, title-slide
 
 
 
+# Today's pet picture 
+
+
+&lt;img src="../../files/images/pets/maisie.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+
 # Outline
 
 1. Permutation Tests
@@ -65,8 +72,26 @@ Are these assumptions satisfied?
 
 The t-test relies on our being able to construct a test statistic with a t-distribution. If our assumptions are met, then our test statistic should have the right distribution.
 
-![](09_resample-bayes_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
 ---
+
+# Parametric vs nonparametric methods 
+
+* Parametric methods: we assume that sample data comes from a population that we can model from a probability distribution with a finite number of parameters 
+--
+
+  * Example: linear model (assume our errors are Normal) 
+  
+--
+
+* Nonparametric methods: we do not assume an explicit form for the distribution of our data 
+
+--
+
+  * Example: the rest of today's lecture! 
+
+---
+
 # Another approach?
 
 However, this is not the only hypothesis test we could use here. Consider that our data looks something like this:
@@ -98,6 +123,8 @@ However, this is not the only hypothesis test we could use here. Consider that o
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+Recall our null hypothesis: `\(H_0:\mu_{L}=\mu_{R}\)`. 
+
 If our null hypothesis is true, there should be no relationship between age at death and handedness **in our sample**. We can sample from the null distribution by randomly assigning handedness to our data points and calculating the resulting sample statistic.
 
 ---
@@ -105,7 +132,6 @@ If our null hypothesis is true, there should be no relationship between age at d
 
 
 ```r
-library(ggplot2)
 # experiment comparing growing conditions' effect of growth
 data(PlantGrowth)
 
@@ -113,7 +139,7 @@ ggplot(PlantGrowth, aes(x = weight, fill = group)) +
   geom_histogram() + facet_wrap(~group) + theme_bw()
 ```
 
-![](09_resample-bayes_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 
 Is there a difference between Treatment 2 and Control?
 
@@ -179,12 +205,7 @@ for (i in 1:10000) {
 
 ---
 # A permutation test
-
-```r
-hist(permuted_diff)
-```
-
-![](09_resample-bayes_files/figure-html/perm.1c-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/perm.1c-1.png" style="display: block; margin: auto;" /&gt;
 
 How do we compute a p-value?
 --
@@ -199,6 +220,97 @@ mean(abs(permuted_diff) &gt; abs(obs_diff))
 ```
 ---
 
+# An example with made up data 
+
+
+```r
+set.seed(302)
+skewed_data &lt;- data.frame(data = c(rexp(20, 3),
+                                   rexp(20, 6)),
+                          group = as.factor(c(rep(1, 20), rep(2, 20))))
+ggplot(skewed_data, aes(x = data, fill = group)) +
+  geom_histogram(color = "black", bins = 10) + 
+  labs(x = "Data", y = "Count", fill = "Group")
+```
+
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+Is there a difference between groups 1 and 2?
+
+---
+# The t-test
+
+
+```r
+t.test(x = skewed_data %&gt;% filter(group == 1) %&gt;% select(data),
+       y = skewed_data %&gt;% filter(group == 2) %&gt;% select(data))
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  skewed_data %&gt;% filter(group == 1) %&gt;% select(data) and skewed_data %&gt;% filter(group == 2) %&gt;% select(data)
+## t = 2.8542, df = 29.867, p-value = 0.007768
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.07078128 0.42711166
+## sample estimates:
+## mean of x mean of y 
+## 0.4411936 0.1922472
+```
+
+---
+# A permutation test
+
+
+```r
+obs_diff &lt;- mean(skewed_data %&gt;% filter(group == 1) %&gt;% pull(data)) -
+    mean(skewed_data %&gt;% filter(group == 2) %&gt;% pull(data))
+obs_diff
+```
+
+```
+## [1] 0.2489465
+```
+
+Is this difference meaningful?
+
+---
+# A permutation test
+
+```r
+# store permuted differences
+permuted_diff &lt;- numeric()
+for (i in 1:1000) {
+  # for each iteration, scramble group variable
+  permuted_data &lt;- skewed_data %&gt;%
+    mutate(group = sample(group))
+  # compute difference
+  diff &lt;- mean(permuted_data %&gt;% filter(group == 1) %&gt;% pull(data)) -
+    mean(permuted_data %&gt;% filter(group == 2) %&gt;% pull(data))
+  # store difference
+  permuted_diff[i] &lt;- diff
+}
+```
+
+---
+# A permutation test
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
+How do we compute a p-value?
+--
+
+```r
+# calculate p-value
+round(mean(abs(permuted_diff) &gt; abs(obs_diff)), 6)
+```
+
+```
+## [1] 0.007
+```
+---
+
 # A permutation test for correlation
 
 Suppose we have two variables, `x` and `y`, and we want to test whether they are correlated. What should we do?
@@ -209,24 +321,30 @@ We could use some sort of parametric test, or ...
 
 ---
 
+# A permutation test for correlation
+
 
 ```r
 set.seed(1111111)
 sim_data &lt;- data.frame(x = rnorm(11),
                        y = c(rnorm(11)))
-plot(sim_data)
+ggplot(sim_data, aes(x = x, y = y)) + 
+  geom_point() 
 ```
 
-![](09_resample-bayes_files/figure-html/perm.2a-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/perm.2a-1.png" style="display: block; margin: auto;" /&gt;
 
 ```r
-cor(sim_data$x, sim_data$y)
+obs_cor &lt;- cor(sim_data$x, sim_data$y)
+obs_cor
 ```
 
 ```
 ## [1] -0.108006
 ```
 ---
+  
+# A permutation test for correlation  
   
 
 ```r
@@ -239,18 +357,27 @@ for (i in 1:10000) {
   permuted_cor[i] &lt;- cor(permuted_data$x,
                          permuted_data$y)
 }
+permuted_cor_df &lt;- data.frame(cor = permuted_cor)
 ```
 
 ---
 
+# A permutation test for correlation
+
 
 ```r
-hist(permuted_cor)
+ggplot(permuted_cor_df, aes(x = cor)) + 
+  geom_histogram(color = "black", fill = "gray", bins = 30) + 
+  geom_vline(xintercept = obs_cor, color = "red") + 
+  labs(x = "Permuted correlation", 
+       y = "Count")
 ```
 
-![](09_resample-bayes_files/figure-html/perm.2c-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/perm.2c-1.png" style="display: block; margin: auto;" /&gt;
 
---
+---
+
+# A permutation test for correlation 
 
 
 ```r
@@ -261,28 +388,37 @@ mean(abs(permuted_cor) &gt; abs(cor(sim_data$x, sim_data$y)))
 ```
 ## [1] 0.7433
 ```
+
+What does this p-value represent? 
+
 ---
-# A wonkier example
-  
+
+# Another permutation test for correlation 
+
+
 
 ```r
-set.seed(1111111)
-sim_data &lt;- data.frame(x = rnorm(11),
-                       y = c(rnorm(10), 20))
-plot(sim_data)
+set.seed(302)
+sim_data &lt;- data.frame(x = rnorm(30, mean = 0, sd = 1))
+sim_data$y &lt;- sim_data$x + rnorm(30, mean = 0, sd = 2)
+ggplot(sim_data, aes(x = x, y = y)) + 
+  geom_point() 
 ```
 
-![](09_resample-bayes_files/figure-html/perm.3a-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ```r
-cor(sim_data$x, sim_data$y)
+obs_cor &lt;- cor(sim_data$x, sim_data$y)
+obs_cor
 ```
 
 ```
-## [1] -0.3603595
+## [1] 0.5432401
 ```
+
 ---
-# A wonkier example
+
+# Another permutation test for correlation
 
 
 ```r
@@ -292,32 +428,47 @@ for (i in 1:10000) {
   permuted_data &lt;- 
     data.frame(x = sim_data$x,
                y = sample(sim_data$y))
-  permuted_cor[i] &lt;- cor(permuted_data$x, permuted_data$y)
+  permuted_cor[i] &lt;- cor(permuted_data$x,
+                         permuted_data$y)
 }
+permuted_cor_df &lt;- data.frame(cor = permuted_cor)
 ```
 
 ---
-# A wonkier example
+
+# Another permutation test for correlation 
 
 
 ```r
-hist(permuted_cor)
+ggplot(permuted_cor_df, aes(x = cor)) + 
+  geom_histogram(color = "black", fill = "gray", bins = 30) + 
+  geom_vline(xintercept = obs_cor, color = "red") + 
+  labs(x = "Permuted correlation", 
+       y = "Count")
 ```
 
-![](09_resample-bayes_files/figure-html/perm.3d-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Another permutation test for correlation
+
 
 ```r
+# calculate p-value
 mean(abs(permuted_cor) &gt; abs(cor(sim_data$x, sim_data$y)))
 ```
 
 ```
-## [1] 0.2988
+## [1] 0.0017
 ```
+
+What does this p-value represent?
 
 ---
 # Bootstrap
 
-Suppose we sample 25 houses in Seattle and get their sale prices. How can we construct an interval estimate for the mean house price of all houses in Seattle?
+Suppose we sample 100 houses in Seattle and get their sale prices. How can we construct an interval estimate for the mean house price of all houses in Seattle?
 
 
 ```r
@@ -326,14 +477,22 @@ data("house_prices")
 
 # population mean price
 pop_mean &lt;- mean(house_prices$price)
+pop_mean
+```
 
+```
+## [1] 540088.1
+```
+
+```r
 set.seed(1234)
-sample_prices &lt;- sample(house_prices$price, size = 25)
-(sample_mean &lt;- mean(sample_prices))
+sample_prices &lt;- sample(house_prices$price, size = 100)
+sample_mean &lt;- mean(sample_prices)
+sample_mean 
 ```
 
 ```
-## [1] 550689.3
+## [1] 569861.4
 ```
 
 ---
@@ -348,18 +507,33 @@ t_conf_int
 ```
 
 ```
-## [1] 438403.5 662975.1
+## [1] 467097.0 672625.7
 ## attr(,"conf.level")
 ## [1] 0.95
 ```
+
+What does this confidence interval represent? 
+
 --
+
+If we resampled 100 houses in Seattle over and over and each time computed a sample mean and confidence interval, 95% of the time the true population mean would fall in this interval.
+
+---
+
+# Bootstrap
+
+Assuming independence and approximate normality, we can construct a t-interval.
+
+Is this data approximately normal? 
 
 
 ```r
-hist(house_prices$price)
+ggplot(house_prices, aes(x = price)) + 
+  geom_histogram(bins = 30, color = "black", fill = "gray") + 
+  labs(x = "Price", y = "Count")
 ```
 
-![](09_resample-bayes_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -374,7 +548,7 @@ We can use resampling to construct what is called a bootstrap confidence interva
 
 ```r
 bs_sample_prices &lt;- as.data.frame(sample_prices) %&gt;% 
-  rep_sample_n(size = 25, replace = TRUE, reps = 10000)
+  rep_sample_n(size = 100, replace = TRUE, reps = 1000)
 bs_sample_means &lt;- bs_sample_prices %&gt;%
   group_by(replicate) %&gt;%
   summarize(bs_mean = mean(sample_prices))
@@ -388,19 +562,14 @@ Below we plot a histogram of our bootstrap means.
 
 
 ```r
-hist(bs_sample_means$bs_mean)
+ggplot(bs_sample_means, aes(x = bs_mean)) + 
+  geom_histogram(bins = 30, color = "black", fill = "gray") + 
+  geom_vline(xintercept = bs_conf_int[1], color = "red") + 
+  geom_vline(xintercept = bs_conf_int[2], color = "red") + 
+  labs(x = "Bootstrap mean", y = "Count")
 ```
 
-![](09_resample-bayes_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
-
-```r
-bs_conf_int
-```
-
-```
-##     2.5%    97.5% 
-## 450801.7 658507.4
-```
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -413,13 +582,13 @@ t_conf_ints &lt;- matrix(ncol = 2, nrow = 1000)
 bs_conf_ints &lt;- matrix(ncol = 2, nrow = 1000)
 for (i in 1:1000) {
   # initial sample
-  sample_prices &lt;- sample(house_prices$price, size = 15)
+  sample_prices &lt;- sample(house_prices$price, size = 100)
   # t-interval
   t_res &lt;- t.test(sample_prices)
   t_conf_ints[i, ] &lt;- t_res$conf.int
   # bootstrap interval
   bs_sample_prices &lt;- as.data.frame(sample_prices) %&gt;% 
-    rep_sample_n(size = 15, replace = TRUE, reps = 10000)
+    rep_sample_n(size = 100, replace = TRUE, reps = 1000)
   bs_sample_means &lt;- bs_sample_prices %&gt;%
     group_by(replicate) %&gt;%
     summarize(bs_mean = mean(sample_prices))
@@ -438,7 +607,7 @@ mean(t_conf_ints[, 1] &lt; pop_mean &amp;
 ```
 
 ```
-## [1] 0.892
+## [1] 0.936
 ```
 
 ```r
@@ -447,13 +616,13 @@ mean(bs_conf_ints[, 1] &lt; pop_mean &amp;
 ```
 
 ```
-## [1] 0.865
+## [1] 0.929
 ```
 
 ---
+
 # Recap: Why resample?
 
---
 1. Existing parametric methods rely on assumptions
 2. Resampling methods can leverage computational power to help us avoid making inappropriate assumptions.
     </textarea>

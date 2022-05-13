@@ -23,6 +23,15 @@ library(tidyverse)
 ```
 
 
+# Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/maisie.jpg")
+```
+
+---
+
 # Outline
 
 1. Permutation Tests
@@ -66,11 +75,29 @@ Are these assumptions satisfied?
 
 The t-test relies on our being able to construct a test statistic with a t-distribution. If our assumptions are met, then our test statistic should have the right distribution.
 
-```{r, echo = F}
+```{r, echo = F, fig.align='center'}
 x <- seq(-3, 3, length.out = 1000)
 plot(x, dt(x, df = 18), xlab = "x", ylab = "density", main = "t-distribution")
 ```
 ---
+
+# Parametric vs nonparametric methods 
+
+* Parametric methods: we assume that sample data comes from a population that we can model from a probability distribution with a finite number of parameters 
+--
+
+  * Example: linear model (assume our errors are Normal) 
+  
+--
+
+* Nonparametric methods: we do not assume an explicit form for the distribution of our data 
+
+--
+
+  * Example: the rest of today's lecture! 
+
+---
+
 # Another approach?
 
 However, this is not the only hypothesis test we could use here. Consider that our data looks something like this:
@@ -81,13 +108,14 @@ dat <- data.frame(age = c("60", "71", "77", "..."),
 dat %>% knitr::kable()
 ```
 
+Recall our null hypothesis: $H_0:\mu_{L}=\mu_{R}$. 
+
 If our null hypothesis is true, there should be no relationship between age at death and handedness **in our sample**. We can sample from the null distribution by randomly assigning handedness to our data points and calculating the resulting sample statistic.
 
 ---
 # An example with actual data
 
-```{r, eval = T, warning = F, message = F, fig.height = 4}
-library(ggplot2)
+```{r, eval = T, warning = F, message = F, fig.height = 4, fig.align='center'}
 # experiment comparing growing conditions' effect of growth
 data(PlantGrowth)
 
@@ -138,8 +166,13 @@ for (i in 1:10000) {
 
 ---
 # A permutation test
-```{r perm.1c, fig.height = 3.5}
-hist(permuted_diff)
+```{r perm.1c, fig.height = 4.5, fig.align='center', echo = FALSE}
+plot_df <- data.frame(diff = permuted_diff)
+ggplot(plot_df, aes(x = permuted_diff)) + 
+  geom_histogram(color = "black", fill = "gray", bins = 30) + 
+  geom_vline(xintercept = abs(obs_diff), color = "red") + 
+  labs(x = "Permuted difference", 
+       y = "Count")
 ```
 
 How do we compute a p-value?
@@ -147,6 +180,75 @@ How do we compute a p-value?
 ```{r perm.1d}
 # calculate p-value
 mean(abs(permuted_diff) > abs(obs_diff))
+```
+---
+
+# An example with made up data 
+
+```{r, eval = T, warning = F, message = F, fig.height = 4, fig.align='center'}
+set.seed(302)
+skewed_data <- data.frame(data = c(rexp(20, 3),
+                                   rexp(20, 6)),
+                          group = as.factor(c(rep(1, 20), rep(2, 20))))
+ggplot(skewed_data, aes(x = data, fill = group)) +
+  geom_histogram(color = "black", bins = 10) + 
+  labs(x = "Data", y = "Count", fill = "Group")
+```
+
+Is there a difference between groups 1 and 2?
+
+---
+# The t-test
+
+```{r, eval = T}
+t.test(x = skewed_data %>% filter(group == 1) %>% select(data),
+       y = skewed_data %>% filter(group == 2) %>% select(data))
+```
+
+---
+# A permutation test
+
+```{r eval = T, cache = T}
+obs_diff <- mean(skewed_data %>% filter(group == 1) %>% pull(data)) -
+    mean(skewed_data %>% filter(group == 2) %>% pull(data))
+obs_diff
+```
+
+Is this difference meaningful?
+
+---
+# A permutation test
+```{r eval = T, cache = T}
+# store permuted differences
+permuted_diff <- numeric()
+for (i in 1:1000) {
+  # for each iteration, scramble group variable
+  permuted_data <- skewed_data %>%
+    mutate(group = sample(group))
+  # compute difference
+  diff <- mean(permuted_data %>% filter(group == 1) %>% pull(data)) -
+    mean(permuted_data %>% filter(group == 2) %>% pull(data))
+  # store difference
+  permuted_diff[i] <- diff
+}
+```
+
+---
+# A permutation test
+```{r fig.height = 4.5, fig.align='center', echo = FALSE}
+plot_df <- data.frame(diff = abs(permuted_diff))
+ggplot(plot_df, aes(x = diff)) + 
+  geom_histogram(color = "black", fill = "gray", bins = 30) + 
+  geom_vline(xintercept = abs(obs_diff), color = "red") + 
+  labs(x = "Permuted difference", 
+       y = "Count")
+```
+
+How do we compute a p-value?
+--
+```{r}
+# calculate p-value
+round(mean(abs(permuted_diff) > abs(obs_diff)), 6)
 ```
 ---
 
@@ -160,14 +262,20 @@ We could use some sort of parametric test, or ...
 
 ---
 
-```{r perm.2a, eval = T, cache = T, fig.height= 3.5}
+# A permutation test for correlation
+
+```{r perm.2a, eval = T, cache = T, fig.height= 3.5, fig.align='center'}
 set.seed(1111111)
 sim_data <- data.frame(x = rnorm(11),
                        y = c(rnorm(11)))
-plot(sim_data)
-cor(sim_data$x, sim_data$y)
+ggplot(sim_data, aes(x = x, y = y)) + 
+  geom_point() 
+obs_cor <- cor(sim_data$x, sim_data$y)
+obs_cor
 ```
 ---
+  
+# A permutation test for correlation  
   
 ```{r perm.2b, eval = T, cache = T}
 # store correlations
@@ -179,57 +287,91 @@ for (i in 1:10000) {
   permuted_cor[i] <- cor(permuted_data$x,
                          permuted_data$y)
 }
+permuted_cor_df <- data.frame(cor = permuted_cor)
 ```
 
 ---
 
-```{r perm.2c, fig.height= 3.5}
-hist(permuted_cor)
+# A permutation test for correlation
+
+```{r perm.2c, fig.height= 4, fig.align='center'}
+ggplot(permuted_cor_df, aes(x = cor)) + 
+  geom_histogram(color = "black", fill = "gray", bins = 30) + 
+  geom_vline(xintercept = obs_cor, color = "red") + 
+  labs(x = "Permuted correlation", 
+       y = "Count")
 ```
 
---
+---
+
+# A permutation test for correlation 
 
 ```{r perm.2d}
 # calculate p-value
 mean(abs(permuted_cor) > abs(cor(sim_data$x, sim_data$y)))
 ```
----
-# A wonkier example
-  
-```{r perm.3a, eval = T, cache = T, fig.height= 3.5}
-set.seed(1111111)
-sim_data <- data.frame(x = rnorm(11),
-                       y = c(rnorm(10), 20))
-plot(sim_data)
-cor(sim_data$x, sim_data$y)
-```
----
-# A wonkier example
 
-```{r perm.3b, eval = T, cache = T}
+What does this p-value represent? 
+
+---
+
+# Another permutation test for correlation 
+
+
+```{r fig.height = 4, fig.align='center'}
+set.seed(302)
+sim_data <- data.frame(x = rnorm(30, mean = 0, sd = 1))
+sim_data$y <- sim_data$x + rnorm(30, mean = 0, sd = 2)
+ggplot(sim_data, aes(x = x, y = y)) + 
+  geom_point() 
+obs_cor <- cor(sim_data$x, sim_data$y)
+obs_cor
+```
+
+---
+
+# Another permutation test for correlation
+
+```{r}
 # store correlations
 permuted_cor <- numeric()
 for (i in 1:10000) {
   permuted_data <- 
     data.frame(x = sim_data$x,
                y = sample(sim_data$y))
-  permuted_cor[i] <- cor(permuted_data$x, permuted_data$y)
+  permuted_cor[i] <- cor(permuted_data$x,
+                         permuted_data$y)
 }
-
+permuted_cor_df <- data.frame(cor = permuted_cor)
 ```
 
 ---
-# A wonkier example
 
-```{r perm.3d, fig.height = 3.5}
-hist(permuted_cor)
+# Another permutation test for correlation 
+
+```{r fig.height= 4, fig.align='center'}
+ggplot(permuted_cor_df, aes(x = cor)) + 
+  geom_histogram(color = "black", fill = "gray", bins = 30) + 
+  geom_vline(xintercept = obs_cor, color = "red") + 
+  labs(x = "Permuted correlation", 
+       y = "Count")
+```
+
+---
+
+# Another permutation test for correlation
+
+```{r}
+# calculate p-value
 mean(abs(permuted_cor) > abs(cor(sim_data$x, sim_data$y)))
 ```
+
+What does this p-value represent?
 
 ---
 # Bootstrap
 
-Suppose we sample 25 houses in Seattle and get their sale prices. How can we construct an interval estimate for the mean house price of all houses in Seattle?
+Suppose we sample 100 houses in Seattle and get their sale prices. How can we construct an interval estimate for the mean house price of all houses in Seattle?
 
 ```{r, eval = T}
 library(moderndive)
@@ -237,10 +379,12 @@ data("house_prices")
 
 # population mean price
 pop_mean <- mean(house_prices$price)
+pop_mean
 
 set.seed(1234)
-sample_prices <- sample(house_prices$price, size = 25)
-(sample_mean <- mean(sample_prices))
+sample_prices <- sample(house_prices$price, size = 100)
+sample_mean <- mean(sample_prices)
+sample_mean 
 ```
 
 ---
@@ -252,10 +396,25 @@ t_res <- t.test(sample_prices)
 t_conf_int <- t_res$conf.int
 t_conf_int
 ```
+
+What does this confidence interval represent? 
+
 --
 
-```{r, eval = T, fig.height = 3.4}
-hist(house_prices$price)
+If we resampled 100 houses in Seattle over and over and each time computed a sample mean and confidence interval, 95% of the time the true population mean would fall in this interval.
+
+---
+
+# Bootstrap
+
+Assuming independence and approximate normality, we can construct a t-interval.
+
+Is this data approximately normal? 
+
+```{r, eval = T, fig.height = 4, fig.align='center'}
+ggplot(house_prices, aes(x = price)) + 
+  geom_histogram(bins = 30, color = "black", fill = "gray") + 
+  labs(x = "Price", y = "Count")
 ```
 
 ---
@@ -270,7 +429,7 @@ We can use resampling to construct what is called a bootstrap confidence interva
 
 ```{r bs.1, eval = T, cache = T, fig.height = 3.5}
 bs_sample_prices <- as.data.frame(sample_prices) %>% 
-  rep_sample_n(size = 25, replace = TRUE, reps = 10000)
+  rep_sample_n(size = 100, replace = TRUE, reps = 1000)
 bs_sample_means <- bs_sample_prices %>%
   group_by(replicate) %>%
   summarize(bs_mean = mean(sample_prices))
@@ -282,9 +441,12 @@ bs_conf_int <- quantile(bs_sample_means$bs_mean, probs = c(.025, .975))
 
 Below we plot a histogram of our bootstrap means.
 
-```{r, eval = T, cache = T, fig.height = 3.5}
-hist(bs_sample_means$bs_mean)
-bs_conf_int
+```{r, eval = T, cache = T, fig.height = 4, fig.align='center'}
+ggplot(bs_sample_means, aes(x = bs_mean)) + 
+  geom_histogram(bins = 30, color = "black", fill = "gray") + 
+  geom_vline(xintercept = bs_conf_int[1], color = "red") + 
+  geom_vline(xintercept = bs_conf_int[2], color = "red") + 
+  labs(x = "Bootstrap mean", y = "Count")
 ```
 
 ---
@@ -297,13 +459,13 @@ t_conf_ints <- matrix(ncol = 2, nrow = 1000)
 bs_conf_ints <- matrix(ncol = 2, nrow = 1000)
 for (i in 1:1000) {
   # initial sample
-  sample_prices <- sample(house_prices$price, size = 15)
+  sample_prices <- sample(house_prices$price, size = 100)
   # t-interval
   t_res <- t.test(sample_prices)
   t_conf_ints[i, ] <- t_res$conf.int
   # bootstrap interval
   bs_sample_prices <- as.data.frame(sample_prices) %>% 
-    rep_sample_n(size = 15, replace = TRUE, reps = 10000)
+    rep_sample_n(size = 100, replace = TRUE, reps = 1000)
   bs_sample_means <- bs_sample_prices %>%
     group_by(replicate) %>%
     summarize(bs_mean = mean(sample_prices))
@@ -315,7 +477,7 @@ for (i in 1:1000) {
 
 # Comparing bootstrap and t 
 
-```{r bs.sim.res, eval = T, cache = T}
+```{r bs.sim.res, eval = T}
 mean(t_conf_ints[, 1] < pop_mean &
        t_conf_ints[, 2] > pop_mean)
 mean(bs_conf_ints[, 1] < pop_mean &
@@ -323,8 +485,8 @@ mean(bs_conf_ints[, 1] < pop_mean &
 ```
 
 ---
+
 # Recap: Why resample?
 
---
 1. Existing parametric methods rely on assumptions
 2. Resampling methods can leverage computational power to help us avoid making inappropriate assumptions.
