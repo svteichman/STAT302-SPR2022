@@ -218,97 +218,7 @@ mean(abs(permuted_diff) &gt; abs(obs_diff))
 ```
 ## [1] 0.0483
 ```
----
 
-# An example with made up data 
-
-
-```r
-set.seed(302)
-skewed_data &lt;- data.frame(data = c(rexp(20, 3),
-                                   rexp(20, 6)),
-                          group = as.factor(c(rep(1, 20), rep(2, 20))))
-ggplot(skewed_data, aes(x = data, fill = group)) +
-  geom_histogram(color = "black", bins = 10) + 
-  labs(x = "Data", y = "Count", fill = "Group")
-```
-
-&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
-
-Is there a difference between groups 1 and 2?
-
----
-# The t-test
-
-
-```r
-t.test(x = skewed_data %&gt;% filter(group == 1) %&gt;% select(data),
-       y = skewed_data %&gt;% filter(group == 2) %&gt;% select(data))
-```
-
-```
-## 
-## 	Welch Two Sample t-test
-## 
-## data:  skewed_data %&gt;% filter(group == 1) %&gt;% select(data) and skewed_data %&gt;% filter(group == 2) %&gt;% select(data)
-## t = 2.8542, df = 29.867, p-value = 0.007768
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  0.07078128 0.42711166
-## sample estimates:
-## mean of x mean of y 
-## 0.4411936 0.1922472
-```
-
----
-# A permutation test
-
-
-```r
-obs_diff &lt;- mean(skewed_data %&gt;% filter(group == 1) %&gt;% pull(data)) -
-    mean(skewed_data %&gt;% filter(group == 2) %&gt;% pull(data))
-obs_diff
-```
-
-```
-## [1] 0.2489465
-```
-
-Is this difference meaningful?
-
----
-# A permutation test
-
-```r
-# store permuted differences
-permuted_diff &lt;- numeric()
-for (i in 1:1000) {
-  # for each iteration, scramble group variable
-  permuted_data &lt;- skewed_data %&gt;%
-    mutate(group = sample(group))
-  # compute difference
-  diff &lt;- mean(permuted_data %&gt;% filter(group == 1) %&gt;% pull(data)) -
-    mean(permuted_data %&gt;% filter(group == 2) %&gt;% pull(data))
-  # store difference
-  permuted_diff[i] &lt;- diff
-}
-```
-
----
-# A permutation test
-&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
-
-How do we compute a p-value?
---
-
-```r
-# calculate p-value
-round(mean(abs(permuted_diff) &gt; abs(obs_diff)), 6)
-```
-
-```
-## [1] 0.007
-```
 ---
 
 # A permutation test for correlation
@@ -405,7 +315,7 @@ ggplot(sim_data, aes(x = x, y = y)) +
   geom_point() 
 ```
 
-&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
 
 ```r
 obs_cor &lt;- cor(sim_data$x, sim_data$y)
@@ -447,7 +357,7 @@ ggplot(permuted_cor_df, aes(x = cor)) +
        y = "Count")
 ```
 
-&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -533,7 +443,7 @@ ggplot(house_prices, aes(x = price)) +
   labs(x = "Price", y = "Count")
 ```
 
-&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -569,7 +479,7 @@ ggplot(bs_sample_means, aes(x = bs_mean)) +
   labs(x = "Bootstrap mean", y = "Count")
 ```
 
-&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="09_resample-bayes_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
