@@ -357,7 +357,10 @@ pre code {
 
 
 <ol style="list-style-type: decimal">
-<li><p>Load the helium dataset using the code below. This dataset contains data from an experiment in which two identical footballs, one air filled with air and one filled with helium, were each kicked 39 times. The distances traveled were measured for each trial.</p></li>
+<li>Load the helium dataset using the code below. This dataset contains data from an experiment in which two identical footballs, one air filled with air and one filled with helium, were each kicked 39 times. The distances traveled were measured for each trial.</li>
+</ol>
+<pre class="r"><code>helium_data &lt;- read.csv(&quot;https://www.openintro.org/data/csv/helium.csv&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Use the <code>t.test</code> function to test the null hypothesis that the mean distance traveled by the helium-filled ball is equal to the mean distance traveled by the air-filled ball. Use a one-sided hypothesis (you think that since balloons filled with helium float better than balloons filled with air that your helium filled football might go further). What do you conclude?</p></li>
 <li>Write code to run a permutation test to test the same hypothesis as above. Your permutation test should follow these steps:
 <ol style="list-style-type: lower-alpha">
