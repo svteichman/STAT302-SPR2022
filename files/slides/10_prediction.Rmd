@@ -27,8 +27,10 @@ library(tidyverse)
 
 
 ```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/pig2.jpeg")
+knitr::include_graphics("../../files/images/pets/two_cats.jpg")
 ```
+
+Thanks Yiliang! 
 
 ---
 
@@ -140,7 +142,9 @@ In other words, the test error is defined as the expected squared difference bet
 
 The test error would make a great way to assess the predictive power of our model!
 
-However, how do we estimate it? We don't know the value of that expectation, so somehow we have to use our data to estimate it in order to use it to assess our model. 
+However, we can't evaluate this expectation because we don't know that true value $Y^*$.
+
+Somehow we have to use our data to estimate it in order to use it to assess our model. 
 This provides us with a tool for
 
 * **predictive assessment:** an understanding of the magnitude of errors we should expect when making future predictions
@@ -464,6 +468,14 @@ ggarrange(g_train5, g_test5)
 ]
 
 ---
+
+## Takeaway 
+
+As our model gets more flexible, the training error decreases and the test error increases. 
+
+Which do we care about more? The training error? The test error?
+
+---
 layout: false
 layout: true
 
@@ -508,12 +520,11 @@ Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela W
 
 ---
 
-It is easy to fit a model with extremely low variance and extremely high bias, or extremely low bias and extremely high variance, but these models will not have a good test error.
-Ideally, we would like an estimate that has both low bias and low variance, but this is not always possible!
-
 As a general rule of thumb, as we increase the complexity of our model, the bias will decrease but the variance will increase.
 You can think of our bias decreasing because we are training our model to be more specific to our training data.
 You can think of the variance increasing because our model will be overfit, and will vary substantially with new training data.
+
+We would like to balance bias and variance in order to get the smallest test error. 
 
 
 ---
@@ -648,8 +659,10 @@ However, we can do better than just splitting our data in half.
 
 
 ```{r, echo = FALSE, out.width = "350px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/maisy.jpeg")
+knitr::include_graphics("../../files/images/pets/andys_dog.jpeg")
 ```
+
+Thanks Andy! 
 
 ---
 layout: false

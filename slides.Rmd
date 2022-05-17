@@ -27,10 +27,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 09: Resampling [[.html](files/slides/09_resample-bayes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/09_resample-bayes.html)]
 
-\begin{comment}
-
-
 * Lecture 10: Prediction [[.html](files/slides/10_prediction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/10_prediction.html)]
+
+\begin{comment}
 
 * Lecture 11: R Package Development [[.html](files/slides/11_package.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/slides/11_package.html)]
 
