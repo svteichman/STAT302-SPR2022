@@ -5,6 +5,7 @@ date: "Due Date Here"
 output: html_document
 ---
 
+You may work with up to one other person for this project. If you would strongly prefer a group of 3 then talk to me to approve your group (for groups of 3 I will add additional requirements to Part 1). If you work in a group and would like to use GitHub for collaboration, see lecture 11 slides 61-64. Using GitHub is not a requirement for this project. 
 
 # Part 1. R Package Development and Documentation (27 points)
 
