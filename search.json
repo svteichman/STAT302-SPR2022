@@ -29,8 +29,8 @@
       "title": "Projects",
       "description": "",
       "author": [],
-      "contents": "\nProject 1: Data Visualization\n\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Simulation\n\nInstructions [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-05-03T12:18:37-07:00"
+      "contents": "\nProject 1: Data Visualization\n\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Simulation\n\nInstructions [.html] [.Rmd]\nProject 3: Making your own R package\n\nInstructions [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-05-24T13:58:47-07:00"
     },
     {
       "path": "short_labs.html",
@@ -45,7 +45,7 @@
       "title": "Lecture Slides",
       "author": [],
       "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Multivariate Data and PCA [.html] [.Rmd]\nLecture 06: Regression and Inference [.html] [.Rmd]\nLecture 07: Simulation [.html] [.Rmd]\nLecture 07: Code Example [.html] [.Rmd]\n\nLecture 08: Debugging and Git [.html] [.Rmd]\nLecture 09: Resampling [.html] [.Rmd]\nLecture 10: Prediction [.html] [.Rmd]\nLecture 11: R Package Development [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-05-24T13:44:18-07:00"
+      "last_modified": "2022-05-24T13:59:05-07:00"
     },
     {
       "path": "syllabus.html",
