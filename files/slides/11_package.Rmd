@@ -96,6 +96,8 @@ install.packages(c("devtools", "roxygen2", "testthat", "knitr", "covr"))
   ```
   I don't care what you name your package. Unless you feel particularly inspired, feel free to go for `myfirstpackage`, `STAT302package`, or similar. Please don't go with `YOURPACKAGENAME`.
 
+5. Navigate through your files to find the folder with the same name as your package. Inside that folder, click on the `.Rproj` file. That will open your package in a new R project.
+
 Congratulations, you have developed an R package! Let's go through what we just created.
 
 ---
@@ -143,6 +145,11 @@ For `License`, I recommend either `GPL-3` or `MIT`. Do not use Creative Commons 
 I like Karl Broman's overview of licenses [here](https://kbroman.org/pkg_primer/pages/licenses.html).
 If you use `MIT`, make sure you include a `LICENSE` file with the year and copywrite holder as well!
 See the link for an example.
+To use `GPL-3` run the following in your console: 
+
+```{r, eval = FALSE}
+usethis::use_gpl3_license()
+```
 
 
 .center[<img src="images/description.png" alt="" height="300"/>]

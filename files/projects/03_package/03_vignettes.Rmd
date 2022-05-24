@@ -6,7 +6,7 @@ output: html_document
 ---
 
 
-# Part 1. R Package Development and Documentation (27 points)
+# Part 1. R Package Development and Documentation (25 points)
 
 ## Instructions
 
