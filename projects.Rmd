@@ -27,4 +27,4 @@ knitr::opts_chunk$set(echo = FALSE)
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Cat_using_computer.jpg/640px-Cat_using_computer.jpg)
 
 
-* Instructions [[.html](files/projects/03_lpackge/03_package.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/03_package/03_package.Rmd)]
+* Instructions [[.html](files/projects/03_package/03_packages.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-SPR2022/main/files/projects/03_package/03_packages.Rmd)]
