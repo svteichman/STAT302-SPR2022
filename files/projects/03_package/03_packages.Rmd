@@ -5,8 +5,9 @@ date: "Due Date Here"
 output: html_document
 ---
 
+You may work with up to one other person for this project. If you would strongly prefer a group of 3 then talk to me to approve your group (for groups of 3 I will add additional requirements to Part 1). If you work in a group and would like to use GitHub for collaboration, see lecture 11 slides 61-64. Using GitHub is not a requirement for this project. 
 
-# Part 1. R Package Development and Documentation (25 points)
+# Part 1. R Package Development and Documentation (27 points)
 
 ## Instructions
 
@@ -18,14 +19,14 @@ This R package should include the following functions we've written throughout t
 * `my_lm`
 * `my_knn_cv`
 
-Follow the instruction on Lecture Slides 9 to set up the skeleton of your package (5 points for proper setup). Your package should include the following:
+Follow the instruction on Lecture Slides 9 to set up the skeleton of your package. Your package should include the following:
 
 1. (8 points) Complete documentation for each of your functions. Each function must include `@examples` in the documentation. You must add and document the `penguins` data from the `palmerpenguins` package to your own package and export it as the object `my_penguins` (with proper credit in the documentation!).
 
-2. (14 points) A detailed vignette with examples and the use of all of these functions with the penguins data.  Your vignette should start with a brief overview of the R package (what is it used for?). For each function, make sure to explain to the user what the function does, what the inputs are, and what the function will output. Specifically, the vignette should have the following parts:
+2. (12 points) A detailed vignette with examples and the use of all of these functions with the penguins data.  Your vignette should start with a paragraph describing the package and what it can be used for (2 points). Specifically, the vignette should have the following parts:
 
-    a. A tutorial for `my_t.test` testing the hypothesis that the mean `body_mass_g` of Adelie penguins is equal to 4000 (where the alternative is that the mean is less than 4000). Carefully interpret the results using a p-value cut-off of $\alpha = 0.05$.
-    b. A tutorial for `my_lm` using `flipper_length_mm` as the independent variable and `body_mass_g` as the dependent variable. Carefully interpret the `flipper_length_mm` coefficient describe the hypothesis test associated with the `flipper_length_mm` coefficient, and carefully interpret the results the `flipper_length_mm` hypothesis test using a p-value cut-off of $\alpha = 0.05$.
+    a. A tutorial for `my_t.test`. First, explain in words the hypothesis that you are testing. You should test a hypothesis about one or more of the variables in the `my_penguins` dataset using `my_t.test`. Then, run the hypothesis test. Interpret the p-value from the t test in context of the data. 
+    b. A tutorial for `my_lm` using one variable from the `my_penguins` dataset as a depedent variable and one or more variables from the `my_penguins` dataset as independent variable(s). Carefully interpret the coefficient(s) for the independent variables in your model and interpret the results of the hypothesis test for each coefficient using a p-value cut-off of $\alpha = 0.05$.
     c. A tutorial for `my_knn_cv` using `my_penguins`. Predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`. 
     
         * Use $5$-fold cross validation (`k_cv = 5`).
@@ -36,6 +37,8 @@ Follow the instruction on Lecture Slides 9 to set up the skeleton of your packag
         
 Feel free to look at the vignettes for [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html) and [forcats](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html) for inspiration. 
         
+3. (7 points) We will test your package by checking that it can be installed and when `devtools::check()` is run it should return no errors, warnings, or notes.         
+
 ### Notes
 
 * Your package directory should be submitted as a .zip file to Canvas.

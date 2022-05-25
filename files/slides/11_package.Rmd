@@ -529,7 +529,7 @@ layout: true
 # Step 7: Adding a vignette (*)
 ---
 
-Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
+Run `usethis::use_vignette("tutorial", title = "PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
   * Add `knitr` and `rmarkdown` to the `Suggests` field in `DESCRIPTION`
   * Sets `VignetteBuilder` field in `DESCRIPTION` to `knitr`
   * Add `inst/doc` to `.gitignore`
@@ -541,8 +541,7 @@ Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial
 
 .center[<img src="images/vignette.png" alt="" height="375"/>]
 
-Remove `Project 3: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
-Also add your own name to the YAML header using the `author:` field.
+Add your own name to the YAML header using the `author:` field.
 
 
 ---
