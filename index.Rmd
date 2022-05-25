@@ -55,13 +55,15 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 ### Week Nine
 
 * **M 05/23**: No new assignment
-* **W 05/25**: Lab 4 due before class; Project 3 assigned
+* **W 05/25**: Lab 4 due before class (due date changed to 3:30 on 05/27); Project 3 assigned
 
 ### Week Ten
 
 * **M 05/30**: No class
 * **W 06/01**: No new assignment
-* **F 06/03**: Project 3 due at 11:59 PM
+
+### Finals Week 
+* **M 06/06**: Project 3 due at 11:59 PM
 
 
 
